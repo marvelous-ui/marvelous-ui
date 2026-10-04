@@ -1,0 +1,190 @@
+{
+  "name": "Select",
+  "slug": "select",
+  "kind": "css",
+  "category": "primitive",
+  "wave": 1,
+  "description": "Styled native <select> (token-colored chevron), progressively enhanced into a customizable select (appearance: base-select): animated list, status dots, icons, descriptions and checkmark, optional “liquid” opening; clean fallback elsewhere.",
+  "useWhen": [
+    "Users pick one value from a medium-sized list where native mobile pickers and keyboard support matter",
+    "Options benefit from status dots, icons or descriptions while staying a real form control",
+    "A playful liquid opening fits the product, with a clean native fallback on unsupported browsers"
+  ],
+  "avoidWhen": [
+    {
+      "when": "The list is long enough that users need to type to filter it",
+      "instead": "combobox"
+    },
+    {
+      "when": "The list holds actions to run rather than a value to submit",
+      "instead": "menu"
+    },
+    {
+      "when": "Only two to five options exist and showing them all helps the decision",
+      "instead": "radio"
+    }
+  ],
+  "files": [
+    "select.css"
+  ],
+  "usage": {
+    "class": "mv-select"
+  },
+  "tags": [
+    "select",
+    "native-select",
+    "base-select",
+    "customizable-select",
+    "dropdown",
+    "listbox",
+    "picker",
+    "liquid",
+    "gooey"
+  ],
+  "demo": {
+    "layout": "wide",
+    "height": 480
+  },
+  "preview": {
+    "viewport": {
+      "width": 960,
+      "height": 380
+    },
+    "steps": [
+      [
+        "wait",
+        400
+      ],
+      [
+        "click",
+        "#sl-status"
+      ],
+      [
+        "wait",
+        500
+      ],
+      [
+        "click",
+        "#sl-status option[value='review']"
+      ],
+      [
+        "wait",
+        500
+      ],
+      [
+        "click",
+        "#sl-liquid"
+      ],
+      [
+        "wait",
+        800
+      ],
+      [
+        "press",
+        "Escape"
+      ],
+      [
+        "wait",
+        300
+      ],
+      [
+        "click",
+        "#sl-status"
+      ],
+      [
+        "wait",
+        400
+      ],
+      [
+        "click",
+        "#sl-status option[value='active']"
+      ],
+      [
+        "wait",
+        200
+      ],
+      [
+        "leave"
+      ],
+      [
+        "wait",
+        400
+      ]
+    ]
+  },
+  "api": {
+    "classes": [
+      {
+        "name": "mv-select",
+        "description": "On <select>. Classic everywhere; customizable where appearance: base-select is supported."
+      },
+      {
+        "name": "mv-select-dot",
+        "description": "Status dot inside an option; data-tone=\"success | warning | danger | info\" or --mv-select-dot."
+      },
+      {
+        "name": "mv-select-icon",
+        "description": "Option icon (svg)."
+      },
+      {
+        "name": "mv-select-text",
+        "description": "Label + description container inside an option."
+      },
+      {
+        "name": "mv-select-description",
+        "description": "Secondary option text, hidden in the displayed value (selectedcontent)."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "data-size",
+        "type": "sm | lg",
+        "default": "(md)",
+        "description": "Height 32 / 36 / 44px."
+      },
+      {
+        "name": "data-native",
+        "type": "boolean",
+        "description": "Keeps native rendering even when base-select is available."
+      },
+      {
+        "name": "aria-invalid",
+        "type": "true",
+        "description": "Error state; :user-invalid is supported too."
+      },
+      {
+        "name": "<button><selectedcontent>",
+        "type": "structure",
+        "description": "Optional first child: the displayed value mirrors the selected option’s rich content (dot, icon)."
+      },
+      {
+        "name": "data-open",
+        "type": "\"liquid\"",
+        "description": "Opt-in, pure CSS: the list stretches out of the trigger (a drop hanging from a neck, clip-path shape() driven by @property properties), spreads out, then pinches back into the trigger on close. Requires base-select + shape(); otherwise a standard animation. Instant with reduced motion."
+      }
+    ],
+    "cssVars": [
+      {
+        "name": "--mv-select-radius",
+        "default": "var(--mv-radius-md)",
+        "description": "Trigger radius."
+      },
+      {
+        "name": "--mv-select-picker-radius",
+        "default": "var(--mv-radius-lg)",
+        "description": "List radius."
+      },
+      {
+        "name": "--mv-select-bg",
+        "description": "Trigger background."
+      },
+      {
+        "name": "--mv-select-dot",
+        "description": "Dot color."
+      }
+    ]
+  },
+  "a11y": "Stays a real <select>: combobox/listbox role, keyboard (arrows, type-ahead, Enter, Escape), screen readers and native mobile pickers handled by the browser. Pair it with a <label for>. Option icons are aria-hidden. Fallback: without base-select, rich option content is reduced to its text (keep descriptions short; don’t use the label attribute, which would hide the rich content). For a required choice, use required + a first option with value=\"\" disabled (placeholder styling applied). Known limits: the custom picker, rich options and data-open=\"liquid\" need appearance: base-select (Chromium-based browsers today), and the liquid opening also needs clip-path: shape(); elsewhere the field stays a styled native select with plain-text options and the browser's own list.",
+  "inspiredBy": [],
+  "status": "stable"
+}

@@ -1,0 +1,250 @@
+@layer mv.components {
+  /* ── Field: label + control + description + error ─────────────────── */
+  :where(.mv-field) {
+    --_gap: var(--mv-space-2);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-content: start;
+    gap: var(--_gap);
+    min-width: 0;
+    color: var(--mv-fg);
+    font-size: var(--mv-text-sm);
+  }
+  /* Description and error hug the control a little tighter */
+  :where(.mv-field) > :where(.mv-field-description, .mv-field-error) { margin-top: calc(var(--mv-space-1) - var(--_gap)); }
+  :where(.mv-field) > :where(.mv-field-description + .mv-field-error) { margin-top: calc(var(--mv-space-0-5) - var(--_gap)); }
+
+  /* ── Label ─────────────────────────────────────────────────────────── */
+  :where(.mv-label) {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--mv-space-1);
+    width: fit-content;
+    color: var(--mv-fg);
+    font: var(--mv-weight-medium) var(--mv-text-sm) / var(--mv-leading-snug) var(--mv-font-sans);
+    user-select: none;
+    cursor: default;
+    transition: color var(--mv-duration-fast) var(--mv-ease-out);
+  }
+  :where(label.mv-label) { cursor: pointer; }
+  /* Required asterisk: decorative (announce "required" through the control's `required`) */
+  :where(.mv-label[data-required])::after {
+    content: "*" / "";
+    color: var(--mv-danger);
+    font-weight: var(--mv-weight-medium);
+  }
+  /* Optional hint: <label data-optional="facultatif"> */
+  :where(.mv-label[data-optional])::after {
+    content: attr(data-optional);
+    color: var(--mv-fg-subtle);
+    font-weight: var(--mv-weight-normal);
+    font-size: var(--mv-text-xs);
+  }
+  :where(.mv-label) :where(svg) { width: 0.875rem; height: 0.875rem; color: var(--mv-fg-muted); }
+
+  /* Header row: label on the left, meta (link, counter) on the right */
+  :where(.mv-field-header) { display: flex; align-items: baseline; justify-content: space-between; gap: var(--mv-space-3); min-width: 0; }
+  :where(.mv-field-header) :where(a) { color: var(--mv-fg-muted); font-size: var(--mv-text-xs); text-underline-offset: 3px; }
+  :where(.mv-field-header) :where(a):hover { color: var(--mv-fg); }
+
+  /* ── Description & error ───────────────────────────────────────────── */
+  :where(.mv-field-description) {
+    margin: 0;
+    color: var(--mv-fg-muted);
+    font-size: var(--mv-text-xs);
+    line-height: var(--mv-leading-normal);
+    text-wrap: pretty;
+  }
+  :where(.mv-field-description) :where(a) { color: inherit; text-underline-offset: 3px; }
+  :where(.mv-field-description) :where(a):hover { color: var(--mv-fg); }
+
+  :where(.mv-field-error) {
+    display: none;
+    align-items: flex-start;
+    gap: var(--mv-space-1-5);
+    margin: 0;
+    color: color-mix(in oklch, var(--mv-danger), var(--mv-fg) 12%);
+    font-size: var(--mv-text-xs);
+    font-weight: var(--mv-weight-medium);
+    line-height: var(--mv-leading-normal);
+    opacity: 0;
+    translate: 0 -2px;
+    transition:
+      opacity var(--mv-duration-fast) var(--mv-ease-out),
+      translate var(--mv-duration-fast) var(--mv-ease-out),
+      display var(--mv-duration-fast) allow-discrete;
+  }
+  :where(.mv-field-error)::before {
+    content: "";
+    flex-shrink: 0;
+    width: 0.875rem;
+    height: 0.875rem;
+    margin-top: 0.1em;
+    background: currentColor;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.25' stroke-linecap='round'%3E%3Ccircle cx='12' cy='12' r='9.5'/%3E%3Cpath d='M12 7.5v5M12 16.25v.01'/%3E%3C/svg%3E") center / contain no-repeat;
+  }
+
+  /* Invalid field: explicit (data-invalid on the field, aria-invalid on the control) or native after interaction */
+  :where(.mv-field[data-invalid], .mv-field:has(:user-invalid, [aria-invalid="true"])) :where(.mv-field-error) {
+    display: flex;
+    opacity: 1;
+    translate: 0 0;
+  }
+  :where(.mv-field[data-invalid], .mv-field:has(:user-invalid, [aria-invalid="true"])) :where(.mv-label) {
+    color: color-mix(in oklch, var(--mv-danger), var(--mv-fg) 12%);
+  }
+  @starting-style {
+    :where(.mv-field[data-invalid], .mv-field:has(:user-invalid, [aria-invalid="true"])) :where(.mv-field-error) { opacity: 0; translate: 0 -2px; }
+  }
+  /* An error with no text never shows (lets you keep an empty slot for server messages) */
+  :where(.mv-field-error:empty) { display: none; }
+
+  /* Forced colors: the error icon is a mask on a background, which the system palette would erase. */
+  @media (forced-colors: active) {
+    :where(.mv-field-error)::before { forced-color-adjust: none; background: CanvasText; }
+  }
+
+  /* Disabled: dim the label; the help text often says why the field is locked, so it only steps down to fg-subtle
+     (still >= 4.5:1) instead of fading. */
+  :where(.mv-field[data-disabled], .mv-field:has(:is(input, textarea, select):disabled)) :where(.mv-label) {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  :where(.mv-field[data-disabled], .mv-field:has(:is(input, textarea, select):disabled)) :where(.mv-field-description) {
+    color: var(--mv-fg-subtle);
+    cursor: not-allowed;
+  }
+
+  /* ── Orientations ──────────────────────────────────────────────────── */
+  /* Horizontal: label column + control column; description/error under the control */
+  :where(.mv-field[data-orientation="horizontal"]) {
+    grid-template-columns: var(--mv-field-label-width, 11rem) minmax(0, 1fr);
+    column-gap: var(--mv-space-6);
+    align-items: start;
+  }
+  :where(.mv-field[data-orientation="horizontal"]) > :where(.mv-label, .mv-field-header, .mv-field-label-group) {
+    grid-column: 1;
+    grid-row: 1;
+    min-height: var(--mv-control-md);
+    align-self: start;
+  }
+  :where(.mv-field[data-orientation="horizontal"]) > :where(.mv-label) { display: flex; align-items: center; }
+  :where(.mv-field[data-orientation="horizontal"]) > :where(:not(.mv-label, .mv-field-header, .mv-field-label-group)) { grid-column: 2; }
+  /* Label + description stacked in the left column */
+  :where(.mv-field-label-group) { display: grid; gap: var(--mv-space-1); align-content: start; padding-top: 0.5rem; }
+  :where(.mv-field[data-orientation="horizontal"]) > :where(.mv-field-label-group) { min-height: 0; }
+
+  /* Responsive: stacked until the container (a .mv-field-group or .mv-fieldset) is ≥ 36rem */
+  @container mv-field (min-width: 36rem) {
+    :where(.mv-field[data-orientation="responsive"]) {
+      grid-template-columns: var(--mv-field-label-width, 11rem) minmax(0, 1fr);
+      column-gap: var(--mv-space-6);
+      align-items: start;
+    }
+    :where(.mv-field[data-orientation="responsive"]) > :where(.mv-label, .mv-field-header, .mv-field-label-group) {
+      grid-column: 1;
+      grid-row: 1;
+      min-height: var(--mv-control-md);
+    }
+    :where(.mv-field[data-orientation="responsive"]) > :where(.mv-label) { display: flex; align-items: center; }
+    :where(.mv-field[data-orientation="responsive"]) > :where(:not(.mv-label, .mv-field-header, .mv-field-label-group)) { grid-column: 2; }
+  }
+
+  /* Inline: checkbox / radio / switch first, label + description beside it */
+  :where(.mv-field[data-orientation="inline"]) {
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: var(--mv-space-3);
+    row-gap: var(--mv-space-1);
+    align-items: start;
+  }
+  :where(.mv-field[data-orientation="inline"]) > :where(:first-child) { grid-row: 1; margin: 0.1rem 0 0; }
+  :where(.mv-field[data-orientation="inline"]) > :where(:not(:first-child)) { grid-column: 2; margin-top: 0; }
+  :where(.mv-field[data-orientation="inline"]) > :where(input[type="checkbox"], input[type="radio"]) {
+    width: 1rem;
+    height: 1rem;
+    accent-color: var(--mv-accent);
+  }
+  /* Choice card: the whole inline field becomes a selectable card */
+  :where(.mv-field[data-variant="card"]) {
+    padding: var(--mv-space-4);
+    border: 1px solid var(--mv-border);
+    border-radius: var(--mv-radius-lg);
+    background: var(--mv-surface);
+    cursor: pointer;
+    transition:
+      border-color var(--mv-duration-fast) var(--mv-ease-out),
+      background-color var(--mv-duration-fast) var(--mv-ease-out),
+      box-shadow var(--mv-duration-fast) var(--mv-ease-out);
+  }
+  :where(.mv-field[data-variant="card"]):hover { border-color: var(--mv-border-strong); }
+  :where(.mv-field[data-variant="card"]:has(:checked)) {
+    border-color: color-mix(in oklch, var(--mv-accent) 70%, transparent);
+    background: color-mix(in srgb, var(--mv-accent) 5%, var(--mv-surface));
+    box-shadow: 0 0 0 1px color-mix(in oklch, var(--mv-accent) 70%, transparent);
+  }
+  :where(.mv-field[data-variant="card"]:has(:focus-visible)) { box-shadow: var(--mv-focus-ring); }
+  :where(.mv-field[data-variant="card"]) > :where(input):focus-visible { outline: none; }
+  :where(.mv-field[data-variant="card"]) :where(.mv-label) { cursor: pointer; }
+
+  /* ── Groups & fieldset ─────────────────────────────────────────────── */
+  :where(.mv-field-group) {
+    container: mv-field / inline-size;
+    display: grid;
+    gap: var(--mv-space-5);
+    min-width: 0;
+  }
+  :where(.mv-field-row) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(12rem, 100%), 1fr));
+    gap: var(--mv-space-4);
+  }
+
+  :where(.mv-fieldset) {
+    container: mv-field / inline-size;
+    display: grid;
+    gap: var(--mv-space-5);
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+  /* Float the legend so it lays out like a normal block (no border notch) */
+  :where(.mv-fieldset) > :where(legend, .mv-fieldset-legend) {
+    float: inline-start;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    color: var(--mv-fg);
+    font: var(--mv-weight-semibold) var(--mv-text-base) / var(--mv-leading-snug) var(--mv-font-sans);
+    letter-spacing: var(--mv-tracking-tight);
+  }
+  :where(.mv-fieldset) > :where(legend, .mv-fieldset-legend) + :where(*) { clear: both; }
+  :where(.mv-fieldset) > :where(.mv-fieldset-description) {
+    margin: calc(var(--mv-space-1) - var(--mv-space-5)) 0 0;
+    color: var(--mv-fg-muted);
+    font-size: var(--mv-text-sm);
+    line-height: var(--mv-leading-normal);
+  }
+  :where(.mv-fieldset[data-variant="card"]) {
+    padding: var(--mv-space-6);
+    border: 1px solid var(--mv-border);
+    border-radius: var(--mv-radius-xl);
+    background: var(--mv-surface);
+    box-shadow: var(--mv-shadow-xs);
+  }
+  :where(.mv-fieldset):disabled :where(.mv-label, .mv-field-description, legend) { opacity: 0.5; }
+  :where(.mv-fieldset-footer) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: var(--mv-space-2);
+    margin-top: var(--mv-space-1);
+  }
+  :where(.mv-fieldset[data-variant="card"]) > :where(.mv-fieldset-footer) {
+    margin: var(--mv-space-1) calc(-1 * var(--mv-space-6)) calc(-1 * var(--mv-space-6));
+    padding: var(--mv-space-4) var(--mv-space-6);
+    border-top: 1px solid var(--mv-border);
+    border-radius: 0 0 var(--mv-radius-xl) var(--mv-radius-xl);
+    background: var(--mv-bg-subtle);
+  }
+}

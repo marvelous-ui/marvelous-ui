@@ -1,0 +1,105 @@
+@layer mv.components {
+  :where(.mv-button) {
+    --_bg: var(--mv-accent);
+    --_bg-hover: var(--mv-accent-hover);
+    --_bg-active: var(--mv-accent-active);
+    --_fg: var(--mv-fg-on-accent);
+    --_border: transparent;
+    --_h: var(--mv-control-md);
+    --_px: var(--mv-space-4);
+    --_fs: var(--mv-text-sm);
+
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--mv-space-2);
+    height: var(--_h);
+    padding: 0 var(--_px);
+    border: 1px solid var(--_border);
+    border-radius: var(--mv-button-radius, var(--mv-radius-md));
+    background: var(--_bg);
+    color: var(--_fg);
+    font: var(--mv-weight-medium) var(--_fs) / 1 var(--mv-font-sans);
+    white-space: nowrap;
+    text-decoration: none;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      background-color var(--mv-duration-fast) var(--mv-ease-out),
+      border-color var(--mv-duration-fast) var(--mv-ease-out),
+      color var(--mv-duration-fast) var(--mv-ease-out),
+      box-shadow var(--mv-duration-fast) var(--mv-ease-out),
+      transform var(--mv-duration-instant) var(--mv-ease-out);
+  }
+  :where(.mv-button):hover { background: var(--_bg-hover); }
+  :where(.mv-button):active:not(:disabled, [aria-disabled="true"]) { background: var(--_bg-active); transform: scale(0.98); }
+  :where(.mv-button):focus-visible { outline: none; box-shadow: var(--mv-focus-ring); }
+  :where(.mv-button):is(:disabled, [aria-disabled="true"]) { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
+  :where(.mv-button) :where(svg) { width: 1em; height: 1em; flex-shrink: 0; font-size: 1.15em; }
+  /* <mv-icon> gets the same box as an inline <svg>: 1.15 times the label size (its own <svg> fills it). */
+  :where(.mv-button) :where(mv-icon) { --mv-icon-size: 1.15em; flex-shrink: 0; }
+
+  /* Variants */
+  :where(.mv-button[data-variant="secondary"]) {
+    --_bg: var(--mv-bg-muted); --_bg-hover: var(--mv-bg-emphasis);
+    --_bg-active: color-mix(in oklch, var(--mv-bg-emphasis), var(--mv-fg) 8%); --_fg: var(--mv-fg);
+  }
+  :where(.mv-button[data-variant="outline"]) {
+    --_bg: var(--mv-bg); --_bg-hover: var(--mv-bg-muted); --_bg-active: var(--mv-bg-emphasis);
+    --_fg: var(--mv-fg); --_border: var(--mv-border-strong);
+    box-shadow: var(--mv-shadow-xs);
+  }
+  :where(.mv-button[data-variant="ghost"]) {
+    --_bg: transparent; --_bg-hover: var(--mv-bg-muted); --_bg-active: var(--mv-bg-emphasis); --_fg: var(--mv-fg);
+  }
+  :where(.mv-button[data-variant="destructive"]) {
+    --_bg: var(--mv-danger); --_bg-hover: color-mix(in oklch, var(--mv-danger), black 12%);
+    --_bg-active: color-mix(in oklch, var(--mv-danger), black 22%); --_fg: var(--mv-fg-on-accent); /* ink on the bright dark-theme red: white fell to 3.15:1 */
+  }
+  :where(.mv-button[data-variant="link"]) {
+    --_bg: transparent; --_bg-hover: transparent; --_bg-active: transparent; --_fg: var(--mv-accent-fg);
+    height: auto; padding: 0; text-underline-offset: 4px;
+  }
+  :where(.mv-button[data-variant="link"]):hover { text-decoration: underline; }
+
+  /* Sizes */
+  :where(.mv-button[data-size="sm"]) { --_h: var(--mv-control-sm); --_px: var(--mv-space-3); --_fs: var(--mv-text-xs); gap: var(--mv-space-1-5); }
+  :where(.mv-button[data-size="lg"]) { --_h: var(--mv-control-lg); --_px: var(--mv-space-6); --_fs: var(--mv-text-base); }
+  :where(.mv-button:is([data-size="icon"], [data-size="icon-sm"], [data-size="icon-xs"])) { --_px: 0; width: var(--_h); }
+  /* Smaller squares for toolbars and compact tables; icon-xs keeps the 24px minimum target (WCAG 2.5.8). */
+  :where(.mv-button[data-size="icon-sm"]) { --_h: var(--mv-control-sm); }
+  :where(.mv-button[data-size="icon-xs"]) { --_h: 1.5rem; --_fs: var(--mv-text-xs); border-radius: var(--mv-button-radius, var(--mv-radius-sm)); }
+  :where(.mv-button:is([data-size="icon"], [data-size="icon-sm"], [data-size="icon-xs"])[data-shape="round"]), :where(.mv-button[data-shape="pill"]) { border-radius: var(--mv-radius-full); }
+
+  /* Loading: aria-busy="true" swaps content for a spinner, keeps width */
+  :where(.mv-button[aria-busy="true"]) { color: transparent; pointer-events: none; }
+  :where(.mv-button[aria-busy="true"])::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 1.1em; height: 1.1em;
+    border: 2px solid var(--_fg);
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: mv-button-spin 0.7s linear infinite;
+  }
+  @keyframes mv-button-spin { to { transform: rotate(1turn); } }
+  /* Forced colors repaint the transparent label: opt out and redraw the busy button with system colors */
+  @media (forced-colors: active) {
+    :where(.mv-button[aria-busy="true"]) { forced-color-adjust: none; background: ButtonFace; border-color: ButtonText; color: transparent; }
+    :where(.mv-button[aria-busy="true"])::after { border-color: ButtonText; border-right-color: transparent; }
+    /* A toggle's pressed state is its only difference: draw it in Highlight. */
+    :where(.mv-button[aria-pressed="true"]) { forced-color-adjust: none; background: Highlight; border-color: Highlight; color: HighlightText; }
+  }
+
+  /* Group: <div class="mv-button-group"> */
+  :where(.mv-button-group) { display: inline-flex; isolation: isolate; }
+  :where(.mv-button-group) > :where(.mv-button) { border-radius: 0; }
+  :where(.mv-button-group) > :where(.mv-button):first-child { border-start-start-radius: var(--mv-radius-md); border-end-start-radius: var(--mv-radius-md); }
+  :where(.mv-button-group) > :where(.mv-button):last-child { border-start-end-radius: var(--mv-radius-md); border-end-end-radius: var(--mv-radius-md); }
+  :where(.mv-button-group) > :where(.mv-button + .mv-button) { margin-inline-start: -1px; }
+  :where(.mv-button-group) > :where(.mv-button):focus-visible { z-index: 1; }
+}

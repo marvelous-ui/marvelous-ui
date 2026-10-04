@@ -1,0 +1,21 @@
+{
+  "name": "@marvelous-ui/library",
+  "version": "1.4.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "description": "Marvelous UI · Free pack",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "add": "node scripts/add.mjs",
+    "list": "node scripts/add.mjs --list",
+    "mcp": "node mcp/server.mjs",
+    "init-agent": "node scripts/init-agent.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/server": "2.0.0",
+    "zod": "4.6.5"
+  }
+}

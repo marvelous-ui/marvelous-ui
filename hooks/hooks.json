@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write",
+        "hooks": [{ "type": "command", "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/search-first.mjs\"" }]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "mcp__.*marvelous-ui.*",
+        "hooks": [{ "type": "command", "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/search-first.mjs\"" }]
+      }
+    ]
+  }
+}

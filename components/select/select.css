@@ -1,0 +1,300 @@
+@layer mv.components {
+  @property --_mv-lq-n { syntax: "<percentage>"; inherits: false; initial-value: 0%; }
+  @property --_mv-lq-w { syntax: "<percentage>"; inherits: false; initial-value: 50%; }
+  @property --_mv-lq-t { syntax: "<percentage>"; inherits: false; initial-value: 0%; }
+  @property --_mv-lq-b { syntax: "<percentage>"; inherits: false; initial-value: 100%; }
+
+  /* ── Select (classic) ───────────────────────────────────────────────
+     Native <select> with a token-colored chevron drawn with gradients
+     (no hard-coded SVG color). Works everywhere, keeps native pickers. */
+  :where(.mv-select) {
+    --_h: var(--mv-control-md);
+    --_px: var(--mv-space-3);
+    --_fs: var(--mv-text-sm);
+    --_bd: var(--mv-input);
+    --_bd-hover: color-mix(in oklch, var(--mv-input), var(--mv-fg) 18%);
+    --_bd-focus: var(--mv-accent);
+    --_rc: color-mix(in oklch, var(--mv-accent) 22%, transparent);
+    --_chev: var(--mv-fg-subtle);
+    --_bg: var(--mv-select-bg, light-dark(var(--mv-bg), color-mix(in oklch, var(--mv-bg-muted) 55%, transparent)));
+
+    box-sizing: border-box;
+    appearance: none;
+    width: 100%;
+    min-width: 0;
+    height: var(--_h);
+    margin: 0;
+    padding: 0 calc(var(--_px) + 1.5rem) 0 var(--_px);
+    border: 1px solid var(--_bd);
+    border-radius: var(--mv-select-radius, var(--mv-radius-md));
+    background-color: var(--_bg);
+    /* Chevron: two 1.5px diagonal strokes */
+    background-image:
+      linear-gradient(45deg, transparent calc(50% - 0.8px), var(--_chev) calc(50% - 0.8px) calc(50% + 0.8px), transparent calc(50% + 0.8px)),
+      linear-gradient(-45deg, transparent calc(50% - 0.8px), var(--_chev) calc(50% - 0.8px) calc(50% + 0.8px), transparent calc(50% + 0.8px));
+    background-size: 5px 5px;
+    background-position:
+      right calc(var(--_px) + 4.5px) center,
+      right var(--_px) center;
+    background-repeat: no-repeat;
+    color: var(--mv-fg);
+    font: var(--mv-weight-normal) var(--_fs) / 1.25 var(--mv-font-sans);
+    text-overflow: ellipsis;
+    box-shadow: var(--mv-shadow-xs);
+    cursor: pointer;
+    outline: none;
+    transition:
+      border-color var(--mv-duration-fast) var(--mv-ease-out),
+      box-shadow var(--mv-duration-fast) var(--mv-ease-out);
+  }
+  :where(.mv-select):hover:not(:disabled, :focus-visible) { border-color: var(--_bd-hover); }
+  :where(.mv-select):focus-visible {
+    outline: none;
+    border-color: var(--_bd-focus);
+    box-shadow: var(--mv-shadow-xs), 0 0 0 3px var(--_rc);
+  }
+  :where(.mv-select[aria-invalid="true"], .mv-select:user-invalid) {
+    --_bd: var(--mv-danger);
+    --_bd-hover: var(--mv-danger);
+    --_bd-focus: var(--mv-danger);
+    --_rc: color-mix(in oklch, var(--mv-danger) 20%, transparent);
+  }
+  :where(.mv-select):disabled { cursor: not-allowed; opacity: 0.5; box-shadow: none; background-color: var(--mv-bg-muted); }
+  /* Placeholder look while the empty first option is selected (<option value="" disabled selected>) */
+  :where(.mv-select:has(option[value=""]:checked)) { color: var(--mv-fg-subtle); }
+  :where(.mv-select) :where(option, optgroup) { color: var(--mv-fg); background-color: var(--mv-surface-raised); }
+
+  /* Sizes */
+  :where(.mv-select[data-size="sm"]) { --_h: var(--mv-control-sm); --_px: 0.625rem; }
+  :where(.mv-select[data-size="lg"]) { --_h: var(--mv-control-lg); --_px: var(--mv-space-4); --_fs: var(--mv-text-base); }
+
+  /* List box (multiple / size > 1): no chevron, natural height */
+  :where(.mv-select:is([multiple], [size]:not([size="1"]))) {
+    height: auto;
+    padding: var(--mv-space-1);
+    background-image: none;
+    overflow-y: auto;
+  }
+  :where(.mv-select:is([multiple], [size]:not([size="1"]))) :where(option) { padding: var(--mv-space-1-5) var(--mv-space-2); border-radius: var(--mv-radius-sm); }
+
+  /* Rich option parts (rendered by customizable select; plain text elsewhere) */
+  :where(.mv-select-icon) { display: inline-flex; flex-shrink: 0; color: var(--mv-fg-muted); }
+  :where(.mv-select-icon) :where(svg) { width: 1rem; height: 1rem; }
+  :where(.mv-select-dot) {
+    flex-shrink: 0;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--mv-select-dot, var(--mv-fg-subtle));
+    box-shadow: 0 0 0 3px color-mix(in oklch, var(--mv-select-dot, var(--mv-fg-subtle)) 18%, transparent);
+  }
+  :where(.mv-select-dot[data-tone="success"]) { --mv-select-dot: var(--mv-success); }
+  :where(.mv-select-dot[data-tone="warning"]) { --mv-select-dot: var(--mv-warning); }
+  :where(.mv-select-dot[data-tone="danger"]) { --mv-select-dot: var(--mv-danger); }
+  :where(.mv-select-dot[data-tone="info"]) { --mv-select-dot: var(--mv-info); }
+  :where(.mv-select-text) { display: grid; gap: 0.125rem; min-width: 0; }
+  :where(.mv-select-description) { color: var(--mv-fg-muted); font-size: var(--mv-text-xs); font-weight: var(--mv-weight-normal); }
+
+  /* ── Customizable select (progressive enhancement) ────────────────────
+     Where `appearance: base-select` is supported, the picker becomes a
+     styleable, animated popover and options can hold icons/dots/text.
+     Opt out per element with data-native. */
+  @supports (appearance: base-select) {
+    :where(.mv-select:not([multiple], [size]:not([size="1"]), [data-native])),
+    :where(.mv-select:not([multiple], [size]:not([size="1"]), [data-native]))::picker(select) {
+      appearance: base-select;
+    }
+
+    :where(.mv-select:not([multiple], [size]:not([size="1"]), [data-native])) {
+      display: flex;
+      align-items: center;
+      gap: var(--mv-space-2);
+      padding: 0 calc(var(--_px) - 0.25rem) 0 var(--_px);
+      background-image: none;
+    }
+    :where(.mv-select:not([multiple], [size]:not([size="1"]), [data-native]))::picker-icon {
+      content: "";
+      flex-shrink: 0;
+      width: 1rem;
+      height: 1rem;
+      margin-inline-start: auto;
+      background: var(--_chev);
+      mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") center / contain no-repeat;
+      transition: rotate var(--mv-duration-normal) var(--mv-ease-out);
+    }
+    :where(.mv-select:not([data-native]):open)::picker-icon { rotate: 180deg; }
+
+    /* Optional custom button: <button><selectedcontent></selectedcontent></button> */
+    :where(.mv-select) > :where(button) {
+      display: flex;
+      align-items: center;
+      flex: 1;
+      min-width: 0;
+      padding: 0;
+      border: 0;
+      background: none;
+      color: inherit;
+      font: inherit;
+    }
+    :where(.mv-select) :where(selectedcontent) {
+      display: flex;
+      align-items: center;
+      gap: var(--mv-space-2);
+      min-width: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    :where(.mv-select) :where(selectedcontent .mv-select-description) { display: none; }
+    :where(.mv-select) :where(selectedcontent .mv-select-text) { display: block; }
+
+    /* Picker */
+    :where(.mv-select:not([data-native]))::picker(select) {
+      box-sizing: border-box;
+      min-width: anchor-size(width);
+      max-height: min(18rem, 50dvh);
+      margin-block: var(--mv-space-1);
+      padding: var(--mv-space-1);
+      border: 1px solid var(--mv-border);
+      border-radius: var(--mv-select-picker-radius, var(--mv-radius-lg));
+      background: var(--mv-surface-raised);
+      color: var(--mv-fg);
+      box-shadow: var(--mv-shadow-lg);
+      scrollbar-width: thin;
+      transform-origin: top center;
+      opacity: 0;
+      scale: 0.97;
+      translate: 0 -4px;
+      transition:
+        opacity var(--mv-duration-fast) var(--mv-ease-out),
+        scale var(--mv-duration-fast) var(--mv-ease-out),
+        translate var(--mv-duration-fast) var(--mv-ease-out),
+        display var(--mv-duration-fast) allow-discrete,
+        overlay var(--mv-duration-fast) allow-discrete;
+    }
+    :where(.mv-select:not([data-native]):open)::picker(select) { opacity: 1; scale: 1; translate: 0 0; }
+    @starting-style {
+      :where(.mv-select:not([data-native]):open)::picker(select) { opacity: 0; scale: 0.97; translate: 0 -4px; }
+    }
+
+    /* Options */
+    :where(.mv-select:not([data-native])) :where(option) {
+      display: flex;
+      align-items: center;
+      gap: var(--mv-space-2);
+      min-height: 2rem;
+      padding: var(--mv-space-1-5) var(--mv-space-2);
+      border-radius: var(--mv-radius-sm);
+      background: transparent;
+      color: var(--mv-fg);
+      font: var(--mv-weight-normal) var(--mv-text-sm) / 1.3 var(--mv-font-sans);
+      cursor: pointer;
+      outline: none;
+      transition: background-color var(--mv-duration-instant) var(--mv-ease-out);
+    }
+    :where(.mv-select:not([data-native])) :where(option):is(:hover, :focus-visible) { background: var(--mv-bg-muted); }
+    :where(.mv-select:not([data-native])) :where(option):checked { font-weight: var(--mv-weight-medium); }
+    :where(.mv-select:not([data-native])) :where(option):disabled { opacity: 0.45; cursor: not-allowed; background: transparent; }
+    :where(.mv-select:not([data-native])) :where(option)::checkmark {
+      content: "";
+      order: 1;
+      flex-shrink: 0;
+      width: 1rem;
+      height: 1rem;
+      margin-inline-start: auto;
+      background: var(--mv-accent-fg);
+      mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.25' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center / contain no-repeat;
+    }
+
+    /* Group label (label attribute) aligns with option text; options cancel the inset */
+    :where(.mv-select:not([data-native])) :where(optgroup) {
+      padding: var(--mv-space-1-5) 0.125rem 0;
+      background: transparent;
+      color: var(--mv-fg-subtle);
+      font: var(--mv-weight-medium) var(--mv-text-xs) / 1 var(--mv-font-sans);
+    }
+    :where(.mv-select:not([data-native])) :where(optgroup + optgroup) { margin-top: var(--mv-space-1); padding-top: var(--mv-space-1); border-top: 1px solid var(--mv-border); }
+    :where(.mv-select:not([data-native])) :where(optgroup) > :where(option) { margin-inline: -0.125rem; }
+    :where(.mv-select:not([data-native])) :where(optgroup) > :where(option:first-of-type) { margin-top: var(--mv-space-1); }
+    :where(.mv-select:not([data-native])) :where(optgroup legend) { padding-bottom: var(--mv-space-1); }
+    :where(.mv-select:not([data-native])) :where(hr) { margin: var(--mv-space-1) calc(-1 * var(--mv-space-1)); border: 0; border-top: 1px solid var(--mv-border); }
+  }
+
+  /* ── Liquid opening: <select class="mv-select" data-open="liquid"> ─────
+     The picker stretches out of the trigger through a thin "liquid neck"
+     (clip-path shape() driven by registered custom properties), spreads to
+     full size, then pinches back into the trigger on close. CSS only;
+     without shape() support it keeps the regular animation. */
+  @supports (appearance: base-select) and (clip-path: shape(from 0 0, line to 1px 1px)) {
+    :where(.mv-select[data-open="liquid"]:not([data-native]))::picker(select) {
+      --_lq-r: var(--mv-select-picker-radius, var(--mv-radius-lg));
+      margin-block: 2px;
+      opacity: 0;
+      scale: 1;
+      translate: 0 0;
+      transform-origin: top center;
+      clip-path: shape(
+        from calc(50% - var(--_mv-lq-n)) 0,
+        line to calc(50% + var(--_mv-lq-n)) 0,
+        curve to calc(50% + var(--_mv-lq-w)) calc(var(--_mv-lq-t) + var(--_lq-r)) with calc(50% + var(--_mv-lq-n)) calc(var(--_mv-lq-t) * 0.9) / calc(50% + var(--_mv-lq-w)) var(--_mv-lq-t),
+        line to calc(50% + var(--_mv-lq-w)) calc(var(--_mv-lq-b) - var(--_lq-r)),
+        curve to calc(50% + var(--_mv-lq-w) - var(--_lq-r)) var(--_mv-lq-b) with calc(50% + var(--_mv-lq-w)) var(--_mv-lq-b),
+        line to calc(50% - var(--_mv-lq-w) + var(--_lq-r)) var(--_mv-lq-b),
+        curve to calc(50% - var(--_mv-lq-w)) calc(var(--_mv-lq-b) - var(--_lq-r)) with calc(50% - var(--_mv-lq-w)) var(--_mv-lq-b),
+        line to calc(50% - var(--_mv-lq-w)) calc(var(--_mv-lq-t) + var(--_lq-r)),
+        curve to calc(50% - var(--_mv-lq-n)) 0 with calc(50% - var(--_mv-lq-w)) var(--_mv-lq-t) / calc(50% - var(--_mv-lq-n)) calc(var(--_mv-lq-t) * 0.9),
+        close
+      );
+      /* Closed = a droplet tucked under the trigger (the "pinch" target). */
+      --_mv-lq-n: 3%;
+      --_mv-lq-w: 7%;
+      --_mv-lq-t: 0%;
+      --_mv-lq-b: 3%;
+      transition:
+        --_mv-lq-n var(--mv-duration-fast) var(--mv-ease-in) calc(var(--mv-duration-normal) - var(--mv-duration-fast)),
+        --_mv-lq-w var(--mv-duration-normal) var(--mv-ease-in-out),
+        --_mv-lq-t var(--mv-duration-normal) var(--mv-ease-in),
+        --_mv-lq-b var(--mv-duration-normal) cubic-bezier(0.6, 0, 0.8, 0.6),
+        opacity var(--mv-duration-instant) linear calc(var(--mv-duration-normal) - var(--mv-duration-instant)),
+        display var(--mv-duration-normal) allow-discrete,
+        overlay var(--mv-duration-normal) allow-discrete;
+    }
+    :where(.mv-select[data-open="liquid"]:not([data-native]):open)::picker(select) {
+      --_mv-lq-n: 0%;
+      --_mv-lq-w: 50%;
+      --_mv-lq-t: 0%;
+      --_mv-lq-b: 100%;
+      opacity: 1;
+      /* Staged by per-property delays: the drop stretches down, spreads, then the neck retracts. */
+      transition:
+        --_mv-lq-b var(--mv-duration-slow) cubic-bezier(0.3, 0.7, 0.2, 1),
+        --_mv-lq-w calc(var(--mv-duration-slow) - 40ms) var(--mv-ease-snappy) calc(var(--mv-duration-fast) * 0.6),
+        --_mv-lq-t var(--mv-duration-normal) var(--mv-ease-out) var(--mv-duration-fast),
+        --_mv-lq-n var(--mv-duration-normal) var(--mv-ease-out) calc(var(--mv-duration-fast) * 0.8),
+        opacity var(--mv-duration-instant) linear,
+        display 0s allow-discrete,
+        overlay 0s allow-discrete;
+    }
+    @starting-style {
+      :where(.mv-select[data-open="liquid"]:not([data-native]):open)::picker(select) {
+        --_mv-lq-n: 3%;
+        --_mv-lq-w: 7%;
+        --_mv-lq-t: 7%;
+        --_mv-lq-b: 17%;
+        opacity: 0;
+        scale: 1;
+        translate: 0 0;
+      }
+    }
+    :where(.mv-select[data-open="liquid"]:not([data-native]):open) :where(option, optgroup, hr) {
+      animation: mv-select-liquid-item var(--mv-duration-slow) var(--mv-ease-out) calc(var(--mv-duration-fast) + 40ms) both;
+    }
+  }
+  @keyframes mv-select-liquid-item {
+    from { opacity: 0; translate: 0 calc(-4px * var(--mv-motion)); filter: blur(calc(3px * var(--mv-motion))); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :where(.mv-select[data-open="liquid"]:open) :where(option, optgroup, hr) { animation: none; }
+  }
+  :where([data-motion="reduce"]) :where(.mv-select[data-open="liquid"]:open) :where(option, optgroup, hr) { animation: none; }
+}

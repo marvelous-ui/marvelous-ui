@@ -1,0 +1,224 @@
+{
+  "name": "Toast",
+  "slug": "toast",
+  "tag": "mv-toaster",
+  "kind": "element",
+  "category": "overlay",
+  "wave": 1,
+  "description": "Sonner-style stacked notifications: a compact stack that expands on hover, paused timers, swipe to dismiss, promises and in-place updates by id, through an imperative toast() API.",
+  "useWhen": [
+    "Brief feedback must confirm an action, such as Saved or Link copied, without interrupting",
+    "An async operation should show loading, then success or error, in the same notification",
+    "A notification needs an action such as Undo available for a few seconds after a change"
+  ],
+  "avoidWhen": [
+    {
+      "when": "The user must make a decision before continuing",
+      "instead": "dialog"
+    },
+    {
+      "when": "The message is persistent and tied to a page section, such as a form or account warning",
+      "instead": "alert"
+    },
+    {
+      "when": "A tactile, physics-driven pile of notifications is part of the product's personality",
+      "instead": "toast-physics"
+    }
+  ],
+  "files": [
+    "toast.js",
+    "toast.css",
+    "toast.d.ts"
+  ],
+  "tags": [
+    "toast",
+    "sonner",
+    "notification",
+    "snackbar",
+    "swipe",
+    "promise",
+    "live-region"
+  ],
+  "demo": {
+    "layout": "center",
+    "height": 320,
+    "requires": [
+      "button"
+    ]
+  },
+  "preview": {
+    "viewport": {
+      "width": 820,
+      "height": 500
+    },
+    "steps": [
+      [
+        "wait",
+        200
+      ],
+      [
+        "click",
+        "button[data-toast='success']"
+      ],
+      [
+        "click",
+        "button[data-toast='error']"
+      ],
+      [
+        "click",
+        "button[data-toast='warning']"
+      ],
+      [
+        "wait",
+        400
+      ],
+      [
+        "hover",
+        "mv-toaster .mv-toast"
+      ],
+      [
+        "wait",
+        700
+      ],
+      [
+        "leave"
+      ],
+      [
+        "wait",
+        3600
+      ]
+    ]
+  },
+  "api": {
+    "attributes": [
+      {
+        "name": "position",
+        "type": "top-left | top-center | top-right | bottom-left | bottom-center | bottom-right",
+        "default": "bottom-right",
+        "description": "Anchor corner; the stack and swipe direction adapt."
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "default": "3",
+        "description": "Number of visible toasts (the rest wait, hidden)."
+      },
+      {
+        "name": "duration",
+        "type": "number",
+        "default": "4000",
+        "description": "Default duration (ms)."
+      },
+      {
+        "name": "gap",
+        "type": "number",
+        "default": "14",
+        "description": "Gap between cards when expanded (px)."
+      },
+      {
+        "name": "expand",
+        "type": "boolean",
+        "description": "Always expanded."
+      },
+      {
+        "name": "rich-colors",
+        "type": "boolean",
+        "description": "Tints cards by type."
+      },
+      {
+        "name": "close-button",
+        "type": "boolean",
+        "description": "Close button on hover / focus (always visible on touch)."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "Notifications",
+        "description": "Accessible name of the region."
+      }
+    ],
+    "methods": [
+      {
+        "name": "toast(message, options) → id",
+        "description": "Exported from toast.js (also MvToaster.toast). options: description, type (success | error | warning | info | loading), action { label, onClick(e, toast) }, cancel { label, onClick }, duration (ms or Infinity), id (same id = in-place update with a small bounce), icon (Node or null), closeButton, dismissible, important, toaster (selector), onDismiss, onAutoClose. Creates an <mv-toaster> when needed. SSR (Next, Nuxt, SvelteKit, Astro): import toast.js from a client component and render <mv-toaster> on the server as usual; the element adds nothing inside itself until the first toast, so importing it before hydration does not cause a mismatch."
+      },
+      {
+        "name": "toast.success / .error / .warning / .info / .loading(message, options)",
+        "description": "Typed shortcuts."
+      },
+      {
+        "name": "toast.promise(promise, { loading, success, error }, options)",
+        "description": "Loading, then success/error in the same card; success/error accept a string, a function of the result or an object { message, description, … }. Returns the promise (with .id). On the very first toast of a page, a promise that settles within 100 ms shows its result directly."
+      },
+      {
+        "name": "toast.dismiss(id?)",
+        "description": "Dismisses one toast, or all of them."
+      },
+      {
+        "name": "element.add(options) / element.dismiss(id?)",
+        "description": "Same operations on a specific toaster."
+      }
+    ],
+    "properties": [
+      {
+        "name": "toasts",
+        "type": "object[]",
+        "description": "Read-only: displayed toasts."
+      },
+      {
+        "name": "region",
+        "type": "HTMLElement | null",
+        "description": "Read-only: the generated <section class=\"mv-toaster\"> live region, null until the first toast."
+      },
+      {
+        "name": "strings",
+        "type": "Partial<Record<string, string>>",
+        "description": "Overrides for the default text (en-US): regionLabel (accessible name of the region, {label} placeholder for the label attribute), close (close button label when a toast has no closeLabel), loading (toast.promise message when no loading text is given; toast.promise reads it from the target toaster). App-wide translations: setStrings() from core/i18n.js, under the key \"toaster\". Can be set before the element is defined."
+      }
+    ],
+    "events": [
+      {
+        "name": "mv-toast",
+        "description": "New toast. detail: { id, type }."
+      },
+      {
+        "name": "mv-dismiss",
+        "description": "detail: { id, reason } (timeout, swipe, close, escape, action, cancel, dismiss)."
+      }
+    ],
+    "classes": [
+      {
+        "name": "mv-toast / -icon / -content / -title / -description / -action / -cancel / -close",
+        "description": "Generated, stylable parts; data-type on .mv-toast."
+      }
+    ],
+    "cssVars": [
+      {
+        "name": "--mv-toast-width",
+        "default": "22.25rem",
+        "description": "Card width (full width below 600 px)."
+      },
+      {
+        "name": "--mv-toaster-offset",
+        "default": "1.5rem",
+        "description": "Distance from the screen edges."
+      },
+      {
+        "name": "--mv-toast-peek",
+        "default": "12px",
+        "description": "How much each card peeks out in the compact stack."
+      },
+      {
+        "name": "--mv-toast-bg",
+        "description": "Card background."
+      },
+      {
+        "name": "--mv-toast-radius",
+        "description": "Card radius."
+      }
+    ]
+  },
+  "a11y": "Section region (implicit role) named “Notifications (Alt+T)”, aria-live=polite (additions and text updates are announced); important:true switches the card to role=alert. The region is created on the first toast (so a server-rendered toaster hydrates cleanly and no empty landmark is listed), and that first toast is inserted 100 ms later, once the screen reader knows the live region; later toasts appear at once. Alt+T moves focus to the latest toast; each card is focusable, Escape dismisses it and focus moves to the next one, then back to the original element. Timers pause on hover, on focus and while the tab is hidden. Animations are reduced automatically (prefers-reduced-motion). Modal dialogs: a modal <dialog> makes the rest of the page inert, top layer included, so while one is open the region moves into the topmost modal <dialog> (opened with showModal(), mv-dialog and its sheets included) and comes back when it closes; toasts stay visible, clickable, swipeable and reachable with Alt+T, after the dialog content in Tab order. Cards already on screen lose role=alert when the region moves, so they are not spoken twice, and the next toast waits 100 ms, as the first one does. Known limits: a dialog inside a shadow root, or a modal built without <dialog> (aria-modal and a focus trap), is not followed; there, put an mv-toaster inside the modal and target it with the toaster option (toast(\"Saved\", { toaster: \"#dialog-toaster\" })).",
+  "inspiredBy": [],
+  "status": "stable"
+}

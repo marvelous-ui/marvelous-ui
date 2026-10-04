@@ -1,0 +1,177 @@
+{
+  "name": "Dialog",
+  "slug": "dialog",
+  "tag": "mv-dialog",
+  "kind": "element",
+  "category": "overlay",
+  "wave": 1,
+  "description": "Animated native <dialog> modal; also covers Alert Dialog (persistent), Sheet (4 sides) and a mobile Drawer with swipe to close.",
+  "useWhen": [
+    "A blocking confirmation is needed before a destructive or irreversible action",
+    "A short form or detail view must stay in context without leaving the page",
+    "A side sheet must slide in from an edge for settings, filters or a cart",
+    "On mobile, a bottom drawer the user can swipe away fits better than a centered modal"
+  ],
+  "avoidWhen": [
+    {
+      "when": "The message is transient feedback that shouldn't interrupt the user",
+      "instead": "toast"
+    },
+    {
+      "when": "The content is a small panel anchored to a trigger that shouldn't block the page",
+      "instead": "popover"
+    },
+    {
+      "when": "The flow has many steps or needs its own URL; use a dedicated page instead"
+    }
+  ],
+  "files": [
+    "dialog.js",
+    "dialog.css"
+  ],
+  "tags": [
+    "modal",
+    "dialog",
+    "alert-dialog",
+    "confirm",
+    "sheet",
+    "drawer",
+    "side-panel",
+    "slide-over",
+    "swipe"
+  ],
+  "demo": {
+    "requires": [
+      "button",
+      "input"
+    ]
+  },
+  "preview": {
+    "viewport": {
+      "width": 680,
+      "height": 380
+    },
+    "steps": [
+      [
+        "wait",
+        500
+      ],
+      [
+        "click",
+        "button:has-text('Edit profile')"
+      ],
+      [
+        "wait",
+        1300
+      ],
+      [
+        "click",
+        "dialog[open] button[value='save']"
+      ],
+      [
+        "wait",
+        600
+      ],
+      [
+        "click",
+        "button:has-text('Side panel')"
+      ],
+      [
+        "wait",
+        1300
+      ],
+      [
+        "click",
+        "dialog[open] .mv-dialog-close"
+      ],
+      [
+        "leave"
+      ],
+      [
+        "wait",
+        700
+      ]
+    ]
+  },
+  "api": {
+    "attributes": [
+      {
+        "name": "open",
+        "type": "boolean",
+        "description": "Opens/closes the modal."
+      },
+      {
+        "name": "persistent",
+        "type": "boolean",
+        "description": "Alert mode: no closing via Escape or outside click, role=alertdialog (follows later changes)."
+      },
+      {
+        "name": "swipe",
+        "type": "boolean",
+        "description": "Swipe to close (sheets / drawers); can be turned on or off at any time."
+      }
+    ],
+    "methods": [
+      {
+        "name": "show()",
+        "description": "Opens as a modal."
+      },
+      {
+        "name": "close(returnValue?)",
+        "description": "Closes with a return value."
+      }
+    ],
+    "events": [
+      {
+        "name": "mv-before-open",
+        "description": "Cancelable (preventDefault)."
+      },
+      {
+        "name": "mv-open",
+        "description": "After opening."
+      },
+      {
+        "name": "mv-close",
+        "description": "detail.returnValue: value of the [data-mv-close] button, or “dismiss” / “swipe”."
+      }
+    ],
+    "slots": [
+      {
+        "name": "[data-mv-open]",
+        "description": "Internal trigger; for an external one: data-mv-open=\"#id\"."
+      },
+      {
+        "name": "<dialog>",
+        "description": "Content; data-variant=\"sheet\" + data-side=\"right|left|top|bottom\". May be rendered or replaced after the element connects (Angular, a late v-if): it is looked up when needed, and a pending open applies once it exists."
+      },
+      {
+        "name": "[data-mv-close]",
+        "description": "Closes; its value becomes returnValue."
+      }
+    ],
+    "classes": [
+      {
+        "name": "mv-dialog-header / -title / -description / -footer / -close",
+        "description": "Content layout."
+      }
+    ],
+    "cssVars": [
+      {
+        "name": "--mv-dialog-width",
+        "default": "30rem",
+        "description": "Width (sheet: 24rem)."
+      },
+      {
+        "name": "--mv-dialog-radius",
+        "description": "Radius."
+      },
+      {
+        "name": "--mv-dialog-backdrop-blur",
+        "default": "3px",
+        "description": "Backdrop blur."
+      }
+    ]
+  },
+  "a11y": "Focus trapped and restored by the native <dialog>, inert page, Escape. aria-labelledby/-describedby wired automatically from .mv-dialog-title / .mv-dialog-description, checked again at each opening so a title rendered late by a framework is still used.",
+  "inspiredBy": []
+}

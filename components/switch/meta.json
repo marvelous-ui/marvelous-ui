@@ -1,0 +1,163 @@
+{
+  "name": "Switch",
+  "slug": "switch",
+  "kind": "css",
+  "category": "primitive",
+  "wave": 1,
+  "description": "Pure-CSS switch on <input type=\"checkbox\" role=\"switch\">: thumb that slides on a spring and stretches when pressed, icons in the thumb (customizable), sizes, label on the left or right, option card.",
+  "useWhen": [
+    "A setting turns on or off and takes effect immediately, as in a preferences panel",
+    "A list of settings needs on/off rows or option cards with descriptions"
+  ],
+  "avoidWhen": [
+    {
+      "when": "The choice only applies after submitting a form, or is an agreement such as accepting terms",
+      "instead": "checkbox"
+    },
+    {
+      "when": "The control is a toolbar button that stays pressed, such as Bold",
+      "instead": "toggle"
+    },
+    {
+      "when": "The user chooses between two named modes rather than on and off",
+      "instead": "segmented"
+    }
+  ],
+  "files": [
+    "switch.css"
+  ],
+  "dependencies": [
+    "checkbox"
+  ],
+  "usage": {
+    "class": "mv-switch"
+  },
+  "tags": [
+    "switch",
+    "toggle",
+    "form",
+    "settings",
+    "spring",
+    "choice-card"
+  ],
+  "demo": {
+    "layout": "center",
+    "height": 400
+  },
+  "preview": {
+    "viewport": {
+      "width": 720,
+      "height": 400
+    },
+    "steps": [
+      [
+        "wait",
+        600
+      ],
+      [
+        "click",
+        ".mv-choice:nth-child(2) > .mv-switch"
+      ],
+      [
+        "wait",
+        600
+      ],
+      [
+        "click",
+        ".mv-switch[data-size='lg'][data-icons]"
+      ],
+      [
+        "wait",
+        1000
+      ],
+      [
+        "click",
+        ".mv-switch[data-size='lg'][data-icons]"
+      ],
+      [
+        "wait",
+        400
+      ],
+      [
+        "click",
+        ".mv-choice:nth-child(2) > .mv-switch"
+      ],
+      [
+        "wait",
+        400
+      ],
+      [
+        "leave"
+      ],
+      [
+        "wait",
+        700
+      ]
+    ]
+  },
+  "api": {
+    "classes": [
+      {
+        "name": "mv-switch",
+        "description": "On <input type=\"checkbox\" role=\"switch\">."
+      },
+      {
+        "name": "mv-choice / mv-choice-card",
+        "description": "Shared label and card (checkbox component). data-control=\"end\" puts the switch to the right of the label (settings row)."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "data-size",
+        "type": "sm | lg",
+        "default": "(md)",
+        "description": "Height 16 / 20 / 24 px."
+      },
+      {
+        "name": "data-shape",
+        "type": "square",
+        "description": "Slightly rounded corners instead of a pill."
+      },
+      {
+        "name": "data-icons",
+        "type": "boolean",
+        "description": "Shows an icon in the thumb (✕ / ✓ by default)."
+      },
+      {
+        "name": "aria-invalid",
+        "type": "true",
+        "description": "Error halo."
+      }
+    ],
+    "cssVars": [
+      {
+        "name": "--mv-switch-height",
+        "default": "1.25rem",
+        "description": "Track height (the thumb follows)."
+      },
+      {
+        "name": "--mv-switch-width",
+        "default": "1.8 × height",
+        "description": "Track width."
+      },
+      {
+        "name": "--mv-switch-radius",
+        "default": "var(--mv-radius-full)",
+        "description": "Track radius."
+      },
+      {
+        "name": "--mv-switch-icon-off / -on",
+        "type": "url()",
+        "description": "SVG icon masks (e.g. sun / moon)."
+      },
+      {
+        "name": "--mv-switch-icon-color / -color-on",
+        "default": "--mv-fg-subtle / --mv-accent",
+        "description": "Icon color."
+      }
+    ]
+  },
+  "a11y": "role=\"switch\" on a native checkbox: state announced as “on / off”, Space toggles, value submitted with the form. The wrapping <label> provides the name; link a description via aria-describedby if needed. Icons are decorative (pseudo-elements).",
+  "inspiredBy": [],
+  "status": "stable"
+}

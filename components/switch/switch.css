@@ -1,0 +1,95 @@
+@layer mv.components {
+  /* ── Switch: <input type="checkbox" role="switch" class="mv-switch"> ─── */
+  :where(input.mv-switch) {
+    --_h: var(--mv-switch-height, 1.25rem);
+    --_w: var(--mv-switch-width, calc(var(--_h) * 1.8));
+    --_pad: 2px;
+    --_thumb: calc(var(--_h) - var(--_pad) * 2);
+    --_stretch: 0px;
+    --_travel: calc(var(--_w) - var(--_thumb) - var(--_pad) * 2 - var(--_stretch));
+    --_box: var(--_h);
+    --_track: var(--mv-input);
+    --_thumb-bg: var(--mv-gray-0);
+    /* Masks for the optional thumb icons (data-icons). */
+    --_icon-on: var(--mv-switch-icon-on, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3.8 8.3 6.6 11 12.2 5'/%3E%3C/svg%3E"));
+    --_icon-off: var(--mv-switch-icon-off, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M5 5l6 6M11 5l-6 6'/%3E%3C/svg%3E"));
+
+    appearance: none;
+    position: relative;
+    display: inline-block;
+    flex-shrink: 0;
+    width: var(--_w);
+    height: var(--_h);
+    margin: 0;
+    border: 0;
+    border-radius: var(--mv-switch-radius, var(--mv-radius-full));
+    background: var(--_track);
+    box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--mv-fg) 4%, transparent);
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      background-color var(--mv-duration-normal) var(--mv-ease-out),
+      box-shadow var(--mv-duration-fast) var(--mv-ease-out);
+  }
+
+  /* Thumb + (optional) icon share geometry and motion. */
+  :where(input.mv-switch)::before,
+  :where(input.mv-switch[data-icons])::after {
+    content: "";
+    position: absolute;
+    inset-block-start: var(--_pad);
+    inset-inline-start: var(--_pad);
+    width: calc(var(--_thumb) + var(--_stretch));
+    height: var(--_thumb);
+    border-radius: inherit;
+    translate: 0 0;
+    transition:
+      translate var(--mv-duration-slow) var(--mv-ease-spring),
+      width var(--mv-duration-normal) var(--mv-ease-out),
+      background-color var(--mv-duration-normal) var(--mv-ease-out);
+  }
+  :where(input.mv-switch)::before {
+    background: var(--_thumb-bg);
+    box-shadow:
+      0 1px 2px color-mix(in oklab, black 18%, transparent),
+      0 2px 6px -1px color-mix(in oklab, black 14%, transparent);
+  }
+  :where(input.mv-switch[data-icons])::after {
+    background: var(--mv-switch-icon-color, var(--mv-fg-subtle));
+    mask: var(--_icon-off) center / 62% no-repeat;
+  }
+
+  :where(input.mv-switch):checked { --_track: var(--mv-accent); }
+  :where(input.mv-switch):checked::before,
+  :where(input.mv-switch[data-icons]):checked::after { translate: var(--_travel) 0; }
+  :where(input.mv-switch[data-icons]):checked::after { mask-image: var(--_icon-on); background: var(--mv-switch-icon-color-on, var(--mv-accent)); }
+  :where(input.mv-switch):dir(rtl):checked::before,
+  :where(input.mv-switch[data-icons]):dir(rtl):checked::after { translate: calc(var(--_travel) * -1) 0; }
+
+  /* Press: the thumb stretches toward its destination (iOS-like). */
+  :where(input.mv-switch):active:not(:disabled) { --_stretch: calc(var(--_thumb) * 0.22); }
+
+  :where(input.mv-switch):hover:not(:checked):not(:disabled) { --_track: color-mix(in oklab, var(--mv-input), var(--mv-fg) 10%); }
+  :where(input.mv-switch):checked:hover:not(:disabled) { --_track: var(--mv-accent-hover); }
+  :where(input.mv-switch):focus-visible { outline: none; box-shadow: var(--mv-focus-ring); }
+  :where(input.mv-switch[aria-invalid="true"]) { box-shadow: 0 0 0 1px var(--mv-danger), 0 0 0 4px color-mix(in oklab, var(--mv-danger) 18%, transparent); }
+  :where(input.mv-switch):disabled { opacity: 0.5; cursor: not-allowed; }
+
+  /* Forced colors paint the track and thumb as Canvas: outline the track and draw the thumb with system colors */
+  @media (forced-colors: active) {
+    :where(input.mv-switch) { border: 1px solid ButtonText; }
+    :where(input.mv-switch)::before { forced-color-adjust: none; background: ButtonText; }
+    :where(input.mv-switch):checked { forced-color-adjust: none; background: Highlight; border-color: Highlight; }
+    :where(input.mv-switch):checked::before { background: HighlightText; }
+    :where(input.mv-switch):disabled { border-color: GrayText; }
+    :where(input.mv-switch):disabled::before { background: GrayText; }
+  }
+
+  /* Sizes */
+  :where(input.mv-switch[data-size="sm"]) { --_h: 1rem; }
+  :where(input.mv-switch[data-size="lg"]) { --_h: 1.5rem; --_pad: 3px; }
+  :where(input.mv-switch[data-shape="square"]) { --mv-switch-radius: var(--mv-radius-sm); }
+  :where(input.mv-switch[data-shape="square"])::before,
+  :where(input.mv-switch[data-shape="square"])::after { border-radius: calc(var(--mv-radius-sm) - 2px); }
+}

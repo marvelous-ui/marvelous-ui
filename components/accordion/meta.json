@@ -1,0 +1,194 @@
+{
+  "name": "Accordion",
+  "slug": "accordion",
+  "tag": "mv-accordion",
+  "kind": "element",
+  "category": "data-display",
+  "wave": 1,
+  "description": "CSS accordion on native <details>: animated height (::details-content + interpolate-size), chevron or plus/minus, bordered, separated and card variants; optional <mv-accordion type=\"single\">. Also covers Collapsible.",
+  "useWhen": [
+    "Secondary content must be tucked away so users can expand only the sections they care about",
+    "Several collapsible sections should allow only one open at a time, like a settings group or help panel",
+    "A single show-more toggle is needed around extra details, using the standalone collapsible",
+    "Hidden text must stay findable with in-page search and readable by crawlers"
+  ],
+  "avoidWhen": [
+    {
+      "when": "A full marketing FAQ section with heading, index and contact note is needed",
+      "instead": "faq"
+    },
+    {
+      "when": "Users switch between parallel views of equal importance rather than expanding sections",
+      "instead": "tabs"
+    },
+    {
+      "when": "The content is critical and must be seen by everyone; hiding it behind a toggle reduces its visibility"
+    }
+  ],
+  "files": [
+    "accordion.css",
+    "accordion.js"
+  ],
+  "dependencies": [],
+  "usage": {
+    "class": "mv-accordion"
+  },
+  "tags": [
+    "accordion",
+    "accordéon",
+    "collapsible",
+    "details",
+    "faq",
+    "disclosure",
+    "expand"
+  ],
+  "demo": {
+    "layout": "wide",
+    "height": 560
+  },
+  "preview": {
+    "viewport": {
+      "width": 1280,
+      "height": 600
+    },
+    "steps": [
+      [
+        "wait",
+        400
+      ],
+      [
+        "click",
+        "mv-accordion .mv-accordion-item[data-value='returns'] > summary"
+      ],
+      [
+        "wait",
+        500
+      ],
+      [
+        "click",
+        ".mv-accordion[data-variant='bordered'] .mv-accordion-item:nth-child(2) > summary"
+      ],
+      [
+        "wait",
+        500
+      ],
+      [
+        "click",
+        ".mv-accordion[data-variant='separated'] .mv-accordion-item:nth-child(1) > summary"
+      ],
+      [
+        "wait",
+        600
+      ],
+      [
+        "click",
+        ".mv-accordion[data-variant='separated'] .mv-accordion-item:nth-child(1) > summary"
+      ],
+      [
+        "click",
+        ".mv-accordion[data-variant='bordered'] .mv-accordion-item:nth-child(2) > summary"
+      ],
+      [
+        "click",
+        "mv-accordion .mv-accordion-item[data-value='shipping'] > summary"
+      ],
+      [
+        "leave"
+      ],
+      [
+        "wait",
+        400
+      ]
+    ]
+  },
+  "api": {
+    "attributes": [
+      {
+        "name": "type",
+        "type": "single | multiple",
+        "default": "multiple",
+        "description": "On <mv-accordion>: single allows only one open item (native name attribute set automatically, JS fallback)."
+      },
+      {
+        "name": "data-variant",
+        "type": "bordered | separated | card",
+        "default": "(simple dividers)",
+        "description": "On .mv-accordion: a single outlined box, separate boxes, or filled tiles where the open item lifts."
+      },
+      {
+        "name": "data-icon",
+        "type": "chevron | plus | start | none",
+        "default": "chevron",
+        "description": "On .mv-accordion or an item: chevron on the right, plus that turns into minus, chevron before the label, or no indicator."
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "description": "Native on <details>: same name = exclusive group, no JS."
+      },
+      {
+        "name": "open",
+        "type": "boolean",
+        "description": "Native on <details>: open on load."
+      },
+      {
+        "name": "data-value",
+        "type": "string",
+        "description": "On an item: value reported in mv-change (its index otherwise)."
+      }
+    ],
+    "properties": [
+      {
+        "name": "value",
+        "type": "string[]",
+        "description": "Values of the open items; assign it to open/close items programmatically."
+      }
+    ],
+    "events": [
+      {
+        "name": "mv-change",
+        "description": "An item opened or closed. detail: { value: string[], item, open }."
+      }
+    ],
+    "slots": [
+      {
+        "name": "details.mv-accordion-item > summary",
+        "description": "Trigger; optional leading <svg> icon, .mv-accordion-heading + .mv-accordion-subtitle for a two-line header."
+      },
+      {
+        "name": ".mv-accordion-content",
+        "description": "Panel content (fade + blur on open)."
+      }
+    ],
+    "classes": [
+      {
+        "name": "mv-accordion",
+        "description": "Items container."
+      },
+      {
+        "name": "mv-accordion-item",
+        "description": "On <details>: one accordion item."
+      },
+      {
+        "name": "mv-accordion-content",
+        "description": "Content panel."
+      },
+      {
+        "name": "mv-accordion-heading / -subtitle",
+        "description": "Title and subtitle inside the <summary>."
+      },
+      {
+        "name": "mv-collapsible",
+        "description": "Collapsible: a standalone <details class=\"mv-collapsible\">, same height animation, free-form <summary> (style it yourself, e.g. mv-button)."
+      },
+      {
+        "name": "mv-accordion-chevron",
+        "description": "On an <svg> inside a <summary>: rotates 180° on open."
+      }
+    ],
+    "cssVars": []
+  },
+  "a11y": "Built on native <details>/<summary>: button role, expanded state announced, Enter/Space. <mv-accordion> adds Up/Down/Home/End between triggers. Closed content is out of the accessibility tree and still findable with Ctrl+F (opens automatically). Reduced motion: instant open. Browsers without ::details-content: instant open.",
+  "inspiredBy": [],
+  "status": "stable"
+}

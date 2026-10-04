@@ -1,0 +1,158 @@
+{
+  "name": "Typography",
+  "slug": "typography",
+  "kind": "css",
+  "category": "text",
+  "wave": 10,
+  "description": "Long-form text styles on one class: headings, lists, quotes, inline and block code, keys, tables, figures, definition lists and disclosures get a steady vertical rhythm and a capped reading measure, in 3 sizes. Components placed inside keep their own look, and mv-not-prose opts any subtree out.",
+  "quickstart": "<article class=\"mv-prose\">\n  <h1>Release notes</h1>\n  <p class=\"mv-prose-lead\">What changed in version 4.2.</p>\n  <p>Plain HTML from your CMS or Markdown renderer, styled as it is.</p>\n</article>",
+  "useWhen": [
+    "Rendered Markdown or CMS HTML (blog posts, docs, changelogs) must read well without adding a class to every element",
+    "Legal pages, help articles or release notes need consistent headings, lists and tables at a comfortable line length",
+    "A sidebar or help panel shows rich text in a smaller size with the same rhythm as the main article"
+  ],
+  "avoidWhen": [
+    {
+      "when": "The text is a UI label, card body or short marketing line rather than a flowing document"
+    },
+    {
+      "when": "A code sample needs a file name, line numbers, a copy button or highlighted lines",
+      "instead": "code-block"
+    },
+    {
+      "when": "Tabular data must be sorted, filtered or scanned with row hover and a sticky header",
+      "instead": "table"
+    }
+  ],
+  "files": [
+    "typography.css"
+  ],
+  "dependencies": [],
+  "usage": {
+    "class": "mv-prose"
+  },
+  "tags": [
+    "typography",
+    "prose",
+    "article",
+    "long-form",
+    "markdown",
+    "blog",
+    "docs",
+    "rich-text",
+    "lead"
+  ],
+  "demo": {
+    "layout": "padded",
+    "height": 900,
+    "requires": [
+      "button",
+      "card"
+    ]
+  },
+  "preview": {
+    "viewport": {
+      "width": 1152,
+      "height": 720
+    },
+    "static": true
+  },
+  "api": {
+    "classes": [
+      {
+        "name": "mv-prose",
+        "description": "Container, on <article>, <main> or <div>. Styles its native descendants: h1 to h6, p, a, strong, em, small, mark, abbr, del, ins, sub, sup, ul/ol (nested), blockquote, cite, code, samp, pre, kbd, hr, table, figure, img, video, iframe, dl, details."
+      },
+      {
+        "name": "mv-prose-lead",
+        "description": "Lead paragraph (standfirst) under the title: larger and muted."
+      },
+      {
+        "name": "mv-not-prose",
+        "description": "Escape hatch: the element and its whole subtree keep the host styles, untouched by mv-prose."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "data-size",
+        "type": "sm | lg",
+        "default": "(base)",
+        "description": "On .mv-prose: 14 / 16 / 18 px body text. Every margin is in em, so the rhythm scales with it."
+      },
+      {
+        "name": "data-align",
+        "type": "end | center",
+        "description": "On th or td: cell alignment (numbers)."
+      }
+    ],
+    "cssVars": [
+      {
+        "name": "--mv-prose-measure",
+        "default": "68ch",
+        "description": "Maximum line length of the container. Use none to fill the parent."
+      },
+      {
+        "name": "--mv-prose-body",
+        "description": "Body text color."
+      },
+      {
+        "name": "--mv-prose-headings",
+        "default": "var(--mv-fg)",
+        "description": "Headings, strong text, table headers and code color."
+      },
+      {
+        "name": "--mv-prose-links",
+        "default": "var(--mv-accent-fg)",
+        "description": "Link color."
+      },
+      {
+        "name": "--mv-prose-muted",
+        "default": "var(--mv-fg-subtle)",
+        "description": "List markers, captions and figure captions."
+      },
+      {
+        "name": "--mv-prose-rule",
+        "default": "var(--mv-border)",
+        "description": "Rules, h2 underline, table rows, pre and details borders."
+      },
+      {
+        "name": "--mv-prose-quote-border",
+        "default": "var(--mv-accent)",
+        "description": "Blockquote side border."
+      },
+      {
+        "name": "--mv-prose-code-bg",
+        "default": "var(--mv-bg-muted)",
+        "description": "Inline code background."
+      },
+      {
+        "name": "--mv-prose-pre-bg",
+        "default": "var(--mv-bg-subtle)",
+        "description": "Code block background."
+      },
+      {
+        "name": "--mv-prose-radius",
+        "default": "var(--mv-radius-lg)",
+        "description": "Radius of pre, images, videos and details."
+      },
+      {
+        "name": "--mv-prose-font",
+        "default": "var(--mv-font-sans)",
+        "description": "Body font family."
+      },
+      {
+        "name": "--mv-prose-heading-font",
+        "default": "var(--mv-font-display)",
+        "description": "Headings font family."
+      },
+      {
+        "name": "--mv-prose-scroll-margin",
+        "default": "5rem",
+        "description": "Space kept above a heading reached by an anchor link (sticky headers)."
+      }
+    ]
+  },
+  "a11y": "Pure CSS on native elements: the document outline, lists, tables and disclosures keep their semantics. Colors come from the tokens (body text and captions at 4.5:1 or more in both themes), links stay underlined, and links, summary, a focusable pre and a focusable table wrapper get a visible focus ring. Give a long <pre> tabindex=\"0\", and wrap a wide table in a plain <div role=\"region\" aria-label=\"…\" tabindex=\"0\"> so keyboard users can scroll it sideways. In forced colors, inline code keeps an outline, keys keep their border and <mark> uses the system Mark colors. No animation. The scoping relies on CSS @scope (all current engines); older browsers show the plain host styles.",
+  "inspiredBy": [],
+  "status": "stable"
+}

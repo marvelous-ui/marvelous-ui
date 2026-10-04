@@ -1,0 +1,77 @@
+@layer mv.components {
+  /* Keycap on <kbd>. Combos: <kbd class="mv-kbd-group"><kbd class="mv-kbd">⌘</kbd><kbd class="mv-kbd">K</kbd></kbd> */
+  :where(.mv-kbd) {
+    --_h: 1.25rem;
+    --_fs: 0.6875rem;
+    --_bg: var(--mv-kbd-bg, light-dark(var(--mv-gray-0), var(--mv-gray-800)));
+    --_fg: var(--mv-kbd-fg, var(--mv-fg-muted));
+    --_bd: var(--mv-kbd-border, light-dark(var(--mv-gray-200), oklch(1 0 0 / 0.1)));
+    --_depth: var(--mv-kbd-depth, light-dark(var(--mv-gray-300), oklch(0 0 0 / 0.55)));
+
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.125rem;
+    min-width: var(--_h);
+    height: var(--_h);
+    padding: 0 0.3125rem;
+    border: 1px solid var(--_bd);
+    border-radius: var(--mv-kbd-radius, var(--mv-radius-xs));
+    background: var(--_bg);
+    color: var(--_fg);
+    font: var(--mv-weight-medium) var(--_fs) / 1 var(--mv-font-sans);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    /* Subtle 3D: darker bottom edge + inner top highlight */
+    box-shadow:
+      inset 0 -1px 0 var(--_depth),
+      inset 0 1px 0 light-dark(oklch(1 0 0 / 0.9), oklch(1 0 0 / 0.06)),
+      0 1px 1px light-dark(oklch(0.2 0.02 var(--mv-neutral-h) / 0.06), oklch(0 0 0 / 0.3));
+    padding-bottom: 1px;
+  }
+  :where(.mv-kbd) :where(svg) { width: 0.75rem; height: 0.75rem; flex-shrink: 0; }
+
+  /* Sizes */
+  :where(.mv-kbd[data-size="sm"]) { --_h: 1rem; --_fs: 0.625rem; padding-inline: 0.25rem; }
+  :where(.mv-kbd[data-size="lg"]) { --_h: 1.75rem; --_fs: var(--mv-text-sm); padding-inline: 0.5rem; border-radius: var(--mv-kbd-radius, var(--mv-radius-sm)); }
+  :where(.mv-kbd[data-size="lg"]) :where(svg) { width: 0.875rem; height: 0.875rem; }
+
+  /* Flat: no depth, tinted, for dense UIs (menus, command palettes) */
+  :where(.mv-kbd[data-variant="flat"]) {
+    --_bg: var(--mv-bg-muted);
+    --_bd: transparent;
+    box-shadow: none;
+    padding-bottom: 0;
+  }
+
+  /* Group: nested <kbd> keys, "+" or "then" text in between stays muted */
+  :where(.mv-kbd-group) {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.1875rem;
+    color: var(--mv-fg-subtle);
+    font: var(--mv-weight-normal) var(--mv-text-xs) / 1 var(--mv-font-sans);
+    white-space: nowrap;
+    vertical-align: middle;
+  }
+
+  /* Contextual: keys on inverted/colored surfaces (primary buttons, tooltips) */
+  :where(.mv-button:not([data-variant]), .mv-button[data-variant="destructive"], .mv-tooltip) :where(.mv-kbd) {
+    --_bg: oklch(1 0 0 / 0.16);
+    --_fg: currentColor;
+    --_bd: oklch(1 0 0 / 0.14);
+    box-shadow: none;
+    padding-bottom: 0;
+  }
+  :where(.mv-tooltip) :where(.mv-kbd) {
+    --_bg: color-mix(in oklch, currentColor 14%, transparent);
+    --_bd: color-mix(in oklch, currentColor 12%, transparent);
+  }
+  :where(.mv-button) :where(.mv-kbd, .mv-kbd-group) { margin-inline-start: var(--mv-space-1); color: inherit; }
+  :where(.mv-button) :where(.mv-kbd-group) :where(.mv-kbd) { margin: 0; }
+  :where(.mv-button[data-variant="outline"], .mv-button[data-variant="secondary"], .mv-button[data-variant="ghost"]) :where(.mv-kbd) { --_fg: var(--mv-fg-muted); }
+}

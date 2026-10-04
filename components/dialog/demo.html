@@ -1,0 +1,57 @@
+<div style="display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center">
+  <mv-dialog>
+    <button class="mv-button" data-mv-open>Edit profile</button>
+    <dialog>
+      <button class="mv-dialog-close" data-mv-close aria-label="Close"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      <header class="mv-dialog-header">
+        <h2 class="mv-dialog-title">Edit profile</h2>
+        <p class="mv-dialog-description">Changes are saved when you click Save.</p>
+      </header>
+      <form method="dialog" style="display:grid;gap:.75rem">
+        <label style="display:grid;gap:.35rem;font-size:.875rem">Name
+          <input class="mv-input" value="Ada Lovelace">
+        </label>
+        <div class="mv-dialog-footer">
+          <button type="button" class="mv-button" data-variant="outline" data-mv-close>Cancel</button>
+          <button class="mv-button" value="save">Save</button>
+        </div>
+      </form>
+    </dialog>
+  </mv-dialog>
+
+  <mv-dialog persistent>
+    <button class="mv-button" data-variant="destructive" data-mv-open>Delete…</button>
+    <dialog style="--mv-dialog-width:26rem">
+      <header class="mv-dialog-header">
+        <h2 class="mv-dialog-title">Delete project?</h2>
+        <p class="mv-dialog-description">This action can’t be undone. All data will be lost.</p>
+      </header>
+      <div class="mv-dialog-footer">
+        <button class="mv-button" data-variant="outline" data-mv-close="cancel">Cancel</button>
+        <button class="mv-button" data-variant="destructive" data-mv-close="confirm">Delete</button>
+      </div>
+    </dialog>
+  </mv-dialog>
+
+  <mv-dialog>
+    <button class="mv-button" data-variant="outline" data-mv-open>Side panel</button>
+    <dialog data-variant="sheet" data-side="right">
+      <button class="mv-dialog-close" data-mv-close aria-label="Close"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      <header class="mv-dialog-header">
+        <h2 class="mv-dialog-title">Filters</h2>
+        <p class="mv-dialog-description">Slides in from the right.</p>
+      </header>
+    </dialog>
+  </mv-dialog>
+
+  <mv-dialog swipe>
+    <button class="mv-button" data-variant="outline" data-mv-open>Mobile drawer</button>
+    <dialog data-variant="sheet" data-side="bottom">
+      <header class="mv-dialog-header">
+        <h2 class="mv-dialog-title">Drawer</h2>
+        <p class="mv-dialog-description">Swipe down to close it.</p>
+      </header>
+      <div style="height:30vh"></div>
+    </dialog>
+  </mv-dialog>
+</div>

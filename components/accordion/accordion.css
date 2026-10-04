@@ -1,0 +1,169 @@
+@layer mv.components {
+  /*
+   * Accordion / Collapsible on native <details>.
+   * Height animates with ::details-content + interpolate-size; browsers
+   * without them simply open instantly.
+   */
+  :where(mv-accordion) { display: block; }
+
+  :where(.mv-accordion) {
+    --_px: 0px;
+    display: flex;
+    flex-direction: column;
+    color: var(--mv-fg);
+  }
+
+  :where(.mv-accordion-item, .mv-collapsible) {
+    interpolate-size: allow-keywords;
+  }
+  :where(.mv-accordion-item) {
+    border-bottom: 1px solid var(--mv-border);
+  }
+  :where(.mv-accordion-item:last-child) { border-bottom: 0; }
+
+  /* ── Trigger ─────────────────────────────────────────────── */
+  :where(.mv-accordion-item) > :where(summary) {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--mv-space-3);
+    padding: var(--mv-space-4) var(--_px, 0px);
+    border-radius: var(--mv-radius-sm);
+    font-size: var(--mv-text-sm);
+    font-weight: var(--mv-weight-medium);
+    line-height: var(--mv-leading-snug);
+    list-style: none;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: color var(--mv-duration-fast) var(--mv-ease-out);
+  }
+  :where(.mv-accordion-item, .mv-collapsible) > :where(summary)::-webkit-details-marker { display: none; }
+  :where(.mv-collapsible) > :where(summary) { list-style: none; cursor: pointer; width: fit-content; }
+  :where(.mv-accordion-item) > :where(summary):hover { color: color-mix(in oklab, var(--mv-fg) 80%, var(--mv-accent)); }
+  :where(.mv-accordion-item, .mv-collapsible) > :where(summary):focus-visible { outline: none; box-shadow: var(--mv-focus-ring); z-index: 1; }
+  :where(.mv-accordion-item) > :where(summary) > :where(svg:not(.mv-accordion-chevron)) { width: 1rem; height: 1rem; flex-shrink: 0; color: var(--mv-fg-muted); }
+
+  /* Optional two-line header */
+  :where(.mv-accordion-heading) { display: grid; gap: 2px; flex: 1; min-width: 0; }
+  :where(.mv-accordion-subtitle) { color: var(--mv-fg-muted); font-weight: var(--mv-weight-normal); font-size: var(--mv-text-xs); }
+
+  /* Chevron drawn by CSS (mask), pushed to the end */
+  :where(.mv-accordion-item) > :where(summary)::after {
+    content: "";
+    flex-shrink: 0;
+    width: 1rem;
+    height: 1rem;
+    margin-inline-start: auto;
+    background: var(--mv-fg-muted);
+    -webkit-mask: var(--_chevron) center / contain no-repeat;
+    mask: var(--_chevron) center / contain no-repeat;
+    transition: rotate var(--mv-duration-normal) var(--mv-ease-out), background-color var(--mv-duration-fast);
+    --_chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  }
+  :where(.mv-accordion-item[open]) > :where(summary)::after { rotate: 180deg; background: var(--mv-fg); }
+
+  /* data-icon="plus" on the accordion (or item): plus that morphs into a minus */
+  :where(.mv-accordion[data-icon="plus"] .mv-accordion-item, .mv-accordion-item[data-icon="plus"]) > :where(summary)::after {
+    -webkit-mask: none;
+    mask: none;
+    background:
+      linear-gradient(currentColor, currentColor) center / 0.75rem 1.5px no-repeat,
+      linear-gradient(currentColor, currentColor) center / 1.5px 0.75rem no-repeat;
+    color: var(--mv-fg-muted);
+    transition: rotate var(--mv-duration-normal) var(--mv-ease-out), background-size var(--mv-duration-normal) var(--mv-ease-out), color var(--mv-duration-fast);
+  }
+  :where(.mv-accordion[data-icon="plus"] .mv-accordion-item[open], .mv-accordion-item[data-icon="plus"][open]) > :where(summary)::after {
+    rotate: 180deg;
+    background-size: 0.75rem 1.5px, 1.5px 0;
+    background-color: transparent;
+    color: var(--mv-fg);
+  }
+  /* data-icon="start": indicator before the label */
+  :where(.mv-accordion[data-icon="start"] .mv-accordion-item) > :where(summary)::after { order: -1; margin-inline-start: 0; rotate: -90deg; }
+  :where(.mv-accordion[data-icon="start"] .mv-accordion-item[open]) > :where(summary)::after { rotate: 0deg; }
+  :where(.mv-accordion[data-icon="none"] .mv-accordion-item) > :where(summary)::after { display: none; }
+
+  /* Chevron for collapsibles / custom triggers */
+  :where(.mv-accordion-chevron) { width: 1rem; height: 1rem; flex-shrink: 0; transition: rotate var(--mv-duration-normal) var(--mv-ease-out); }
+  :where(details[open]) > :where(summary) :where(.mv-accordion-chevron) { rotate: 180deg; }
+
+  /* ── Panel ───────────────────────────────────────────────── */
+  :where(.mv-accordion-content) {
+    padding: 0 var(--_px, 0px) var(--mv-space-4);
+    color: var(--mv-fg-muted);
+    font-size: var(--mv-text-sm);
+    line-height: var(--mv-leading-normal);
+    transition:
+      opacity var(--mv-duration-normal) var(--mv-ease-out),
+      translate var(--mv-duration-normal) var(--mv-ease-out),
+      filter var(--mv-duration-normal) var(--mv-ease-out);
+  }
+  :where(.mv-accordion-content) > :where(:first-child) { margin-top: 0; }
+  :where(.mv-accordion-content) > :where(:last-child) { margin-bottom: 0; }
+  :where(details:not([open])) > :where(.mv-accordion-content) {
+    opacity: 0;
+    translate: 0 calc(-4px * var(--mv-motion));
+    filter: blur(2px);
+  }
+  @starting-style {
+    :where(details[open]) > :where(.mv-accordion-content) {
+      opacity: 0;
+      translate: 0 calc(-4px * var(--mv-motion));
+      filter: blur(2px);
+    }
+  }
+
+  @supports selector(::details-content) {
+    :where(.mv-accordion-item, .mv-collapsible)::details-content {
+      block-size: 0;
+      overflow-y: clip;
+      transition:
+        block-size var(--mv-duration-normal) var(--mv-ease-out),
+        content-visibility var(--mv-duration-normal) allow-discrete;
+    }
+    :where(.mv-accordion-item[open], .mv-collapsible[open])::details-content { block-size: auto; }
+  }
+
+  /* ── Variant: bordered (one outlined box) ────────────────── */
+  :where(.mv-accordion[data-variant="bordered"]) {
+    --_px: var(--mv-space-4);
+    border: 1px solid var(--mv-border);
+    border-radius: var(--mv-radius-lg);
+    background: var(--mv-surface);
+    overflow: clip;
+    overflow-clip-margin: 4px;
+  }
+  :where(.mv-accordion[data-variant="bordered"]) :where(.mv-accordion-item) > :where(summary) { border-radius: 0; }
+  :where(.mv-accordion[data-variant="bordered"]) :where(.mv-accordion-item) > :where(summary):hover { background: var(--mv-bg-subtle); color: var(--mv-fg); }
+  :where(.mv-accordion[data-variant="bordered"]) :where(.mv-accordion-item) > :where(summary):focus-visible { box-shadow: inset 0 0 0 2px var(--mv-ring); }
+
+  /* ── Variant: separated (individual outlined boxes) ─────── */
+  :where(.mv-accordion[data-variant="separated"]) { --_px: var(--mv-space-4); gap: var(--mv-space-2); }
+  :where(.mv-accordion[data-variant="separated"]) :where(.mv-accordion-item) {
+    border: 1px solid var(--mv-border);
+    border-radius: var(--mv-radius-lg);
+    background: var(--mv-surface);
+    transition: border-color var(--mv-duration-fast) var(--mv-ease-out);
+  }
+  :where(.mv-accordion[data-variant="separated"]) :where(.mv-accordion-item) > :where(summary) { border-radius: calc(var(--mv-radius-lg) - 1px); }
+  :where(.mv-accordion[data-variant="separated"]) :where(.mv-accordion-item[open]) { border-color: var(--mv-border-strong); }
+
+  /* ── Variant: card (filled tiles, the open one lifts) ────── */
+  :where(.mv-accordion[data-variant="card"]) { --_px: var(--mv-space-5); gap: var(--mv-space-2); }
+  :where(.mv-accordion[data-variant="card"]) :where(.mv-accordion-item) {
+    border: 1px solid transparent;
+    border-radius: var(--mv-radius-xl);
+    background: var(--mv-bg-muted);
+    transition:
+      background-color var(--mv-duration-normal) var(--mv-ease-out),
+      border-color var(--mv-duration-normal) var(--mv-ease-out),
+      box-shadow var(--mv-duration-normal) var(--mv-ease-out);
+  }
+  :where(.mv-accordion[data-variant="card"]) :where(.mv-accordion-item) > :where(summary) { border-radius: calc(var(--mv-radius-xl) - 1px); }
+  :where(.mv-accordion[data-variant="card"]) :where(.mv-accordion-item[open]) {
+    border-color: var(--mv-border);
+    background: var(--mv-surface-raised);
+    box-shadow: var(--mv-shadow-md);
+  }
+}

@@ -1,0 +1,136 @@
+{
+  "name": "Button",
+  "slug": "button",
+  "kind": "css",
+  "category": "primitive",
+  "wave": 1,
+  "description": "Pure-CSS button on <button> or <a>: 6 variants, 4 sizes, loading state, group.",
+  "useWhen": [
+    "A form submission or in-page action needs a clear, consistently styled trigger",
+    "Actions must be ranked by importance with primary, secondary, outline, ghost, destructive or link styles",
+    "An action runs asynchronously and should show a loading state that blocks repeat clicks",
+    "Related actions should be joined into a single attached group"
+  ],
+  "avoidWhen": [
+    {
+      "when": "The button toggles an on/off state that stays pressed",
+      "instead": "toggle"
+    },
+    {
+      "when": "A destructive action needs a deliberate press-and-hold confirmation",
+      "instead": "hold-button"
+    },
+    {
+      "when": "A marketing call to action needs an attention-grabbing animated style",
+      "instead": "button-effects"
+    }
+  ],
+  "files": [
+    "button.css"
+  ],
+  "usage": {
+    "class": "mv-button"
+  },
+  "tags": [
+    "button",
+    "cta",
+    "group",
+    "loading"
+  ],
+  "preview": {
+    "viewport": {
+      "width": 600,
+      "height": 200
+    },
+    "steps": [
+      [
+        "wait",
+        500
+      ],
+      [
+        "click",
+        "button.mv-button:has-text('Primary')"
+      ],
+      [
+        "wait",
+        400
+      ],
+      [
+        "click",
+        "button.mv-button:has-text('Create')"
+      ],
+      [
+        "wait",
+        500
+      ],
+      [
+        "click",
+        "[aria-label='Settings']"
+      ],
+      [
+        "wait",
+        400
+      ],
+      [
+        "hover",
+        "button.mv-button:has-text('Center')"
+      ],
+      [
+        "wait",
+        500
+      ],
+      [
+        "leave"
+      ],
+      [
+        "wait",
+        700
+      ]
+    ]
+  },
+  "api": {
+    "classes": [
+      {
+        "name": "mv-button",
+        "description": "Base class, on <button> or <a>."
+      },
+      {
+        "name": "mv-button-group",
+        "description": "Container that joins several buttons together (add role=\"group\")."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "data-variant",
+        "type": "secondary | outline | ghost | destructive | link",
+        "default": "(primary)",
+        "description": "Visual style."
+      },
+      {
+        "name": "data-size",
+        "type": "sm | lg | icon | icon-sm | icon-xs",
+        "default": "(md)",
+        "description": "Size; icon = square (36px), icon-sm = 32px for toolbars, icon-xs = 24px for compact tables. Name icon-only buttons with aria-label."
+      },
+      {
+        "name": "data-shape",
+        "type": "pill | round",
+        "description": "Fully rounded corners."
+      },
+      {
+        "name": "aria-busy",
+        "type": "true",
+        "description": "Shows a spinner and blocks clicks."
+      }
+    ],
+    "cssVars": [
+      {
+        "name": "--mv-button-radius",
+        "default": "var(--mv-radius-md)",
+        "description": "Corner radius."
+      }
+    ]
+  },
+  "a11y": "Use a real <button> (or <a href> for navigation). Icon buttons must have an aria-label.",
+  "inspiredBy": []
+}

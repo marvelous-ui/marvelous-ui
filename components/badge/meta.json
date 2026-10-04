@@ -1,0 +1,174 @@
+{
+  "name": "Badge",
+  "slug": "badge",
+  "kind": "css",
+  "category": "primitive",
+  "wave": 1,
+  "description": "Pure-CSS badge: 7 variants (soft or solid tints), animatable status dot, icon, remove button, pill/square, 3 sizes, and a counter positioned on the corner of an avatar or icon.",
+  "useWhen": [
+    "A short status label must sit next to an item, such as Paid, Failed or Beta",
+    "An unread count or presence dot must be pinned to the corner of an icon or avatar",
+    "Removable tags or active filters need a compact chip with a remove button"
+  ],
+  "avoidWhen": [
+    {
+      "when": "The item is a primary action the user is expected to click",
+      "instead": "button"
+    },
+    {
+      "when": "The message needs a title, a description or actions, such as a warning about the page",
+      "instead": "alert"
+    },
+    {
+      "when": "The status would be conveyed by color alone without a readable label"
+    }
+  ],
+  "files": [
+    "badge.css"
+  ],
+  "usage": {
+    "class": "mv-badge"
+  },
+  "tags": [
+    "badge",
+    "chip",
+    "tag",
+    "pill",
+    "status",
+    "counter",
+    "notification",
+    "dot"
+  ],
+  "demo": {
+    "layout": "center",
+    "height": 360,
+    "requires": [
+      "button"
+    ]
+  },
+  "preview": {
+    "viewport": {
+      "width": 600,
+      "height": 250
+    },
+    "steps": [
+      [
+        "wait",
+        600
+      ],
+      [
+        "hover",
+        "#mv-badge-demo a.mv-badge"
+      ],
+      [
+        "wait",
+        700
+      ],
+      [
+        "hover",
+        "[aria-label='Remove Accessibility']"
+      ],
+      [
+        "wait",
+        600
+      ],
+      [
+        "hover",
+        "[aria-label='Remove Rust']"
+      ],
+      [
+        "wait",
+        600
+      ],
+      [
+        "hover",
+        "[aria-label='Notifications, 3 unread']"
+      ],
+      [
+        "wait",
+        700
+      ],
+      [
+        "leave"
+      ],
+      [
+        "wait",
+        800
+      ]
+    ]
+  },
+  "api": {
+    "classes": [
+      {
+        "name": "mv-badge",
+        "description": "On <span>, or <a>/<button> for an interactive badge (hover + focus)."
+      },
+      {
+        "name": "mv-badge-dot",
+        "description": "Status dot; takes the variant’s tint or --mv-badge-dot. data-pulse: “live” ripple."
+      },
+      {
+        "name": "mv-badge-remove",
+        "description": "Remove <button> inside the badge (the removal itself is up to you)."
+      },
+      {
+        "name": "mv-badge-anchor",
+        "description": "Relative container around an avatar/icon to place a .mv-badge[data-position] on it."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "data-variant",
+        "type": "secondary | outline | success | warning | danger | info",
+        "default": "(solid accent)",
+        "description": "Visual style; semantic variants are tinted."
+      },
+      {
+        "name": "data-appearance",
+        "type": "solid",
+        "description": "Semantic variant in solid color (counters, strong statuses)."
+      },
+      {
+        "name": "data-shape",
+        "type": "pill | square",
+        "default": "(rounded)",
+        "description": "Corner shape."
+      },
+      {
+        "name": "data-size",
+        "type": "sm | lg",
+        "default": "(md)",
+        "description": "Height 18 / 22 / 26px."
+      },
+      {
+        "name": "data-position",
+        "type": "top-right | top-left | bottom-right | bottom-left",
+        "description": "Counter positioned on the corner of the parent .mv-badge-anchor, cut out by a ring; empty = plain dot (unread, presence)."
+      }
+    ],
+    "cssVars": [
+      {
+        "name": "--mv-badge-radius",
+        "default": "var(--mv-radius-sm)",
+        "description": "Default radius."
+      },
+      {
+        "name": "--mv-badge-dot",
+        "description": "Dot color."
+      },
+      {
+        "name": "--mv-badge-offset",
+        "default": "0px",
+        "description": "Inward offset of the positioned badge (useful on a round avatar)."
+      },
+      {
+        "name": "--mv-badge-ring",
+        "default": "var(--mv-bg)",
+        "description": "Color of the positioned badge’s cut-out ring (set it to the background color)."
+      }
+    ]
+  },
+  "a11y": "A badge is text: it’s read as is. Don’t convey information through color alone (keep a label: “Paid”, “Failed”). Positioned counter: mark it aria-hidden=\"true\" and carry the information in the trigger’s accessible name (aria-label=\"Notifications, 3 unread\"). Remove button: explicit aria-label (“Remove Design”) and move focus to the neighboring badge after removal. The data-pulse ripple is disabled with reduced motion.",
+  "inspiredBy": [],
+  "status": "stable"
+}

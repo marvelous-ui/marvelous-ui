@@ -1,0 +1,56 @@
+@layer mv.components {
+  :where(mv-tooltip) { display: contents; }
+
+  :where(.mv-tooltip) {
+    max-width: min(20rem, calc(100vw - 16px));
+    padding: var(--mv-space-1-5) var(--mv-space-2-5, 0.625rem);
+    border: 0;
+    border-radius: var(--mv-radius-sm);
+    background: var(--mv-tooltip-bg, light-dark(var(--mv-gray-950), var(--mv-gray-50)));
+    color: var(--mv-tooltip-fg, light-dark(var(--mv-gray-50), var(--mv-gray-950)));
+    font: var(--mv-weight-medium) var(--mv-text-xs) / 1.4 var(--mv-font-sans);
+    box-shadow: var(--mv-shadow-md);
+    pointer-events: none;
+    transform-origin: var(--mv-origin, center);
+    overflow: visible;
+
+    opacity: 0;
+    scale: 0.94;
+    transition:
+      opacity var(--mv-duration-fast) var(--mv-ease-out),
+      scale var(--mv-duration-fast) var(--mv-ease-out),
+      translate var(--mv-duration-fast) var(--mv-ease-out),
+      display var(--mv-duration-fast) allow-discrete,
+      overlay var(--mv-duration-fast) allow-discrete;
+  }
+  :where(.mv-tooltip):popover-open { opacity: 1; scale: 1; translate: 0 0; }
+  @starting-style {
+    :where(.mv-tooltip):popover-open { opacity: 0; scale: 0.94; }
+    :where(.mv-tooltip[data-side="top"]):popover-open { translate: 0 3px; }
+    :where(.mv-tooltip[data-side="bottom"]):popover-open { translate: 0 -3px; }
+    :where(.mv-tooltip[data-side="left"]):popover-open { translate: 3px 0; }
+    :where(.mv-tooltip[data-side="right"]):popover-open { translate: -3px 0; }
+  }
+
+  /* Arrow */
+  :where(.mv-tooltip)::after {
+    content: "";
+    position: absolute;
+    width: 8px; height: 8px;
+    background: inherit;
+    rotate: 45deg;
+    border-radius: 1px;
+  }
+  :where(.mv-tooltip[data-side="top"])::after    { bottom: -4px; left: calc(var(--mv-arrow-x, 50%) - 4px); }
+  :where(.mv-tooltip[data-side="bottom"])::after { top: -4px; left: calc(var(--mv-arrow-x, 50%) - 4px); }
+  :where(.mv-tooltip[data-side="left"])::after   { right: -4px; top: calc(var(--mv-arrow-y, 50%) - 4px); }
+  :where(.mv-tooltip[data-side="right"])::after  { left: -4px; top: calc(var(--mv-arrow-y, 50%) - 4px); }
+  :where(.mv-tooltip[data-arrow="false"])::after { display: none; }
+}
+
+/* Forced colors drop the shadow and background that separate the bubble from the page: draw a border */
+@layer mv.components {
+  @media (forced-colors: active) {
+    :where(.mv-tooltip) { border: 1px solid CanvasText; }
+  }
+}

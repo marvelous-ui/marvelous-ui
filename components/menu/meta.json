@@ -1,0 +1,256 @@
+{
+  "name": "Menu",
+  "slug": "menu",
+  "tag": "mv-menu",
+  "kind": "element",
+  "category": "overlay",
+  "wave": 1,
+  "description": "Full-featured dropdown menu: checkboxes, radio items, submenus with a safe-triangle, shortcuts, typeahead and APG keyboard navigation; opt-in data-motion=\"glide\" (opens from the trigger’s corner, a single highlight that glides between items, submenus that slide in).",
+  "useWhen": [
+    "A button opens a list of actions, such as a row's Edit, Duplicate and Delete",
+    "Actions need checkable items, radio groups, shortcuts or nested submenus",
+    "An account or overflow menu must open from a trigger with full keyboard and typeahead support"
+  ],
+  "avoidWhen": [
+    {
+      "when": "The user is choosing a value to submit with a form",
+      "instead": "select"
+    },
+    {
+      "when": "The panel holds a form or rich interactive content rather than a list of actions",
+      "instead": "popover"
+    },
+    {
+      "when": "Actions should appear at the pointer on right-click or long-press",
+      "instead": "context-menu"
+    }
+  ],
+  "files": [
+    "menu.js",
+    "menu.css"
+  ],
+  "tags": [
+    "dropdown",
+    "dropdown-menu",
+    "menu-button",
+    "submenu",
+    "typeahead",
+    "checkbox",
+    "radio",
+    "animated-dropdown",
+    "glide",
+    "highlight-pill"
+  ],
+  "demo": {
+    "layout": "center",
+    "height": 420,
+    "requires": [
+      "button"
+    ]
+  },
+  "preview": {
+    "viewport": {
+      "width": 560,
+      "height": 400
+    },
+    "steps": [
+      [
+        "wait",
+        500
+      ],
+      [
+        "click",
+        "button:has-text('Project')"
+      ],
+      [
+        "wait",
+        400
+      ],
+      [
+        "hover",
+        "button[role='menuitem']:has-text('Rename') >> visible=true"
+      ],
+      [
+        "hover",
+        "button[role='menuitem']:has-text('Export') >> visible=true"
+      ],
+      [
+        "wait",
+        400
+      ],
+      [
+        "hover",
+        "button[role='menuitem']:has-text('PNG image') >> visible=true"
+      ],
+      [
+        "wait",
+        500
+      ],
+      [
+        "hover",
+        "button[role='menuitemradio']:has-text('Board') >> visible=true"
+      ],
+      [
+        "wait",
+        500
+      ],
+      [
+        "press",
+        "Escape"
+      ],
+      [
+        "press",
+        "Escape"
+      ],
+      [
+        "leave"
+      ],
+      [
+        "wait",
+        500
+      ]
+    ]
+  },
+  "api": {
+    "attributes": [
+      {
+        "name": "placement",
+        "type": "top | bottom | left | right[-start|-end]",
+        "default": "bottom-start",
+        "description": "Panel position relative to the trigger (automatic flip/shift)."
+      },
+      {
+        "name": "offset",
+        "type": "number",
+        "default": "6",
+        "description": "Distance from the trigger (px)."
+      },
+      {
+        "name": "open",
+        "type": "boolean",
+        "description": "Opens/closes programmatically (reflects the state)."
+      },
+      {
+        "name": "data-motion",
+        "type": "\"glide\"",
+        "description": "Opt-in (on mv-menu, mv-context-menu or an ancestor): the panel blooms from the corner closest to the trigger (based on data-side / data-align), a single highlight pill glides from item to item (hover and keyboard) instead of per-item backgrounds, and submenus slide out from their row. Without the attribute, rendering is unchanged."
+      }
+    ],
+    "methods": [
+      {
+        "name": "show({ focus })",
+        "description": "Opens; focus = \"first\" | \"last\" | \"panel\"."
+      },
+      {
+        "name": "hide({ focus })",
+        "description": "Closes every level; focus=true returns focus to the trigger."
+      }
+    ],
+    "properties": [
+      {
+        "name": "isOpen",
+        "type": "boolean",
+        "description": "Read-only."
+      },
+      {
+        "name": "menu",
+        "type": "MenuPanel",
+        "description": "Reusable engine (class exported by menu.js, used by Context Menu)."
+      }
+    ],
+    "events": [
+      {
+        "name": "mv-select",
+        "description": "Cancelable (preventDefault keeps the menu open). detail: { value, label, item, checked?, group? }."
+      },
+      {
+        "name": "mv-open",
+        "description": "After opening."
+      },
+      {
+        "name": "mv-close",
+        "description": "After closing."
+      }
+    ],
+    "slots": [
+      {
+        "name": "first child",
+        "description": "Trigger: aria-haspopup=menu, aria-expanded and aria-controls are set automatically."
+      },
+      {
+        "name": "[data-content]",
+        "description": "Menu panel (role=menu)."
+      },
+      {
+        "name": "<button role=menuitem>",
+        "description": "Action item; value (or data-value) → detail.value; disabled or aria-disabled; data-variant=\"destructive\"."
+      },
+      {
+        "name": "role=menuitemcheckbox / menuitemradio",
+        "description": "Checkable items (aria-checked). Radios are exclusive within their [role=group] (data-name → detail.group)."
+      },
+      {
+        "name": "[data-keep-open]",
+        "description": "On an item: keeps the menu open after selection."
+      },
+      {
+        "name": "[data-submenu]",
+        "description": "Wraps a menuitem trigger + a nested [data-content]: submenu (hover, → / ←). Items, groups, separators and submenus added later (async lists) are enhanced automatically."
+      },
+      {
+        "name": "<hr>",
+        "description": "Separator."
+      }
+    ],
+    "classes": [
+      {
+        "name": "mv-menu-label",
+        "description": "Group label; data-inset aligns it with checkable items."
+      },
+      {
+        "name": "mv-menu-shortcut",
+        "description": "Right-aligned shortcut hint (ignored by typeahead)."
+      },
+      {
+        "name": "mv-menu-header",
+        "description": "Free-form header block (avatar + name…)."
+      },
+      {
+        "name": "mv-menu-pill",
+        "description": "Highlight pill created by the engine in glide mode (aria-hidden); tinted red on a destructive item. Uses --mv-menu-highlight."
+      }
+    ],
+    "cssVars": [
+      {
+        "name": "--mv-menu-width",
+        "default": "auto",
+        "description": "Fixed panel width."
+      },
+      {
+        "name": "--mv-menu-min-width",
+        "default": "11rem",
+        "description": "Minimum width."
+      },
+      {
+        "name": "--mv-menu-item-height",
+        "default": "2rem",
+        "description": "Minimum item height."
+      },
+      {
+        "name": "--mv-menu-highlight",
+        "description": "Active item background."
+      },
+      {
+        "name": "--mv-menu-bg",
+        "description": "Panel background."
+      },
+      {
+        "name": "--mv-menu-radius",
+        "description": "Panel corner radius."
+      }
+    ]
+  },
+  "a11y": "APG “Menu Button” and “Menu” patterns: Enter/Space/↓ open on the first item, ↑ on the last; ↑↓ Home/End navigate (roving focus, wrapping), letters trigger typeahead (accent-insensitive), → opens a submenu and ← closes it, Escape closes and returns focus to the trigger, Tab closes and continues tabbing. aria-checked on checkable items, aria-expanded on submenu triggers. Hover moves focus (like Radix).",
+  "inspiredBy": [],
+  "status": "stable"
+}

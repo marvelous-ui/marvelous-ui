@@ -1,0 +1,172 @@
+{
+  "name": "Card",
+  "slug": "card",
+  "kind": "css",
+  "category": "data-display",
+  "wave": 1,
+  "description": "Composable card (media, header, action, content, footer): outline, elevated, ghost and muted variants, plus a fully clickable card.",
+  "useWhen": [
+    "Related content must be grouped in a bordered or elevated surface with header, body and footer",
+    "A grid of articles, projects or resources where each whole card links to a detail page",
+    "A dashboard tile shows one key figure with its trend next to a label"
+  ],
+  "avoidWhen": [
+    {
+      "when": "The card represents a product with price, variants, wishlist and quick add",
+      "instead": "product-card"
+    },
+    {
+      "when": "Cards should open into a detail view in place instead of navigating away",
+      "instead": "expandable-card"
+    },
+    {
+      "when": "A landing page needs an asymmetric feature grid with spanning tiles and visuals",
+      "instead": "bento-grid"
+    }
+  ],
+  "files": [
+    "card.css"
+  ],
+  "usage": {
+    "class": "mv-card"
+  },
+  "tags": [
+    "card",
+    "stat",
+    "media",
+    "interactive"
+  ],
+  "demo": {
+    "layout": "padded",
+    "requires": [
+      "button"
+    ]
+  },
+  "preview": {
+    "viewport": {
+      "width": 944,
+      "height": 328
+    },
+    "steps": [
+      [
+        "wait",
+        500
+      ],
+      [
+        "hover",
+        ".mv-card[data-interactive] .mv-card-media"
+      ],
+      [
+        "wait",
+        900
+      ],
+      [
+        "click",
+        ".mv-card[data-variant='elevated'] .mv-input"
+      ],
+      [
+        "type",
+        "maya@northwind.io"
+      ],
+      [
+        "wait",
+        400
+      ],
+      [
+        "hover",
+        ".mv-card[data-variant='elevated'] .mv-card-footer .mv-button"
+      ],
+      [
+        "wait",
+        500
+      ],
+      [
+        "press",
+        "Control+a"
+      ],
+      [
+        "press",
+        "Backspace"
+      ],
+      [
+        "click",
+        ".mv-card:first-child .mv-card-stat"
+      ],
+      [
+        "leave"
+      ],
+      [
+        "wait",
+        500
+      ]
+    ]
+  },
+  "api": {
+    "classes": [
+      {
+        "name": "mv-card",
+        "description": "Container."
+      },
+      {
+        "name": "mv-card-media",
+        "description": "Leading image/video <figure> (ratio via --mv-card-media-ratio)."
+      },
+      {
+        "name": "mv-card-header / -title / -description / -action",
+        "description": "Header; -action sits at the top right."
+      },
+      {
+        "name": "mv-card-content",
+        "description": "Body."
+      },
+      {
+        "name": "mv-card-footer",
+        "description": "Footer; data-bordered for a separated, tinted footer."
+      },
+      {
+        "name": "mv-card-link",
+        "description": "Link stretched over the whole card (with data-interactive)."
+      },
+      {
+        "name": "mv-card-stat / mv-card-trend",
+        "description": "Key figure and trend (data-direction=\"down\")."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "data-variant",
+        "type": "elevated | ghost | muted",
+        "description": "Style (default: outline)."
+      },
+      {
+        "name": "data-size",
+        "type": "sm",
+        "description": "Reduced padding."
+      },
+      {
+        "name": "data-interactive",
+        "type": "boolean",
+        "description": "Lift on hover, media zoom, focus ring."
+      }
+    ],
+    "cssVars": [
+      {
+        "name": "--mv-card-padding",
+        "default": "var(--mv-space-6)",
+        "description": "Inner padding."
+      },
+      {
+        "name": "--mv-card-radius",
+        "default": "var(--mv-radius-xl)",
+        "description": "Radius."
+      },
+      {
+        "name": "--mv-card-media-ratio",
+        "default": "16 / 9",
+        "description": "Media aspect ratio."
+      }
+    ]
+  },
+  "a11y": "Clickable card: a single link (.mv-card-link) in the title; other controls stay reachable on top (z-index).",
+  "inspiredBy": []
+}

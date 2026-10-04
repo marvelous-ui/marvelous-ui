@@ -1,0 +1,102 @@
+@layer mv.components {
+  /* ── Radio: <input type="radio" class="mv-radio"> ─────────────────────── */
+  :where(input.mv-radio) {
+    --_size: var(--mv-radio-size, 1rem);
+    --_box: var(--_size);
+    --_bg: var(--mv-bg);
+    --_border: var(--mv-input);
+
+    appearance: none;
+    position: relative;
+    display: inline-grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: var(--_size);
+    height: var(--_size);
+    margin: 0;
+    border: 1px solid var(--_border);
+    border-radius: 50%;
+    background: var(--_bg);
+    box-shadow: var(--mv-shadow-xs);
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      background-color var(--mv-duration-fast) var(--mv-ease-out),
+      border-color var(--mv-duration-fast) var(--mv-ease-out),
+      box-shadow var(--mv-duration-fast) var(--mv-ease-out),
+      scale var(--mv-duration-fast) var(--mv-ease-out);
+  }
+
+  /* Inner dot: pops in on a spring, shrinks quickly on the way out. */
+  :where(input.mv-radio)::before {
+    content: "";
+    width: 40%;
+    height: 40%;
+    border-radius: 50%;
+    background: var(--mv-fg-on-accent);
+    box-shadow: 0 1px 1px color-mix(in oklab, black 18%, transparent);
+    scale: 0;
+    transition: scale var(--mv-duration-fast) var(--mv-ease-out);
+  }
+
+  :where(input.mv-radio):hover { --_border: var(--mv-border-strong); }
+  :where(input.mv-radio):active:not(:disabled) { scale: 0.92; }
+  :where(input.mv-radio):focus-visible { outline: none; box-shadow: var(--mv-focus-ring); }
+
+  :where(input.mv-radio):checked { --_bg: var(--mv-accent); --_border: var(--mv-accent); }
+  :where(input.mv-radio):checked:hover { --_bg: var(--mv-accent-hover); --_border: var(--mv-accent-hover); }
+  :where(input.mv-radio):checked::before {
+    scale: 1;
+    transition: scale var(--mv-duration-slow) var(--mv-ease-spring);
+  }
+
+  :where(input.mv-radio[aria-invalid="true"]) {
+    --_border: var(--mv-danger);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--mv-danger) 18%, transparent);
+  }
+  :where(input.mv-radio):disabled { opacity: 0.5; cursor: not-allowed; box-shadow: none; }
+
+  :where(input.mv-radio[data-size="sm"]) { --_size: 0.875rem; }
+  :where(input.mv-radio[data-size="lg"]) { --_size: 1.25rem; }
+
+  /* Outline style: the ring stays neutral, only the dot takes the accent. */
+  :where(input.mv-radio[data-variant="outline"]):checked { --_bg: var(--mv-bg); }
+  :where(input.mv-radio[data-variant="outline"]):checked::before { background: var(--mv-accent); box-shadow: none; width: 50%; height: 50%; }
+
+  /* ── Radio group (role="radiogroup" or <fieldset>) ──────────────────────
+     Layout comes from .mv-choice-group (checkbox component); these add
+     the radio-specific card extras. */
+
+  /* Card with a check badge in the corner instead of a visible radio. */
+  :where(.mv-choice-card[data-variant="badge"]) > :where(input.mv-radio) {
+    position: absolute;
+    inset-block-start: var(--mv-space-3);
+    inset-inline-end: var(--mv-space-3);
+    margin: 0;
+    opacity: 0;
+    scale: 0.6;
+    transition: opacity var(--mv-duration-fast) var(--mv-ease-out), scale var(--mv-duration-normal) var(--mv-ease-spring);
+  }
+  :where(.mv-choice-card[data-variant="badge"]) > :where(input.mv-radio):checked { opacity: 1; scale: 1; }
+  :where(.mv-choice-card[data-variant="badge"]) > :where(input.mv-radio):focus-visible { opacity: 1; scale: 1; }
+  :where(.mv-choice-card[data-variant="badge"]) { flex-direction: column; gap: var(--mv-space-1); padding-inline-end: var(--mv-space-8); }
+
+  /* Price / meta aligned at the end of a card row */
+  :where(.mv-radio-meta) {
+    margin-inline-start: auto;
+    padding-inline-start: var(--mv-space-3);
+    color: var(--mv-fg);
+    font-weight: var(--mv-weight-semibold);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  :where(.mv-radio-meta) :where(small) { color: var(--mv-fg-muted); font-weight: var(--mv-weight-normal); font-size: var(--mv-text-xs); }
+
+  /* Forced colors: the system repaints the background, so the checked dot would vanish; draw it in Highlight. */
+  @media (forced-colors: active) {
+    :where(input.mv-radio) { border-color: CanvasText; }
+    :where(input.mv-radio):checked { border-color: Highlight; }
+    :where(input.mv-radio):checked::before { forced-color-adjust: none; background: Highlight; box-shadow: none; }
+  }
+}

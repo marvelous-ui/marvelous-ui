@@ -1,0 +1,100 @@
+{
+  "name": "Kbd",
+  "slug": "kbd",
+  "kind": "css",
+  "category": "primitive",
+  "wave": 1,
+  "description": "Subtly raised keyboard keys on <kbd>: nested combinations, 3 sizes, a flat variant, adapts inside buttons and tooltips.",
+  "useWhen": [
+    "Keyboard shortcuts must be displayed in docs, menus, tooltips or a command palette",
+    "A key combination such as Ctrl+K needs to read as a group of keycaps"
+  ],
+  "avoidWhen": [
+    {
+      "when": "The text is a status or category label rather than a key to press",
+      "instead": "badge"
+    },
+    {
+      "when": "The content is inline code or a command to run rather than a keyboard key"
+    }
+  ],
+  "files": [
+    "kbd.css"
+  ],
+  "usage": {
+    "class": "mv-kbd"
+  },
+  "tags": [
+    "kbd",
+    "keyboard",
+    "shortcut",
+    "hotkey",
+    "keycap"
+  ],
+  "demo": {
+    "layout": "center",
+    "height": 420,
+    "requires": [
+      "button"
+    ]
+  },
+  "preview": {
+    "viewport": {
+      "width": 640,
+      "height": 380
+    },
+    "static": true
+  },
+  "api": {
+    "classes": [
+      {
+        "name": "mv-kbd",
+        "description": "Key, on <kbd>."
+      },
+      {
+        "name": "mv-kbd-group",
+        "description": "Combination: a parent <kbd> holding several .mv-kbd; text between keys (“+”, “then”) stays subtle."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "data-size",
+        "type": "sm | lg",
+        "default": "(md)",
+        "description": "Height 16 / 20 / 28 px."
+      },
+      {
+        "name": "data-variant",
+        "type": "flat",
+        "description": "No relief, tinted background (menus, command palettes)."
+      }
+    ],
+    "cssVars": [
+      {
+        "name": "--mv-kbd-bg",
+        "description": "Key background."
+      },
+      {
+        "name": "--mv-kbd-fg",
+        "default": "var(--mv-fg-muted)",
+        "description": "Text."
+      },
+      {
+        "name": "--mv-kbd-border",
+        "description": "Border."
+      },
+      {
+        "name": "--mv-kbd-depth",
+        "description": "Bottom edge color (3D effect)."
+      },
+      {
+        "name": "--mv-kbd-radius",
+        "default": "var(--mv-radius-xs)",
+        "description": "Corner radius."
+      }
+    ]
+  },
+  "a11y": "Use the <kbd> element (“keyboard input” semantics). For a combination, nest the <kbd>s inside a parent <kbd>, as the HTML spec recommends. Symbols (⌘, ⇧, ⌥) are read inconsistently: add an aria-label on the group (e.g. aria-label=\"Command K\") or a .mv-sr-only text if the shortcut is important information.",
+  "inspiredBy": [],
+  "status": "stable"
+}

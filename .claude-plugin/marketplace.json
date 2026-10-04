@@ -1,0 +1,17 @@
+{
+  "name": "marvelous-ui",
+  "owner": {
+    "name": "Quentin Fankrache EI",
+    "email": "hello@marvelous-ui.com",
+    "url": "https://marvelous-ui.com"
+  },
+  "description": "Marvelous UI: the Free pack and its agent plugin.",
+  "plugins": [
+    {
+      "name": "marvelous-ui",
+      "source": "./",
+      "description": "Framework-agnostic UI components for AI coding agents: search, install and use the 21 free mv-* components (MIT) through a local MCP server.",
+      "category": "development"
+    }
+  ]
+}

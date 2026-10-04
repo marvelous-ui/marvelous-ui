@@ -1,0 +1,88 @@
+@layer mv.components {
+  /* ── Separator ──────────────────────────────────────────────────────
+     <hr class="mv-separator"> (horizontal) or
+     <div class="mv-separator" role="separator" aria-orientation="vertical" data-orientation="vertical">.
+     With text content it becomes a labelled divider: line, label, line. */
+  :where(.mv-separator) {
+    --_c: var(--mv-separator-color, var(--mv-border));
+    --_t: var(--mv-separator-thickness, 1px);
+    --_style: solid;
+
+    box-sizing: border-box;
+    flex-shrink: 0;
+    align-self: stretch;
+    width: auto;
+    height: 0;
+    margin: var(--mv-separator-spacing, 0) 0;
+    padding: 0;
+    border: 0;
+    border-top: var(--_t) var(--_style) var(--_c);
+    color: var(--mv-fg-subtle);
+  }
+
+  /* Vertical */
+  :where(.mv-separator[data-orientation="vertical"]) {
+    width: 0;
+    height: auto;
+    min-height: 1em;
+    margin: 0 var(--mv-separator-spacing, 0);
+    border-top: 0;
+    border-inline-start: var(--_t) var(--_style) var(--_c);
+  }
+
+  /* Styles */
+  :where(.mv-separator[data-variant="dashed"]) { --_style: dashed; }
+  :where(.mv-separator[data-variant="dotted"]) { --_style: dotted; --_t: var(--mv-separator-thickness, 2px); }
+  /* Fades out at both ends */
+  :where(.mv-separator[data-variant="fade"]) {
+    border: 0;
+    height: var(--_t);
+    background: linear-gradient(90deg, transparent, var(--_c) 20%, var(--_c) 80%, transparent);
+  }
+  :where(.mv-separator[data-variant="fade"][data-orientation="vertical"]) {
+    width: var(--_t);
+    height: auto;
+    background: linear-gradient(180deg, transparent, var(--_c) 20%, var(--_c) 80%, transparent);
+  }
+
+  /* Labelled: any content (text, icon, badge) sits between two lines */
+  :where(.mv-separator:not(:empty, hr)) {
+    display: flex;
+    align-items: center;
+    gap: var(--mv-space-3);
+    height: auto;
+    border: 0;
+    background: none;
+    font: var(--mv-weight-medium) var(--mv-text-xs) / 1 var(--mv-font-sans);
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+  }
+  :where(.mv-separator:not(:empty, hr))::before,
+  :where(.mv-separator:not(:empty, hr))::after {
+    content: "";
+    flex: 1;
+    min-width: var(--mv-space-4);
+    border-top: var(--_t) var(--_style) var(--_c);
+  }
+  :where(.mv-separator:not(:empty, hr)[data-variant="fade"])::before { border: 0; height: var(--_t); background: linear-gradient(90deg, transparent, var(--_c)); }
+  :where(.mv-separator:not(:empty, hr)[data-variant="fade"])::after { border: 0; height: var(--_t); background: linear-gradient(90deg, var(--_c), transparent); }
+  :where(.mv-separator:not(:empty, hr)[data-align="start"])::before { flex: 0 0 var(--mv-space-4); }
+  :where(.mv-separator:not(:empty, hr)[data-align="end"])::after { flex: 0 0 var(--mv-space-4); }
+  :where(.mv-separator:not(:empty, hr)) :where(svg) { width: 0.875rem; height: 0.875rem; }
+
+  /* Labelled vertical: lines above and below */
+  :where(.mv-separator:not(:empty, hr)[data-orientation="vertical"]) {
+    flex-direction: column;
+    gap: var(--mv-space-2);
+    width: auto;
+    min-height: 4rem;
+    border: 0;
+  }
+  :where(.mv-separator:not(:empty, hr)[data-orientation="vertical"])::before,
+  :where(.mv-separator:not(:empty, hr)[data-orientation="vertical"])::after {
+    min-width: 0;
+    min-height: var(--mv-space-4);
+    border-top: 0;
+    border-inline-start: var(--_t) var(--_style) var(--_c);
+  }
+}

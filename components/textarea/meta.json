@@ -1,0 +1,278 @@
+{
+  "name": "Textarea",
+  "slug": "textarea",
+  "kind": "css",
+  "category": "primitive",
+  "wave": 1,
+  "description": "Textarea that grows on its own (field-sizing: content) between a minimum and maximum number of rows, with an optional resize handle, a group with a toolbar and an <mv-char-count> character counter.",
+  "useWhen": [
+    "Users write multi-line text such as a comment, message, bio or description",
+    "The field should grow with its content between a minimum and a maximum number of rows",
+    "A character limit must be shown with a counter that warns near the limit",
+    "A composer needs a toolbar for formatting or attachment buttons next to the text"
+  ],
+  "avoidWhen": [
+    {
+      "when": "The value is short and single-line, like a name or an email",
+      "instead": "input"
+    },
+    {
+      "when": "Rich text such as headings, bold and links must render while typing; this field is plain text"
+    }
+  ],
+  "files": [
+    "textarea.css",
+    "char-count.js"
+  ],
+  "usage": {
+    "class": "mv-textarea"
+  },
+  "tags": [
+    "textarea",
+    "autosize",
+    "auto-grow",
+    "character-count",
+    "composer",
+    "counter"
+  ],
+  "demo": {
+    "layout": "wide",
+    "height": 420,
+    "requires": [
+      "button"
+    ]
+  },
+  "preview": {
+    "viewport": {
+      "width": 900,
+      "height": 380
+    },
+    "steps": [
+      [
+        "wait",
+        300
+      ],
+      [
+        "click",
+        "#ta-msg"
+      ],
+      [
+        "press",
+        "Control+End"
+      ],
+      [
+        "type",
+        " Thanks!"
+      ],
+      [
+        "wait",
+        500
+      ],
+      [
+        "press",
+        "Backspace"
+      ],
+      [
+        "wait",
+        60
+      ],
+      [
+        "press",
+        "Backspace"
+      ],
+      [
+        "wait",
+        60
+      ],
+      [
+        "press",
+        "Backspace"
+      ],
+      [
+        "wait",
+        60
+      ],
+      [
+        "press",
+        "Backspace"
+      ],
+      [
+        "wait",
+        60
+      ],
+      [
+        "press",
+        "Backspace"
+      ],
+      [
+        "wait",
+        60
+      ],
+      [
+        "press",
+        "Backspace"
+      ],
+      [
+        "wait",
+        60
+      ],
+      [
+        "press",
+        "Backspace"
+      ],
+      [
+        "wait",
+        60
+      ],
+      [
+        "press",
+        "Backspace"
+      ],
+      [
+        "wait",
+        60
+      ],
+      [
+        "click",
+        "#ta-notes"
+      ],
+      [
+        "type",
+        "Ship on Friday."
+      ],
+      [
+        "wait",
+        500
+      ],
+      [
+        "press",
+        "Control+a"
+      ],
+      [
+        "press",
+        "Backspace"
+      ],
+      [
+        "wait",
+        200
+      ],
+      [
+        "click",
+        "#mv-textarea-demo .row span"
+      ],
+      [
+        "leave"
+      ],
+      [
+        "wait",
+        300
+      ]
+    ]
+  },
+  "api": {
+    "classes": [
+      {
+        "name": "mv-textarea",
+        "description": "On <textarea>. Height adapts to the content."
+      },
+      {
+        "name": "mv-textarea-group",
+        "description": "Shared container for textarea + toolbar (message composer, comment box)."
+      },
+      {
+        "name": "mv-textarea-toolbar",
+        "description": "Row of buttons below the textarea; data-divider adds a rule and a background."
+      },
+      {
+        "name": "mv-textarea-toolbar-spacer",
+        "description": "Pushes the following items to the right."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "data-size",
+        "type": "sm | lg",
+        "default": "(md)",
+        "description": "Padding and text size; on .mv-textarea or .mv-textarea-group."
+      },
+      {
+        "name": "data-resize",
+        "type": "vertical | both",
+        "default": "(none)",
+        "description": "Shows the resize handle."
+      },
+      {
+        "name": "data-autosize",
+        "type": "false",
+        "description": "Disables auto-grow (height set via rows)."
+      },
+      {
+        "name": "aria-invalid",
+        "type": "true",
+        "description": "Forces the error state; :user-invalid is also supported."
+      },
+      {
+        "name": "<mv-char-count for>",
+        "type": "id",
+        "description": "Tracked control (otherwise: the first textarea/input of the parent .mv-field or group)."
+      },
+      {
+        "name": "<mv-char-count max>",
+        "type": "number",
+        "default": "the control's maxlength",
+        "description": "Limit. Without maxlength it is a soft limit: the control becomes invalid past it."
+      },
+      {
+        "name": "<mv-char-count mode>",
+        "type": "count | remaining",
+        "default": "count",
+        "description": "“42 / 280” or the number of characters left."
+      },
+      {
+        "name": "<mv-char-count warn-at>",
+        "type": "number",
+        "default": "0.9",
+        "description": "Ratio at which data-state=\"near\" applies."
+      },
+      {
+        "name": "<mv-char-count data-variant>",
+        "type": "ring",
+        "description": "Circular gauge; the number only appears near the limit."
+      }
+    ],
+    "methods": [
+      {
+        "name": "<mv-char-count>.refresh()",
+        "description": "Recomputes after a programmatic value change."
+      }
+    ],
+    "cssVars": [
+      {
+        "name": "--mv-textarea-min-rows",
+        "default": "3",
+        "description": "Minimum height in rows."
+      },
+      {
+        "name": "--mv-textarea-max-rows",
+        "default": "12",
+        "description": "Maximum height in rows before scrolling."
+      },
+      {
+        "name": "--mv-textarea-radius",
+        "default": "var(--mv-radius-md)",
+        "description": "Radius (group: radius-lg)."
+      },
+      {
+        "name": "--mv-textarea-bg",
+        "description": "Background."
+      },
+      {
+        "name": "--mv-char-progress",
+        "description": "0 → 1, set by <mv-char-count> (use it for your own gauges)."
+      }
+    ]
+  },
+  "a11y": "Pair with a <label for>. <mv-char-count> adds its description (“120 characters left of 200”) to the control's aria-describedby without overwriting existing ids, and only announces (role=status) when crossing the warning threshold or the limit, not on every keystroke. The visible number is aria-hidden. Toolbar buttons are <button type=\"button\"> with an aria-label.",
+  "inspiredBy": [],
+  "status": "stable"
+}

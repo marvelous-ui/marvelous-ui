@@ -1,0 +1,147 @@
+{
+  "name": "Skeleton",
+  "slug": "skeleton",
+  "kind": "css",
+  "category": "feedback",
+  "wave": 1,
+  "description": "Loading placeholders with a shimmer synced across the whole page (or a pulse), text, heading, avatar, media and button shapes, and a blurred cross-fade reveal into the loaded content driven by aria-busy.",
+  "useWhen": [
+    "Content is loading and its layout is known, so placeholders can prevent layout shift",
+    "Lists, cards or profiles are fetched asynchronously and should reveal with a cross-fade once ready",
+    "Many placeholders appear at once and need one synchronized shimmer instead of competing waves"
+  ],
+  "avoidWhen": [
+    {
+      "when": "Placeholders should visibly morph into the real content rather than simply fade",
+      "instead": "skeleton-morph"
+    },
+    {
+      "when": "The loading area has no predictable shape, like a button action or a small inline wait",
+      "instead": "spinner"
+    },
+    {
+      "when": "The request finished and returned nothing; show a real empty state instead",
+      "instead": "empty"
+    }
+  ],
+  "files": [
+    "skeleton.css"
+  ],
+  "dependencies": [],
+  "usage": {
+    "class": "mv-skeleton"
+  },
+  "tags": [
+    "skeleton",
+    "placeholder",
+    "loading",
+    "shimmer",
+    "pulse",
+    "chargement",
+    "reveal"
+  ],
+  "demo": {
+    "layout": "padded",
+    "height": 400,
+    "requires": [
+      "button"
+    ]
+  },
+  "preview": {
+    "viewport": {
+      "width": 1100,
+      "height": 410
+    },
+    "steps": [
+      [
+        "wait",
+        2200
+      ],
+      [
+        "click",
+        "#sk-demo-reload"
+      ],
+      [
+        "wait",
+        2400
+      ],
+      [
+        "click",
+        "#sk-demo-reload"
+      ],
+      [
+        "wait",
+        200
+      ],
+      [
+        "leave"
+      ],
+      [
+        "wait",
+        300
+      ]
+    ]
+  },
+  "api": {
+    "classes": [
+      {
+        "name": "mv-skeleton",
+        "description": "Loading block (any width/height, 1rem tall by default)."
+      },
+      {
+        "name": "mv-skeleton-text",
+        "description": "Stack of .mv-skeleton lines; the last one is shorter."
+      },
+      {
+        "name": "mv-skeleton-reveal",
+        "description": "Stacks [data-skeleton] and [data-content]; aria-busy=\"true\" shows the skeleton, \"false\" reveals the content with a fade + blur."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "data-shape",
+        "type": "text | heading | circle | square | button | media",
+        "description": "Ready-made shapes (circle/square use --mv-skeleton-size)."
+      },
+      {
+        "name": "data-variant",
+        "type": "pulse | static",
+        "default": "(shimmer)",
+        "description": "Opacity pulse, or no motion."
+      },
+      {
+        "name": "data-skeleton=\"pulse\"",
+        "type": "on a container",
+        "description": "Switches every descendant skeleton to pulse."
+      },
+      {
+        "name": "aria-busy",
+        "type": "true | false",
+        "description": "On .mv-skeleton-reveal: loading state."
+      }
+    ],
+    "cssVars": [
+      {
+        "name": "--mv-skeleton-base",
+        "description": "Block color (default: text at 8%, adapts to the background)."
+      },
+      {
+        "name": "--mv-skeleton-shine",
+        "description": "Shimmer color."
+      },
+      {
+        "name": "--mv-skeleton-duration",
+        "default": "2s",
+        "description": "Duration of one cycle."
+      },
+      {
+        "name": "--mv-skeleton-size",
+        "default": "2.5rem",
+        "description": "Size of the circle / square shapes."
+      }
+    ]
+  },
+  "a11y": "Skeletons are decorative: set aria-hidden=\"true\" on their container, and aria-busy=\"true\" (+ aria-live=\"polite\") on the loading region. The shimmer is synced (background-attachment: fixed) to avoid the flicker of multiple waves. Reduced motion: shimmer and pulse stop, the reveal is instant.",
+  "inspiredBy": [],
+  "status": "stable"
+}

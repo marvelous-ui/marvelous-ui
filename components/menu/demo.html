@@ -1,0 +1,108 @@
+<div id="menu-demo" style="display:grid;gap:1.25rem;justify-items:center">
+  <div style="display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center">
+    <mv-menu>
+      <button class="mv-button" data-variant="outline">My account
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <div data-content style="--mv-menu-width:14rem">
+        <div class="mv-menu-label">Maya Chen</div>
+        <button role="menuitem" value="profile">Profile <span class="mv-menu-shortcut">⇧⌘P</span></button>
+        <button role="menuitem" value="billing">Billing <span class="mv-menu-shortcut">⌘B</span></button>
+        <button role="menuitem" value="settings">Settings <span class="mv-menu-shortcut">⌘,</span></button>
+        <hr>
+        <button role="menuitem" value="team">Team</button>
+        <div data-submenu>
+          <button role="menuitem">Invite members</button>
+          <div data-content>
+            <button role="menuitem" value="invite-email">By email</button>
+            <button role="menuitem" value="invite-link">Copy invite link</button>
+            <hr>
+            <button role="menuitem" value="invite-more">More options…</button>
+          </div>
+        </div>
+        <button role="menuitem" value="new-team">New team <span class="mv-menu-shortcut">⌘T</span></button>
+        <hr>
+        <button role="menuitem" value="support">Support</button>
+        <button role="menuitem" value="api" disabled>API</button>
+        <hr>
+        <button role="menuitem" value="logout">Log out <span class="mv-menu-shortcut">⇧⌘Q</span></button>
+      </div>
+    </mv-menu>
+
+    <mv-menu>
+      <button class="mv-button" data-variant="outline">View</button>
+      <div data-content style="--mv-menu-width:13rem">
+        <div class="mv-menu-label" data-inset>Interface</div>
+        <button role="menuitemcheckbox" aria-checked="true" value="status-bar" data-keep-open>Status bar</button>
+        <button role="menuitemcheckbox" value="minimap" data-keep-open>Minimap</button>
+        <button role="menuitemcheckbox" value="activity" aria-disabled="true">Activity panel</button>
+        <hr>
+        <div role="group" data-name="position">
+          <div class="mv-menu-label" data-inset>Panel position</div>
+          <button role="menuitemradio" value="top">Top</button>
+          <button role="menuitemradio" value="bottom" aria-checked="true">Bottom</button>
+          <button role="menuitemradio" value="right">Right</button>
+        </div>
+      </div>
+    </mv-menu>
+
+    <mv-menu placement="bottom-end">
+      <button class="mv-button" data-variant="ghost" data-size="icon" aria-label="File actions">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>
+      </button>
+      <div data-content>
+        <button role="menuitem" value="rename"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.4 3.6a2 2 0 0 1 2.9 2.9L7 18.8 3 20l1.2-4z"/></svg>Rename</button>
+        <button role="menuitem" value="duplicate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M4 16V5a1 1 0 0 1 1-1h11"/></svg>Duplicate <span class="mv-menu-shortcut">⌘D</span></button>
+        <button role="menuitem" value="archive"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="5" rx="1"/><path d="M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9M10 13h4"/></svg>Archive</button>
+        <hr>
+        <button role="menuitem" value="delete" data-variant="destructive"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg>Delete <span class="mv-menu-shortcut">⌫</span></button>
+      </div>
+    </mv-menu>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center;align-items:center">
+    <span style="font-size:.75rem;color:var(--mv-fg-muted)">data-motion="glide":</span>
+    <mv-menu data-motion="glide">
+      <button class="mv-button" data-variant="secondary">Project
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <div data-content style="--mv-menu-width:14.5rem">
+        <button role="menuitem" value="open"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Open <span class="mv-menu-shortcut">⌘O</span></button>
+        <button role="menuitem" value="rename"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.4 3.6a2 2 0 0 1 2.9 2.9L7 18.8 3 20l1.2-4z"/></svg>Rename</button>
+        <div data-submenu>
+          <button role="menuitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M16 6l-4-4-4 4M12 2v13"/></svg>Export</button>
+          <div data-content>
+            <button role="menuitem" value="export-pdf">PDF</button>
+            <button role="menuitem" value="export-png">PNG image</button>
+            <button role="menuitem" value="export-csv">CSV spreadsheet</button>
+          </div>
+        </div>
+        <hr>
+        <div role="group" data-name="view">
+          <div class="mv-menu-label" data-inset>View</div>
+          <button role="menuitemradio" value="list" aria-checked="true" data-keep-open>List</button>
+          <button role="menuitemradio" value="board" data-keep-open>Board</button>
+          <button role="menuitemradio" value="calendar" data-keep-open>Calendar</button>
+        </div>
+        <hr>
+        <button role="menuitem" value="trash" data-variant="destructive"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg>Move to trash</button>
+      </div>
+    </mv-menu>
+    <mv-menu data-motion="glide" placement="top-end">
+      <button class="mv-button" data-variant="outline">Opens upward</button>
+      <div data-content>
+        <button role="menuitem" value="duplicate">Duplicate</button>
+        <button role="menuitem" value="move">Move…</button>
+        <button role="menuitem" value="pin">Pin to top</button>
+      </div>
+    </mv-menu>
+  </div>
+  <p data-role="out" aria-live="polite" style="margin:0;font-size:.8125rem;color:var(--mv-fg-muted)">Pick an action…</p>
+</div>
+<script type="module">
+  const root = document.getElementById("menu-demo");
+  const out = root.querySelector('[data-role="out"]');
+  root.addEventListener("mv-select", (e) => {
+    const { label, checked } = e.detail;
+    out.textContent = checked === undefined ? `Action: ${label}` : `${label}: ${checked ? "on" : "off"}`;
+  });
+</script>

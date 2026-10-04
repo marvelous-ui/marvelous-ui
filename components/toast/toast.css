@@ -1,0 +1,207 @@
+@layer mv.components {
+  :where(mv-toaster) { display: contents; }
+
+  /* ── Region (top-layer popover pinned to a corner) ─────────── */
+  :where(.mv-toaster) {
+    --_w: var(--mv-toast-width, 22.25rem);
+    --_edge: var(--mv-toaster-offset, 1.5rem);
+    --_peek: var(--mv-toast-peek, 12px);
+    --_lift: -1;
+    --_dur: var(--mv-duration-slow);
+    position: fixed;
+    inset: auto;
+    box-sizing: border-box;
+    width: var(--_w);
+    height: var(--_front-h, 0px);
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--mv-fg);
+    font: var(--mv-weight-normal) var(--mv-text-sm) / 1.4 var(--mv-font-sans);
+    overflow: visible;
+    pointer-events: none;
+    outline: none;
+  }
+  :where(.mv-toaster[data-y="bottom"]) { bottom: var(--_edge); }
+  :where(.mv-toaster[data-y="top"]) { top: var(--_edge); --_lift: 1; }
+  :where(.mv-toaster[data-x="right"]) { right: var(--_edge); }
+  :where(.mv-toaster[data-x="left"]) { left: var(--_edge); }
+  :where(.mv-toaster[data-x="center"]) { left: 0; right: 0; margin-inline: auto; }
+  @media (max-width: 600px) {
+    :where(.mv-toaster) { --_edge: 1rem; left: var(--_edge); right: var(--_edge); width: auto; margin-inline: 0; }
+  }
+
+  :where(.mv-toaster-list) {
+    position: relative;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* ── Toast card ────────────────────────────────────────────── */
+  :where(.mv-toast) {
+    /* Collapsed deck: each toast behind peeks out and shrinks by 5 %. */
+    --_y: calc(var(--_lift) * var(--i, 0) * var(--_peek));
+    --_s: calc(1 - var(--i, 0) * 0.05);
+    --_tone: var(--mv-fg-muted);
+    --_icon-fg: var(--mv-toast-bg, var(--mv-surface-raised));
+    position: absolute;
+    inset-inline: 0;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: var(--mv-space-3);
+    height: var(--h, auto);
+    padding: var(--mv-space-3-5, 0.875rem) var(--mv-space-4);
+    border: 1px solid var(--mv-border);
+    border-radius: var(--mv-toast-radius, var(--mv-radius-lg));
+    background: var(--mv-toast-bg, var(--mv-surface-raised));
+    color: var(--mv-fg);
+    box-shadow: var(--mv-shadow-lg);
+    pointer-events: auto;
+    outline: none;
+    overflow-wrap: anywhere;
+    touch-action: none;
+    cursor: default;
+
+    transform: translateY(var(--_y)) scale(var(--_s));
+    translate: var(--swipe-x, 0px) var(--swipe-y, 0px);
+    opacity: 1;
+    transition:
+      transform var(--_dur) var(--mv-ease-out),
+      opacity var(--_dur) var(--mv-ease-out),
+      height var(--_dur) var(--mv-ease-out),
+      translate var(--mv-duration-normal) var(--mv-ease-out),
+      box-shadow var(--mv-duration-fast) var(--mv-ease-out);
+  }
+  :where(.mv-toaster[data-y="bottom"] .mv-toast) { bottom: 0; transform-origin: 50% 0%; }
+  :where(.mv-toaster[data-y="top"] .mv-toast) { top: 0; transform-origin: 50% 100%; }
+  :where(.mv-toast):focus-visible { box-shadow: var(--mv-shadow-lg), var(--mv-focus-ring); }
+
+  /* Bridge the gap between cards so hover survives the travel. */
+  :where(.mv-toast)::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    height: calc(var(--_gap, 14px) + 2px);
+  }
+  :where(.mv-toaster[data-y="bottom"] .mv-toast)::after { bottom: 100%; }
+  :where(.mv-toaster[data-y="top"] .mv-toast)::after { top: 100%; }
+
+  /* Collapsed: cards behind take the front card's height and hide their content. */
+  :where(.mv-toast) > * { transition: opacity var(--_dur) var(--mv-ease-out); }
+  :where(.mv-toaster:not([data-expanded]) .mv-toast:not([data-front])) { height: var(--_front-h); }
+  :where(.mv-toaster:not([data-expanded]) .mv-toast:not([data-front])) > * { opacity: 0; }
+
+  /* Expanded (hover / focus / expand attribute): a real list. */
+  :where(.mv-toaster[data-expanded] .mv-toast) { --_y: calc(var(--_lift) * var(--offset, 0px)); --_s: 1; }
+
+  /* Beyond `max` */
+  :where(.mv-toast[data-hidden]) { opacity: 0; pointer-events: none; }
+
+  /* Enter: rise from the edge */
+  :where(.mv-toast:not([data-mounted])) { --_y: calc(var(--_lift) * -100%); --_s: 1; opacity: 0; }
+
+  /* Exit */
+  :where(.mv-toast[data-removed]) { opacity: 0; pointer-events: none; }
+  :where(.mv-toast[data-removed][data-front]) { --_y: calc(var(--_lift) * -100%); --_s: 1; }
+  :where(.mv-toast[data-removed]:not([data-front])) { --_s: calc(1 - var(--i, 0) * 0.05 - 0.04); }
+  :where(.mv-toast[data-removed="swipe"]) {
+    --_y: calc(var(--_lift) * var(--offset, 0px));
+    --_s: 1;
+    transition-duration: var(--mv-duration-slow), var(--mv-duration-normal), var(--mv-duration-slow), var(--mv-duration-normal), var(--mv-duration-fast);
+  }
+  :where(.mv-toast[data-swiping]) {
+    transition-property: transform, opacity, height, box-shadow;
+    user-select: none;
+    cursor: grabbing;
+  }
+
+  /* ── Parts ─────────────────────────────────────────────────── */
+  :where(.mv-toast-icon) {
+    display: flex;
+    flex-shrink: 0;
+    align-self: flex-start;
+    margin-top: 2px;
+    color: var(--_tone);
+  }
+  :where(.mv-toast-icon) :where(svg) { width: 1rem; height: 1rem; }
+  :where(.mv-toast-content) { display: grid; gap: 2px; flex: 1; min-width: 0; }
+  :where(.mv-toast-title) { font-weight: var(--mv-weight-medium); line-height: 1.4; }
+  :where(.mv-toast-description) { color: var(--mv-fg-muted); font-size: 0.8125rem; line-height: 1.45; }
+
+  :where(.mv-toast-action, .mv-toast-cancel) {
+    flex-shrink: 0;
+    height: 1.75rem;
+    padding: 0 var(--mv-space-2-5, 0.625rem);
+    border: 0;
+    border-radius: var(--mv-radius-sm);
+    background: var(--mv-fg);
+    color: var(--mv-bg);
+    font: var(--mv-weight-medium) var(--mv-text-xs) / 1 var(--mv-font-sans);
+    white-space: nowrap;
+    cursor: pointer;
+    transition: opacity var(--mv-duration-fast) var(--mv-ease-out), background-color var(--mv-duration-fast) var(--mv-ease-out);
+  }
+  :where(.mv-toast-action):hover { opacity: 0.88; }
+  :where(.mv-toast-cancel) { background: var(--mv-bg-muted); color: var(--mv-fg); }
+  :where(.mv-toast-cancel):hover { background: var(--mv-bg-emphasis); }
+  :where(.mv-toast-action, .mv-toast-cancel):focus-visible { outline: none; box-shadow: var(--mv-focus-ring); }
+
+  :where(.mv-toast-close) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: grid;
+    place-items: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    padding: 0;
+    border: 1px solid var(--mv-border);
+    border-radius: var(--mv-radius-full);
+    background: var(--mv-toast-bg, var(--mv-surface-raised));
+    color: var(--mv-fg-muted);
+    box-shadow: var(--mv-shadow-sm);
+    translate: -35% -35%;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity var(--mv-duration-fast) var(--mv-ease-out), color var(--mv-duration-fast), background-color var(--mv-duration-fast);
+  }
+  :where(.mv-toast-close) :where(svg) { width: 0.75rem; height: 0.75rem; }
+  :where(.mv-toaster[data-x="left"] .mv-toast-close) { left: auto; right: 0; translate: 35% -35%; }
+  :where(.mv-toast:is(:hover, :focus-within) .mv-toast-close) { opacity: 1; }
+  :where(.mv-toast-close):hover { color: var(--mv-fg); background: var(--mv-bg-muted); }
+  :where(.mv-toast-close):focus-visible { outline: none; opacity: 1; box-shadow: var(--mv-focus-ring); }
+  @media (hover: none) { :where(.mv-toast-close) { opacity: 1; } }
+
+  /* Loading spinner */
+  :where(.mv-toast-spinner) {
+    box-sizing: border-box;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid color-mix(in oklab, var(--mv-fg) 18%, transparent);
+    border-top-color: var(--mv-fg-muted);
+    border-radius: 50%;
+    animation: mv-toast-spin 0.75s linear infinite;
+  }
+  @keyframes mv-toast-spin { to { rotate: 1turn; } }
+  @media (prefers-reduced-motion: reduce) { :where(.mv-toast-spinner) { animation: none; } }
+  :where([data-motion="reduce"]) :where(.mv-toast-spinner) { animation: none; }
+
+  /* ── Types ─────────────────────────────────────────────────── */
+  :where(.mv-toast[data-type="success"]) { --_tone: var(--mv-success); }
+  :where(.mv-toast[data-type="error"]) { --_tone: var(--mv-danger); }
+  :where(.mv-toast[data-type="warning"]) { --_tone: var(--mv-warning); }
+  :where(.mv-toast[data-type="info"]) { --_tone: var(--mv-info); }
+
+  :where(.mv-toaster[data-rich-colors] .mv-toast:not([data-type="default"], [data-type="loading"])) {
+    --_icon-fg: var(--mv-toast-bg, color-mix(in oklab, var(--_tone) 9%, var(--mv-surface-raised)));
+    background: var(--mv-toast-bg, color-mix(in oklab, var(--_tone) 9%, var(--mv-surface-raised)));
+    border-color: color-mix(in oklab, var(--_tone) 32%, var(--mv-border));
+  }
+  :where(.mv-toaster[data-rich-colors] .mv-toast:not([data-type="default"], [data-type="loading"])) :where(.mv-toast-title) {
+    color: color-mix(in oklab, var(--_tone) 62%, var(--mv-fg));
+  }
+}

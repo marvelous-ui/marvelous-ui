@@ -1,0 +1,167 @@
+{
+  "name": "Input",
+  "slug": "input",
+  "kind": "css",
+  "category": "primitive",
+  "wave": 1,
+  "description": "Pure-CSS text field: 3 sizes, invalid (aria-invalid / :user-invalid), read-only and file states, plus a group with icons, prefixes/suffixes, inline buttons and a clear button.",
+  "useWhen": [
+    "A single-line value is needed, such as a name, email, password, URL or search query",
+    "The field needs a prefix, suffix, icon, inline button or clear button inside one bordered group",
+    "Server-side or native validation errors must be shown directly on the field"
+  ],
+  "avoidWhen": [
+    {
+      "when": "The text can span several lines, such as a comment or message",
+      "instead": "textarea"
+    },
+    {
+      "when": "The value is a number with bounds and a step that benefits from +/- buttons",
+      "instead": "number-field"
+    },
+    {
+      "when": "The field must suggest matching options from a list as the user types",
+      "instead": "combobox"
+    }
+  ],
+  "files": [
+    "input.css"
+  ],
+  "usage": {
+    "class": "mv-input"
+  },
+  "tags": [
+    "input",
+    "text-field",
+    "input-group",
+    "addon",
+    "search",
+    "file",
+    "clear",
+    "password"
+  ],
+  "demo": {
+    "layout": "wide",
+    "height": 380,
+    "requires": [
+      "button",
+      "kbd"
+    ]
+  },
+  "preview": {
+    "viewport": {
+      "width": 960,
+      "height": 368
+    },
+    "steps": [
+      [
+        "wait",
+        500
+      ],
+      [
+        "click",
+        "#in-email"
+      ],
+      [
+        "type",
+        "ada@lumen.studio"
+      ],
+      [
+        "wait",
+        500
+      ],
+      [
+        "press",
+        "Control+A"
+      ],
+      [
+        "press",
+        "Backspace"
+      ],
+      [
+        "wait",
+        200
+      ],
+      [
+        "click",
+        "[data-toggle-pass]"
+      ],
+      [
+        "wait",
+        900
+      ],
+      [
+        "click",
+        "[data-toggle-pass]"
+      ],
+      [
+        "wait",
+        400
+      ],
+      [
+        "leave"
+      ],
+      [
+        "wait",
+        600
+      ]
+    ]
+  },
+  "api": {
+    "classes": [
+      {
+        "name": "mv-input",
+        "description": "On <input> (text, email, search, password, number, file…)."
+      },
+      {
+        "name": "mv-input-group",
+        "description": "Container that carries the border and focus ring; the inner .mv-input becomes borderless."
+      },
+      {
+        "name": "mv-input-group-addon",
+        "description": "Icon, text (“https://”, “$”), <kbd> or indicator placed before/after the input. Use a <label for> so clicking it focuses the input."
+      },
+      {
+        "name": "mv-input-clear",
+        "description": "Clear button: hidden automatically while the input is empty (the input needs a placeholder). The clearing itself is up to you (3 lines of JS)."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "data-size",
+        "type": "sm | lg",
+        "default": "(md)",
+        "description": "Height 32 / 36 / 44px; on .mv-input or .mv-input-group."
+      },
+      {
+        "name": "aria-invalid",
+        "type": "true",
+        "description": "Forces the error state (server-side validation). :user-invalid is also supported natively."
+      },
+      {
+        "name": "data-variant (addon)",
+        "type": "filled",
+        "description": "Addon separated by a divider, on a muted background."
+      },
+      {
+        "name": "type=\"search\"",
+        "type": "native",
+        "description": "The native clear button (WebKit/Blink) is restyled: clearing without JS."
+      }
+    ],
+    "cssVars": [
+      {
+        "name": "--mv-input-radius",
+        "default": "var(--mv-radius-md)",
+        "description": "Corner radius (input and group)."
+      },
+      {
+        "name": "--mv-input-bg",
+        "description": "Field background."
+      }
+    ]
+  },
+  "a11y": "Always pair with a <label for> (or aria-label). Decorative icons have aria-hidden=\"true\". Text addons in a <label for> join the accessible name (“https://” is then announced). Inline buttons are real <button type=\"button\"> elements with an aria-label; the show/hide password button uses aria-pressed. On error, set aria-invalid=\"true\" and link the message via aria-describedby (see Field).",
+  "inspiredBy": [],
+  "status": "stable"
+}

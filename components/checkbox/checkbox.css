@@ -1,0 +1,190 @@
+@layer mv.components {
+  /* ── Checkbox: <input type="checkbox" class="mv-checkbox"> ─────────────── */
+  :where(input.mv-checkbox) {
+    --_size: var(--mv-checkbox-size, 1rem);
+    --_box: var(--_size);
+    --_bg: var(--mv-bg);
+    --_border: var(--mv-input);
+    --_mark: var(--mv-fg-on-accent);
+    /* Masks (not paint): the glyph colour comes from --_mark. */
+    --_check: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='2.1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3.6 8.4 6.5 11.3 12.4 4.8'/%3E%3C/svg%3E");
+    --_dash: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='2.1' stroke-linecap='round'%3E%3Cpath d='M4.25 8h7.5'/%3E%3C/svg%3E");
+
+    appearance: none;
+    position: relative;
+    display: inline-grid;
+    flex-shrink: 0;
+    width: var(--_size);
+    height: var(--_size);
+    margin: 0;
+    border: 1px solid var(--_border);
+    border-radius: var(--mv-checkbox-radius, calc(var(--_size) * 0.28));
+    background: var(--_bg);
+    box-shadow: var(--mv-shadow-xs);
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      background-color var(--mv-duration-fast) var(--mv-ease-out),
+      border-color var(--mv-duration-fast) var(--mv-ease-out),
+      box-shadow var(--mv-duration-fast) var(--mv-ease-out),
+      scale var(--mv-duration-fast) var(--mv-ease-out);
+  }
+
+  /* The glyph: a mask revealed left → right, which reads as the stroke being drawn.
+     Transitioned (not keyframed) so un-checking mid-draw reverses cleanly. */
+  :where(input.mv-checkbox)::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    background: var(--_mark);
+    mask: var(--_check) center / 100% 100% no-repeat;
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path var(--mv-duration-fast) var(--mv-ease-out);
+  }
+
+  :where(input.mv-checkbox):hover { --_border: var(--mv-border-strong); }
+  :where(input.mv-checkbox):active:not(:disabled) { scale: 0.92; }
+  :where(input.mv-checkbox):focus-visible { outline: none; box-shadow: var(--mv-focus-ring); }
+
+  :where(input.mv-checkbox):is(:checked, :indeterminate) {
+    --_bg: var(--mv-accent);
+    --_border: var(--mv-accent);
+  }
+  :where(input.mv-checkbox):is(:checked, :indeterminate):hover { --_bg: var(--mv-accent-hover); --_border: var(--mv-accent-hover); }
+  :where(input.mv-checkbox):is(:checked, :indeterminate)::before {
+    clip-path: inset(0 0 0 0);
+    transition: clip-path calc(var(--mv-duration-slow) * 0.875) var(--mv-ease-out) calc(var(--mv-duration-slow) * 0.1);
+  }
+  :where(input.mv-checkbox):indeterminate::before { mask-image: var(--_dash); }
+
+  /* Forced colors erase the masked background that draws the glyph: paint it with a system color */
+  @media (forced-colors: active) {
+    :where(input.mv-checkbox)::before { forced-color-adjust: none; background: CanvasText; }
+  }
+
+  :where(input.mv-checkbox[aria-invalid="true"]) {
+    --_border: var(--mv-danger);
+    box-shadow: 0 0 0 3px color-mix(in oklch, var(--mv-danger) 18%, transparent);
+  }
+  :where(input.mv-checkbox):disabled { opacity: 0.5; cursor: not-allowed; box-shadow: none; }
+
+  :where(input.mv-checkbox[data-size="sm"]) { --_size: 0.875rem; }
+  :where(input.mv-checkbox[data-size="lg"]) { --_size: 1.25rem; }
+  :where(input.mv-checkbox[data-shape="round"]) { border-radius: var(--mv-radius-full); }
+
+  /* ── Shared choice layouts (also used by radio and switch) ─────────────
+     <label class="mv-choice"><input …> Label</label>
+     <label class="mv-choice-card"><input …><span class="mv-choice-text">…</span></label> */
+  :where(.mv-choice, .mv-choice-card) {
+    --_choice-lh: 1.25rem;
+    color: var(--mv-fg);
+    font: var(--mv-weight-medium) var(--mv-text-sm) / var(--_choice-lh) var(--mv-font-sans);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  :where(.mv-choice) {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: var(--mv-space-3);
+    user-select: none;
+  }
+  /* Optically centre the control on the first line of text. */
+  :where(.mv-choice, .mv-choice-card) > :where(input) {
+    margin-block: calc((var(--_choice-lh) - var(--_box, 1rem)) / 2);
+  }
+  :where(.mv-choice[data-control="end"]) { display: flex; justify-content: space-between; }
+  :where(.mv-choice[data-control="end"], .mv-choice-card[data-control="end"]) > :where(input) { order: 1; }
+
+  :where(.mv-choice-text) { display: flex; flex-direction: column; gap: var(--mv-space-0-5); min-width: 0; flex: 1 1 auto; }
+  :where(.mv-choice) > :where(.mv-choice-text) { flex: 0 1 auto; }
+  :where(.mv-choice[data-control="end"]) > :where(.mv-choice-text) { flex: 1 1 auto; }
+  :where(.mv-choice-title) { color: var(--mv-fg); font-weight: var(--mv-weight-medium); }
+  :where(.mv-choice-description) {
+    color: var(--mv-fg-muted);
+    font-weight: var(--mv-weight-normal);
+    font-size: var(--mv-text-sm);
+    line-height: var(--mv-leading-snug);
+  }
+  :where(.mv-choice, .mv-choice-card):has(:disabled) { cursor: not-allowed; }
+  :where(.mv-choice):has(:disabled) > :where(:not(input)) { opacity: 0.55; }
+
+  /* Card option: the whole card is the hit area. */
+  :where(.mv-choice-card) {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--mv-space-3);
+    padding: var(--mv-space-4);
+    border: 1px solid var(--mv-border);
+    border-radius: var(--mv-choice-card-radius, var(--mv-radius-lg));
+    background: var(--mv-surface);
+    box-shadow: var(--mv-shadow-xs);
+    transition:
+      border-color var(--mv-duration-fast) var(--mv-ease-out),
+      background-color var(--mv-duration-fast) var(--mv-ease-out),
+      box-shadow var(--mv-duration-fast) var(--mv-ease-out);
+  }
+  :where(.mv-choice-card):hover { border-color: var(--mv-border-strong); }
+  :where(.mv-choice-card):has(:checked, [type="checkbox"]:indeterminate) {
+    border-color: var(--mv-accent);
+    background: color-mix(in oklab, var(--mv-accent) 5%, var(--mv-surface));
+    box-shadow: inset 0 0 0 1px var(--mv-accent), var(--mv-shadow-xs);
+  }
+  :where(.mv-choice-card):has(:focus-visible) {
+    box-shadow: var(--mv-focus-ring);
+  }
+  :where(.mv-choice-card):has(:checked, [type="checkbox"]:indeterminate):has(:focus-visible) {
+    box-shadow: inset 0 0 0 1px var(--mv-accent), var(--mv-focus-ring);
+  }
+  :where(.mv-choice-card) > :where(input):focus-visible { box-shadow: none; }
+  :where(.mv-choice-card):has(:disabled) { opacity: 0.55; box-shadow: none; }
+  :where(.mv-choice-card):has(:disabled):hover { border-color: var(--mv-border); }
+
+  /* Optional leading icon tile inside a card */
+  :where(.mv-choice-icon) {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 2.25rem;
+    height: 2.25rem;
+    margin-block: -0.125rem;
+    border: 1px solid var(--mv-border);
+    border-radius: var(--mv-radius-md);
+    background: var(--mv-bg-subtle);
+    color: var(--mv-fg-muted);
+    transition: color var(--mv-duration-fast) var(--mv-ease-out), border-color var(--mv-duration-fast) var(--mv-ease-out), background-color var(--mv-duration-fast) var(--mv-ease-out);
+  }
+  :where(.mv-choice-icon) :where(svg) { width: 1.125rem; height: 1.125rem; }
+  :where(.mv-choice-card):has(:checked) :where(.mv-choice-icon) {
+    color: var(--mv-accent-fg);
+    border-color: color-mix(in oklab, var(--mv-accent) 30%, transparent);
+    background: var(--mv-accent-subtle);
+  }
+
+  /* Group of choices; works on <fieldset> + <legend>. */
+  :where(.mv-choice-group) {
+    display: grid;
+    gap: var(--mv-space-3);
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+  /* float + full width pulls the legend into the grid/flex flow */
+  :where(.mv-choice-group) > :where(legend) {
+    float: inline-start;
+    width: 100%;
+    padding: 0;
+    margin-bottom: var(--mv-space-1);
+    color: var(--mv-fg);
+    font: var(--mv-weight-medium) var(--mv-text-sm) / 1.25rem var(--mv-font-sans);
+  }
+  :where(.mv-choice-group[data-orientation="horizontal"]) { display: flex; flex-wrap: wrap; gap: var(--mv-space-3) var(--mv-space-5); }
+  :where(.mv-choice-group[data-orientation="horizontal"]) > :where(legend) { width: 100%; }
+  :where(.mv-choice-group[data-layout="grid"]) {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--mv-choice-min, 11rem)), 1fr));
+  }
+  :where(.mv-choice-group[data-layout="grid"]) > :where(legend) { grid-column: 1 / -1; }
+  :where(.mv-choice-group-nested) { display: grid; gap: var(--mv-space-2-5, 0.625rem); padding-inline-start: 1.75rem; }
+}

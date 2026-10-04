@@ -1,0 +1,48 @@
+<div id="toast-demo" style="display:grid;gap:1rem;justify-items:center">
+  <div style="display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;max-width:34rem">
+    <button class="mv-button" data-variant="outline" data-toast="default">Default</button>
+    <button class="mv-button" data-variant="outline" data-toast="success">Success</button>
+    <button class="mv-button" data-variant="outline" data-toast="error">Error</button>
+    <button class="mv-button" data-variant="outline" data-toast="warning">Warning</button>
+    <button class="mv-button" data-variant="outline" data-toast="info">Info</button>
+    <button class="mv-button" data-variant="outline" data-toast="promise">Promise</button>
+    <button class="mv-button" data-variant="outline" data-toast="update">Update in place</button>
+  </div>
+  <p style="margin:0;font-size:.8125rem;color:var(--mv-fg-muted);text-align:center">Hover the stack to expand it · swipe a toast to dismiss it · <strong style="color:var(--mv-fg);font-weight:500">Alt + T</strong> to reach it from the keyboard</p>
+  <mv-toaster position="bottom-right" close-button></mv-toaster>
+</div>
+<script type="module">
+  // In an app: import { toast } from "./components/toast/toast.js";
+  const { toast } = await customElements.whenDefined("mv-toaster");
+  const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+  const demos = {
+    default: () => toast("Event created", {
+      description: "Sunday, Dec 6, 2026 at 9:00 AM",
+      action: { label: "Undo", onClick: () => toast("Event creation undone") },
+    }),
+    success: () => toast.success("Changes saved", { description: "Your public profile has been updated." }),
+    error: () => toast.error("Couldn't send", {
+      description: "The server isn't responding. Check your connection.",
+      action: { label: "Retry", onClick: () => demos.promise() },
+    }),
+    warning: () => toast.warning("Storage almost full", { description: "480 MB left of 15 GB." }),
+    info: () => toast.info("New version available", { description: "It will be installed on your next restart." }),
+    promise: () => toast.promise(wait(1800), {
+      loading: "Importing 24 contacts…",
+      success: { message: "24 contacts imported", description: "They now appear in your address book." },
+      error: "Import failed",
+    }),
+    update: async () => {
+      const id = "sync-demo";
+      for (let i = 1; i <= 3; i++) {
+        toast.loading(`Syncing… ${i}/3`, { id, description: "Folder “Client projects”" });
+        await wait(900);
+      }
+      toast.success("Sync complete", { id, description: "3 files updated." });
+    },
+  };
+  document.getElementById("toast-demo").addEventListener("click", (e) => {
+    const kind = e.target.closest("[data-toast]")?.dataset.toast;
+    if (kind) demos[kind]();
+  });
+</script>

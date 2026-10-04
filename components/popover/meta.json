@@ -1,0 +1,198 @@
+{
+  "name": "Popover",
+  "slug": "popover",
+  "tag": "mv-popover",
+  "kind": "element",
+  "category": "overlay",
+  "wave": 1,
+  "description": "Non-modal floating panel in the top layer (Popover API): auto placement with flip, optional arrow, closes on outside click/Escape with managed focus; data-open=\"liquid\" option where the panel stretches out of the trigger through a liquid “neck”, then pinches back into it on close.",
+  "useWhen": [
+    "A small form, filter or settings panel must open next to its trigger without blocking the page",
+    "Interactive content like links or buttons must be reachable on touch and keyboard, unlike a tooltip",
+    "A liquid opening that stretches the panel out of its trigger fits the product's tone"
+  ],
+  "avoidWhen": [
+    {
+      "when": "The content is a list of actions that needs menu keyboard navigation",
+      "instead": "menu"
+    },
+    {
+      "when": "The user must confirm or complete a task before continuing",
+      "instead": "dialog"
+    },
+    {
+      "when": "The content is only a short label shown on hover or focus",
+      "instead": "tooltip"
+    }
+  ],
+  "files": [
+    "popover.js",
+    "popover.css"
+  ],
+  "tags": [
+    "popover",
+    "floating",
+    "dropdown",
+    "panel",
+    "top-layer",
+    "gooey",
+    "liquid",
+    "morph"
+  ],
+  "demo": {
+    "layout": "center",
+    "height": 380,
+    "requires": [
+      "button",
+      "input"
+    ]
+  },
+  "preview": {
+    "viewport": {
+      "width": 560,
+      "height": 340
+    },
+    "steps": [
+      [
+        "wait",
+        400
+      ],
+      [
+        "click",
+        "button:has-text('Share (liquid)')"
+      ],
+      [
+        "wait",
+        1500
+      ],
+      [
+        "click",
+        "button:has-text('What’s new')"
+      ],
+      [
+        "wait",
+        1300
+      ],
+      [
+        "click",
+        "[data-content] button:has-text('Next') >> visible=true"
+      ],
+      [
+        "leave"
+      ],
+      [
+        "wait",
+        700
+      ]
+    ]
+  },
+  "api": {
+    "attributes": [
+      {
+        "name": "placement",
+        "type": "top | bottom | left | right[-start|-end]",
+        "default": "bottom",
+        "description": "Preferred side and alignment, flipped when space runs out."
+      },
+      {
+        "name": "offset",
+        "type": "number",
+        "default": "8",
+        "description": "Distance from the trigger (px)."
+      },
+      {
+        "name": "arrow",
+        "type": "boolean",
+        "description": "Shows an arrow pointing at the trigger."
+      },
+      {
+        "name": "open",
+        "type": "boolean",
+        "description": "Opens/closes programmatically (reflects the state)."
+      },
+      {
+        "name": "data-open",
+        "type": "\"liquid\"",
+        "description": "Opt-in: a “goo” layer (SVG blur filter + alpha threshold) pulls the panel out of the trigger’s edge with a liquid neck that thins and snaps, then the content appears; closing replays a pinch back into the trigger. Ignored with reduced motion (standard animation)."
+      }
+    ],
+    "methods": [
+      {
+        "name": "show()",
+        "description": "Opens the panel."
+      },
+      {
+        "name": "hide()",
+        "description": "Closes the panel."
+      },
+      {
+        "name": "toggle()",
+        "description": "Toggles the state."
+      },
+      {
+        "name": "liquidMorph(panel, anchor, \"open\" | \"close\", done)",
+        "description": "popover.js export: plays the liquid morph on any already-positioned panel (returns { layer, cancel() })."
+      }
+    ],
+    "properties": [
+      {
+        "name": "isOpen",
+        "type": "boolean",
+        "description": "Read-only: the panel is shown."
+      }
+    ],
+    "events": [
+      {
+        "name": "mv-open",
+        "description": "After opening."
+      },
+      {
+        "name": "mv-close",
+        "description": "After closing (whatever the cause)."
+      }
+    ],
+    "slots": [
+      {
+        "name": "first child",
+        "description": "Trigger (button): receives aria-haspopup, aria-expanded and aria-controls."
+      },
+      {
+        "name": "[data-content]",
+        "description": "Panel; an [autofocus] element inside receives focus on open, otherwise the first focusable one."
+      },
+      {
+        "name": "[data-mv-close]",
+        "description": "Any element in the panel that closes the popover on click."
+      }
+    ],
+    "classes": [
+      {
+        "name": "mv-popover-header / -title / -description / -footer",
+        "description": "Content layout; the title and description are wired via aria-labelledby / aria-describedby."
+      }
+    ],
+    "cssVars": [
+      {
+        "name": "--mv-popover-width",
+        "default": "18rem",
+        "description": "Panel width."
+      },
+      {
+        "name": "--mv-popover-padding",
+        "default": "1rem",
+        "description": "Inner padding."
+      },
+      {
+        "name": "--mv-popover-radius",
+        "description": "Corner radius."
+      },
+      {
+        "name": "--mv-popover-bg",
+        "description": "Panel background (and arrow)."
+      }
+    ]
+  },
+  "a11y": "APG “Dialog (non-modal)” pattern: role=dialog named by .mv-popover-title, trigger with aria-expanded/aria-controls. Enter/Space open it, focus moves into the panel and returns to the trigger on close (Escape or button), unless the user clicked elsewhere. The panel is inert during the exit animation.",
+  "inspiredBy": [],
+  "status": "stable"
+}

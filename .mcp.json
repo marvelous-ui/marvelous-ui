@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "marvelous-ui": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/mcp/server.mjs"],
+      "env": { "MARVELOUS_PROJECT_ROOT": "${CLAUDE_PROJECT_DIR}" }
+    }
+  }
+}

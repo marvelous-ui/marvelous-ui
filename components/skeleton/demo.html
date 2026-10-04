@@ -1,0 +1,58 @@
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr));gap:1.5rem;width:100%;align-items:start">
+
+  <!-- Card composition (shimmer) -->
+  <div aria-hidden="true" style="display:grid;gap:1rem;padding:1.25rem;border:1px solid var(--mv-border);border-radius:var(--mv-radius-xl);background:var(--mv-surface)">
+    <div class="mv-skeleton" data-shape="media"></div>
+    <div class="mv-skeleton" data-shape="heading" style="width:70%"></div>
+    <div class="mv-skeleton-text">
+      <span class="mv-skeleton"></span>
+      <span class="mv-skeleton"></span>
+      <span class="mv-skeleton"></span>
+    </div>
+    <div style="display:flex;gap:.5rem">
+      <span class="mv-skeleton" data-shape="button"></span>
+      <span class="mv-skeleton" data-shape="button" style="width:4.5rem"></span>
+    </div>
+  </div>
+
+  <!-- List rows (pulse, set on the container) -->
+  <div data-skeleton="pulse" aria-hidden="true" style="display:grid;gap:1.1rem;padding:1.25rem;border:1px solid var(--mv-border);border-radius:var(--mv-radius-xl);background:var(--mv-surface)">
+    <div style="display:flex;gap:.75rem;align-items:center"><span class="mv-skeleton" data-shape="circle"></span><div class="mv-skeleton-text" style="flex:1"><span class="mv-skeleton" style="width:55%"></span><span class="mv-skeleton" style="width:80%"></span></div></div>
+    <div style="display:flex;gap:.75rem;align-items:center"><span class="mv-skeleton" data-shape="circle"></span><div class="mv-skeleton-text" style="flex:1"><span class="mv-skeleton" style="width:40%"></span><span class="mv-skeleton" style="width:70%"></span></div></div>
+    <div style="display:flex;gap:.75rem;align-items:center"><span class="mv-skeleton" data-shape="circle"></span><div class="mv-skeleton-text" style="flex:1"><span class="mv-skeleton" style="width:62%"></span><span class="mv-skeleton" style="width:48%"></span></div></div>
+    <div style="display:flex;gap:.75rem;align-items:center"><span class="mv-skeleton" data-shape="square" style="--mv-skeleton-size:2.5rem"></span><div class="mv-skeleton-text" style="flex:1"><span class="mv-skeleton" style="width:50%"></span><span class="mv-skeleton" style="width:75%"></span></div></div>
+  </div>
+
+  <!-- Reveal: skeleton cross-fades into the loaded content -->
+  <div style="display:grid;gap:.75rem">
+    <div class="mv-skeleton-reveal" id="sk-demo-reveal" aria-busy="true" aria-live="polite" style="padding:1.25rem;border:1px solid var(--mv-border);border-radius:var(--mv-radius-xl);background:var(--mv-surface)">
+      <div data-skeleton aria-hidden="true" style="display:grid;gap:1rem">
+        <div style="display:flex;gap:.75rem;align-items:center">
+          <span class="mv-skeleton" data-shape="circle" style="--mv-skeleton-size:3rem"></span>
+          <div class="mv-skeleton-text" style="flex:1"><span class="mv-skeleton" style="width:60%"></span><span class="mv-skeleton" style="width:40%"></span></div>
+        </div>
+        <div class="mv-skeleton-text"><span class="mv-skeleton"></span><span class="mv-skeleton"></span></div>
+      </div>
+      <div data-content style="display:grid;gap:1rem">
+        <div style="display:flex;gap:.75rem;align-items:center">
+          <span style="display:grid;place-items:center;width:3rem;height:3rem;border-radius:50%;background:var(--mv-accent-subtle);color:var(--mv-accent-fg);font-weight:600">CR</span>
+          <div style="display:grid;gap:2px"><strong style="font-size:.875rem">Chloe Reed</strong><span style="font-size:.8125rem;color:var(--mv-fg-muted)">Product designer · London</span></div>
+        </div>
+        <p style="margin:0;font-size:.875rem;line-height:1.55;color:var(--mv-fg-muted)">Working on the customer portal redesign and the new design system.</p>
+      </div>
+    </div>
+    <button class="mv-button" data-variant="outline" data-size="sm" id="sk-demo-reload" style="justify-self:start">Reload</button>
+  </div>
+</div>
+<script type="module">
+  const box = document.getElementById("sk-demo-reveal");
+  const btn = document.getElementById("sk-demo-reload");
+  let timer = 0;
+  const load = () => {
+    clearTimeout(timer);
+    box.setAttribute("aria-busy", "true");
+    timer = setTimeout(() => box.setAttribute("aria-busy", "false"), 1800);
+  };
+  btn?.addEventListener("click", load);
+  if (box) load();
+</script>

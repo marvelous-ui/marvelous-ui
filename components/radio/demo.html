@@ -1,0 +1,72 @@
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:2rem 2.5rem;width:100%;max-width:42rem;align-items:start">
+  <div style="display:grid;gap:1.75rem">
+    <fieldset class="mv-choice-group" data-orientation="horizontal">
+      <legend>Billing</legend>
+      <label class="mv-choice"><input type="radio" class="mv-radio" name="rd-cycle" value="monthly"> Monthly</label>
+      <label class="mv-choice"><input type="radio" class="mv-radio" name="rd-cycle" value="yearly" checked> Yearly (−20%)</label>
+    </fieldset>
+
+    <fieldset class="mv-choice-group">
+      <legend>Shipping</legend>
+      <label class="mv-choice">
+        <input type="radio" class="mv-radio" name="rd-ship" value="standard" checked aria-describedby="rd-ship-1">
+        <span class="mv-choice-text"><span class="mv-choice-title">Standard</span><span class="mv-choice-description" id="rd-ship-1">3-5 business days · free</span></span>
+      </label>
+      <label class="mv-choice">
+        <input type="radio" class="mv-radio" name="rd-ship" value="express" aria-describedby="rd-ship-2">
+        <span class="mv-choice-text"><span class="mv-choice-title">Express</span><span class="mv-choice-description" id="rd-ship-2">Delivered tomorrow by 1 p.m. · $9.90</span></span>
+      </label>
+      <label class="mv-choice">
+        <input type="radio" class="mv-radio" name="rd-ship" value="pickup" disabled aria-describedby="rd-ship-3">
+        <span class="mv-choice-text"><span class="mv-choice-title">In-store pickup</span><span class="mv-choice-description" id="rd-ship-3">Unavailable for this address</span></span>
+      </label>
+    </fieldset>
+
+    <div style="display:flex;gap:1rem;align-items:center" role="radiogroup" aria-label="Sizes">
+      <input type="radio" class="mv-radio" name="rd-size" data-size="sm" aria-label="Small">
+      <input type="radio" class="mv-radio" name="rd-size" checked aria-label="Medium">
+      <input type="radio" class="mv-radio" name="rd-size" data-size="lg" aria-label="Large">
+      <input type="radio" class="mv-radio" name="rd-size2" data-size="lg" data-variant="outline" checked aria-label="Outline">
+    </div>
+  </div>
+
+  <div style="display:grid;gap:1.75rem">
+    <fieldset class="mv-choice-group">
+      <legend>Plan</legend>
+      <label class="mv-choice-card">
+        <input type="radio" class="mv-radio" name="rd-plan" value="starter">
+        <span class="mv-choice-text"><span class="mv-choice-title">Starter</span><span class="mv-choice-description">1 project, 2 members</span></span>
+        <span class="mv-radio-meta">$0</span>
+      </label>
+      <label class="mv-choice-card">
+        <input type="radio" class="mv-radio" name="rd-plan" value="pro" checked>
+        <span class="mv-choice-text"><span class="mv-choice-title">Pro</span><span class="mv-choice-description">Unlimited projects, 10 members</span></span>
+        <span class="mv-radio-meta">$19 <small>/ month</small></span>
+      </label>
+      <label class="mv-choice-card">
+        <input type="radio" class="mv-radio" name="rd-plan" value="enterprise">
+        <span class="mv-choice-text"><span class="mv-choice-title">Enterprise</span><span class="mv-choice-description">SSO, audit logs, dedicated support</span></span>
+        <span class="mv-radio-meta">Custom quote</span>
+      </label>
+    </fieldset>
+
+    <fieldset class="mv-choice-group" data-layout="grid" style="--mv-choice-min:6rem">
+      <legend>Payment</legend>
+      <label class="mv-choice-card" data-variant="badge">
+        <input type="radio" class="mv-radio" name="rd-pay" value="card" checked>
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+        <span class="mv-choice-title" style="margin-top:.5rem">Card</span>
+      </label>
+      <label class="mv-choice-card" data-variant="badge">
+        <input type="radio" class="mv-radio" name="rd-pay" value="transfer">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3"/></svg>
+        <span class="mv-choice-title" style="margin-top:.5rem">Bank transfer</span>
+      </label>
+      <label class="mv-choice-card" data-variant="badge">
+        <input type="radio" class="mv-radio" name="rd-pay" value="cash">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 12h.01M18 12h.01"/></svg>
+        <span class="mv-choice-title" style="margin-top:.5rem">Cash</span>
+      </label>
+    </fieldset>
+  </div>
+</div>

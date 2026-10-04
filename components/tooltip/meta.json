@@ -1,0 +1,170 @@
+{
+  "name": "Tooltip",
+  "slug": "tooltip",
+  "tag": "mv-tooltip",
+  "kind": "element",
+  "category": "overlay",
+  "wave": 1,
+  "description": "Tooltip in the top layer (Popover API), automatic placement with flip, arrow, grouped delay. For a toolbar, Tooltip Group shares a single surface that slides from one button to the next.",
+  "useWhen": [
+    "An icon-only button needs its label shown on hover and keyboard focus",
+    "A short supplementary hint clarifies a control without cluttering the layout"
+  ],
+  "avoidWhen": [
+    {
+      "when": "The content is interactive or must be reachable on touch devices",
+      "instead": "popover"
+    },
+    {
+      "when": "Many adjacent toolbar buttons should share one gliding tooltip surface",
+      "instead": "tooltip-group"
+    },
+    {
+      "when": "The preview is rich, such as a profile card with an avatar and details",
+      "instead": "hover-card"
+    }
+  ],
+  "files": [
+    "tooltip.js",
+    "tooltip.css"
+  ],
+  "tags": [
+    "tooltip",
+    "hint",
+    "popover",
+    "morphic-tooltip"
+  ],
+  "api": {
+    "attributes": [
+      {
+        "name": "text",
+        "type": "string",
+        "description": "Plain text (otherwise a [data-content] child)."
+      },
+      {
+        "name": "placement",
+        "type": "top | bottom | left | right[-start|-end]",
+        "default": "top",
+        "description": "Preferred side, flipped when there’s no room."
+      },
+      {
+        "name": "delay",
+        "type": "number",
+        "default": "500",
+        "description": "Show delay (ms). Skipped if another tooltip just closed."
+      },
+      {
+        "name": "offset",
+        "type": "number",
+        "default": "8",
+        "description": "Distance from the trigger (px)."
+      },
+      {
+        "name": "open",
+        "type": "boolean",
+        "description": "Opens/closes programmatically."
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "description": "Disables the tooltip."
+      }
+    ],
+    "slots": [
+      {
+        "name": "first child",
+        "description": "Trigger (button, link, focusable icon)."
+      },
+      {
+        "name": "[data-content]",
+        "description": "Optional rich content."
+      }
+    ],
+    "events": [
+      {
+        "name": "mv-open",
+        "description": "After opening."
+      },
+      {
+        "name": "mv-close",
+        "description": "After closing."
+      }
+    ],
+    "cssVars": [
+      {
+        "name": "--mv-tooltip-bg",
+        "description": "Background."
+      },
+      {
+        "name": "--mv-tooltip-fg",
+        "description": "Text."
+      }
+    ]
+  },
+  "a11y": "role=tooltip + aria-describedby on the trigger; opens on keyboard focus, closes on Escape. Doesn’t open on touch (use a Popover).",
+  "inspiredBy": [],
+  "demo": {
+    "requires": [
+      "button"
+    ]
+  },
+  "preview": {
+    "viewport": {
+      "width": 520,
+      "height": 200
+    },
+    "steps": [
+      [
+        "wait",
+        300
+      ],
+      [
+        "hover",
+        "button:has-text('Top')"
+      ],
+      [
+        "wait",
+        1000
+      ],
+      [
+        "hover",
+        "button:has-text('Bottom')"
+      ],
+      [
+        "wait",
+        450
+      ],
+      [
+        "hover",
+        "button:has-text('Left')"
+      ],
+      [
+        "wait",
+        450
+      ],
+      [
+        "hover",
+        "button:has-text('Right')"
+      ],
+      [
+        "wait",
+        450
+      ],
+      [
+        "hover",
+        "button:has-text('Rich')"
+      ],
+      [
+        "wait",
+        800
+      ],
+      [
+        "leave"
+      ],
+      [
+        "wait",
+        400
+      ]
+    ]
+  }
+}

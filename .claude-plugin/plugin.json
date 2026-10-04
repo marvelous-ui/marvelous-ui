@@ -1,0 +1,30 @@
+{
+  "name": "marvelous-ui",
+  "displayName": "Marvelous UI",
+  "version": "1.4.0",
+  "description": "Framework-agnostic UI components for AI coding agents: search, install and use the 21 free mv-* components (MIT) through a local MCP server.",
+  "author": {
+    "name": "Quentin Fankrache EI",
+    "email": "hello@marvelous-ui.com",
+    "url": "https://marvelous-ui.com"
+  },
+  "homepage": "https://marvelous-ui.com",
+  "license": "MIT",
+  "keywords": [
+    "ui",
+    "components",
+    "web-components",
+    "design-system",
+    "mcp",
+    "html",
+    "react",
+    "vue",
+    "svelte",
+    "astro"
+  ],
+  "repository": "https://github.com/marvelous-ui/marvelous-ui",
+  "icon": "./brand/png/mark-256.png",
+  "documentationUrl": "https://github.com/marvelous-ui/marvelous-ui#readme",
+  "supportUrl": "https://github.com/marvelous-ui/marvelous-ui/issues",
+  "privacyPolicyUrl": "https://marvelous-ui.com/legal/privacy.html"
+}

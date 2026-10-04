@@ -1,0 +1,371 @@
+@layer mv.components {
+  /* ── Host: tab list on top (or left), panels stacked in one cell ── */
+  :where(mv-tabs) {
+    --_h: var(--mv-control-md);
+    --_radius: var(--mv-tabs-radius, var(--mv-radius-md));
+    --_pad: 3px;
+    --_ind-bg: var(--mv-tabs-indicator, light-dark(var(--mv-bg), var(--mv-bg-emphasis)));
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "list" "panels";
+    align-content: start;
+    gap: var(--mv-space-4);
+  }
+  :where(mv-tabs[orientation="vertical"]) {
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas: "list panels";
+    align-items: start;
+    gap: var(--mv-space-6);
+  }
+  :where(mv-tabs[data-size="sm"]) { --_h: var(--mv-control-sm); }
+  :where(mv-tabs[data-size="lg"]) { --_h: var(--mv-control-lg); }
+  :where(mv-tabs[data-variant="pill"]) {
+    --_pad: 0px;
+    --_radius: var(--mv-radius-full);
+    --_ind-bg: var(--mv-tabs-indicator, var(--mv-accent-subtle));
+  }
+  :where(mv-tabs[data-variant="underline"]) {
+    --_pad: 0px;
+    --_h: 2.5rem;
+    --_ind-bg: var(--mv-tabs-indicator, var(--mv-accent));
+    gap: var(--mv-space-5);
+  }
+
+  /* Count badge inside a tab */
+  :where(.mv-tabs-count) {
+    display: inline-grid;
+    place-items: center;
+    min-width: 1.25rem;
+    height: 1.25rem;
+    padding: 0 var(--mv-space-1-5);
+    border-radius: var(--mv-radius-full);
+    background: color-mix(in oklch, var(--mv-fg) 8%, transparent);
+    color: var(--mv-fg-muted);
+    font-size: 0.6875rem;
+    font-weight: var(--mv-weight-semibold);
+    font-variant-numeric: tabular-nums;
+    transition: background-color var(--mv-duration-fast) var(--mv-ease-out), color var(--mv-duration-fast) var(--mv-ease-out);
+  }
+  :where([role="tab"][aria-selected="true"]) :where(.mv-tabs-count) { background: var(--mv-accent-subtle); color: var(--mv-accent-fg); }
+
+  /* ── Sliding indicator (positioned by JS through CSS vars) ── */
+  :where(.mv-tabs-indicator) {
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    left: 0;
+    width: var(--mv-tabs-w, 0);
+    height: var(--mv-tabs-h, 0);
+    translate: var(--mv-tabs-x, 0) var(--mv-tabs-y, 0);
+    border-radius: calc(var(--_radius) - var(--_pad));
+    background: var(--_ind-bg);
+    box-shadow: var(--mv-shadow-sm), 0 0 0 1px color-mix(in oklch, var(--mv-border) 70%, transparent);
+    pointer-events: none;
+    opacity: 0;
+    transition:
+      translate var(--mv-duration-normal) var(--mv-ease-out),
+      width var(--mv-duration-normal) var(--mv-ease-out),
+      height var(--mv-duration-normal) var(--mv-ease-out),
+      opacity var(--mv-duration-fast) var(--mv-ease-out);
+  }
+  /* Shown only inside a styled list: without @scope, a wrapped list stays unstyled and must not show a stray indicator */
+  :where(mv-tabs) > :where([role="tablist"]) > :where(.mv-tabs-indicator[data-ready]) { opacity: 1; }
+  :where(.mv-tabs-indicator[data-instant]) { transition: none; }
+
+  /*
+   * Fallback without @scope: the historical markup (tablist and panels as direct children of the host, tabs as direct
+   * children of the tablist) is styled by child selectors. The @scope block below repeats these rules for any depth;
+   * scoped rules win by proximity, so modern engines render from it alone.
+   */
+  /* ── Tab list ─────────────────────────────────────────────── */
+  :where(mv-tabs) > :where([role="tablist"]) {
+    grid-area: list;
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    align-items: center;
+    justify-self: start;
+    gap: 2px;
+    max-width: 100%;
+    min-height: var(--_h);
+    padding: var(--_pad);
+    border-radius: var(--_radius);
+    background: var(--mv-bg-muted);
+  }
+  :where(mv-tabs[orientation="vertical"]) > :where([role="tablist"]) {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  :where(mv-tabs[data-stretch]) > :where([role="tablist"]) { justify-self: stretch; }
+  :where(mv-tabs[data-stretch]) > :where([role="tablist"]) > :where([role="tab"]) { flex: 1 1 0; }
+
+  /* ── Tab ──────────────────────────────────────────────────── */
+  :where(mv-tabs) > :where([role="tablist"]) > :where([role="tab"]) {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--mv-space-2);
+    height: calc(var(--_h) - var(--_pad) * 2);
+    padding: 0 var(--mv-space-3);
+    border: 0;
+    border-radius: calc(var(--_radius) - var(--_pad));
+    background: none;
+    color: var(--mv-fg-muted);
+    font: var(--mv-weight-medium) var(--mv-text-sm) / 1 var(--mv-font-sans);
+    white-space: nowrap;
+    text-decoration: none;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: color var(--mv-duration-fast) var(--mv-ease-out), background-color var(--mv-duration-fast) var(--mv-ease-out), box-shadow var(--mv-duration-fast) var(--mv-ease-out);
+  }
+  :where(mv-tabs[orientation="vertical"]) > :where([role="tablist"]) > :where([role="tab"]) { justify-content: flex-start; }
+  :where(mv-tabs) > :where([role="tablist"]) > :where([role="tab"]:not([aria-selected="true"], :disabled, [aria-disabled="true"])):hover { color: var(--mv-fg); }
+  :where(mv-tabs) > :where([role="tablist"]) > :where([role="tab"][aria-selected="true"]) { color: var(--mv-fg); }
+  :where(mv-tabs) > :where([role="tablist"]) > :where([role="tab"]):focus-visible { outline: none; box-shadow: var(--mv-focus-ring); z-index: 2; }
+  :where(mv-tabs) > :where([role="tablist"]) > :where([role="tab"]):is(:disabled, [aria-disabled="true"]) { opacity: 0.45; cursor: not-allowed; }
+  :where(mv-tabs) > :where([role="tablist"]) > :where([role="tab"]) :where(svg) { width: 1rem; height: 1rem; flex-shrink: 0; opacity: 0.85; }
+
+  /* ── Variant: pill ────────────────────────────────────────── */
+  :where(mv-tabs[data-variant="pill"]) > :where([role="tablist"]) { background: none; gap: var(--mv-space-1); }
+  :where(mv-tabs[data-variant="pill"]) > :where([role="tablist"]) > :where([role="tab"]) { padding: 0 var(--mv-space-4); }
+  :where(mv-tabs[data-variant="pill"]) > :where([role="tablist"]) > :where([role="tab"][aria-selected="true"]) { color: var(--mv-accent-fg); }
+  :where(mv-tabs[data-variant="pill"]) > :where([role="tablist"]) > :where([role="tab"]:not([aria-selected="true"], :disabled, [aria-disabled="true"])):hover { background: var(--mv-bg-muted); }
+  :where(mv-tabs[data-variant="pill"]) > :where([role="tablist"]) > :where(.mv-tabs-indicator) { box-shadow: inset 0 0 0 1px color-mix(in oklch, var(--mv-accent) 22%, transparent); }
+
+  /* ── Variant: underline ───────────────────────────────────── */
+  :where(mv-tabs[data-variant="underline"]) > :where([role="tablist"]) {
+    justify-self: stretch;
+    gap: var(--mv-space-1);
+    border-radius: 0;
+    background: none;
+    box-shadow: inset 0 -1px 0 var(--mv-border);
+  }
+  :where(mv-tabs[data-variant="underline"]) > :where([role="tablist"]) > :where([role="tab"]) { padding: 0 var(--mv-space-3); border-radius: var(--mv-radius-sm); }
+  :where(mv-tabs[data-variant="underline"]) > :where([role="tablist"]) > :where([role="tab"]):focus-visible { box-shadow: inset 0 0 0 2px var(--mv-ring); }
+  :where(mv-tabs[data-variant="underline"]) > :where([role="tablist"]) > :where(.mv-tabs-indicator) {
+    top: auto;
+    bottom: 0;
+    height: 2px;
+    translate: var(--mv-tabs-x, 0) 0;
+    border-radius: 2px 2px 0 0;
+    box-shadow: none;
+  }
+  /* Vertical underline → rail on the inline-start edge */
+  :where(mv-tabs[data-variant="underline"][orientation="vertical"]) > :where([role="tablist"]) { box-shadow: inset 1px 0 0 var(--mv-border); padding-inline-start: var(--mv-space-2); gap: 2px; }
+  :where(mv-tabs[data-variant="underline"][orientation="vertical"]) > :where([role="tablist"]) > :where([role="tab"]) { height: var(--mv-control-md); }
+  :where(mv-tabs[data-variant="underline"][orientation="vertical"]) > :where([role="tablist"]) > :where(.mv-tabs-indicator) {
+    bottom: auto;
+    width: 2px;
+    height: var(--mv-tabs-h, 0);
+    translate: 0 var(--mv-tabs-y, 0);
+    border-radius: 0 2px 2px 0;
+  }
+
+  /* ── Panels: cross-fade (outgoing keeps display during its fade) ── */
+  :where(mv-tabs) > :where([role="tabpanel"]) {
+    grid-area: panels;
+    min-width: 0;
+    border-radius: var(--mv-radius-md);
+    opacity: 1;
+    translate: 0 0;
+    filter: blur(0);
+    transition:
+      opacity var(--mv-duration-normal) var(--mv-ease-out),
+      translate var(--mv-duration-normal) var(--mv-ease-out),
+      filter var(--mv-duration-normal) var(--mv-ease-out),
+      display var(--mv-duration-normal) allow-discrete;
+  }
+  :where(mv-tabs) > :where([role="tabpanel"][hidden]) {
+    display: none;
+    opacity: 0;
+    filter: blur(2px);
+    pointer-events: none;
+    transition-duration: var(--mv-duration-fast);
+  }
+  @starting-style {
+    :where(mv-tabs) > :where([role="tabpanel"]:not([hidden])) {
+      opacity: 0;
+      translate: 0 calc(4px * var(--mv-motion));
+      filter: blur(2px);
+    }
+  }
+  /* Inset ring: a panel that runs edge to edge in a clipped frame would lose an outer one. It is drawn by an overlay,
+     not the panel's own outline: a positioned child with a background (a footer, a navbar) paints over that outline. */
+  :where(mv-tabs) > :where([role="tabpanel"]) { position: relative; }
+  :where(mv-tabs) > :where([role="tabpanel"]):focus-visible { outline: none; box-shadow: none; }
+  :where(mv-tabs) > :where([role="tabpanel"]):focus-visible::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
+    outline: 2px solid var(--mv-ring);
+    outline-offset: -2px;
+    pointer-events: none;
+  }
+
+  /* Before upgrade, show only the first panel */
+  :where(mv-tabs:not(:defined)) > :where([role="tabpanel"]:not(:nth-child(1 of [role="tabpanel"]))) { display: none; }
+  /*
+   * Parts. The tablist, its tabs and the panels can sit at any depth under the host (a wrapper is allowed in between),
+   * but @scope stops at a nested <mv-tabs> and at the content of a panel: a tablist or a panel of another widget
+   * inside a panel is left alone, and a nested <mv-tabs> keeps its own variant.
+   */
+  @scope (mv-tabs) to (:where(mv-tabs, [role="tabpanel"] > *)) {
+    /* ── Tab list ─────────────────────────────────────────────── */
+    :where([role="tablist"]) {
+      position: relative;
+      isolation: isolate;
+      display: flex;
+      align-items: center;
+      justify-self: start;
+      gap: 2px;
+      max-width: 100%;
+      min-height: var(--_h);
+      margin: 0;
+      padding: var(--_pad);
+      list-style: none; /* a <ul role="tablist"> with <li role="presentation"> items */
+      border-radius: var(--_radius);
+      background: var(--mv-bg-muted);
+    }
+    :where(:scope > [role="tablist"]) { grid-area: list; }
+    :where(:scope[orientation="vertical"] [role="tablist"]) {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    :where(:scope[data-stretch] [role="tablist"]) { justify-self: stretch; }
+    :where(:scope[data-stretch] [role="tablist"] [role="tab"]) { flex: 1 1 0; }
+    /* A wrapper around a tab (an <li role="presentation">) takes the share and passes it on to its tab */
+    :where(:scope[data-stretch] [role="tablist"] > :not([role="tab"], .mv-tabs-indicator)) { display: flex; flex: 1 1 0; }
+
+    :where([role="tablist"] > .mv-tabs-indicator[data-ready]) { opacity: 1; }
+
+    /* ── Tab ──────────────────────────────────────────────────── */
+    :where([role="tablist"] [role="tab"]) {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--mv-space-2);
+      height: calc(var(--_h) - var(--_pad) * 2);
+      padding: 0 var(--mv-space-3);
+      border: 0;
+      border-radius: calc(var(--_radius) - var(--_pad));
+      background: none;
+      color: var(--mv-fg-muted);
+      font: var(--mv-weight-medium) var(--mv-text-sm) / 1 var(--mv-font-sans);
+      white-space: nowrap;
+      text-decoration: none;
+      cursor: pointer;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      transition: color var(--mv-duration-fast) var(--mv-ease-out), background-color var(--mv-duration-fast) var(--mv-ease-out), box-shadow var(--mv-duration-fast) var(--mv-ease-out);
+    }
+    :where(:scope[orientation="vertical"] [role="tablist"] [role="tab"]) { justify-content: flex-start; }
+    :where([role="tablist"] [role="tab"]:not([aria-selected="true"], :disabled, [aria-disabled="true"])):hover { color: var(--mv-fg); }
+    :where([role="tablist"] [role="tab"][aria-selected="true"]) { color: var(--mv-fg); }
+    :where([role="tablist"] [role="tab"]):focus-visible { outline: none; box-shadow: var(--mv-focus-ring); z-index: 2; }
+    :where([role="tablist"] [role="tab"]):is(:disabled, [aria-disabled="true"]) { opacity: 0.45; cursor: not-allowed; }
+    :where([role="tablist"] [role="tab"] svg) { width: 1rem; height: 1rem; flex-shrink: 0; opacity: 0.85; }
+
+    /* ── Variant: pill ────────────────────────────────────────── */
+    :where(:scope[data-variant="pill"] [role="tablist"]) { background: none; gap: var(--mv-space-1); }
+    :where(:scope[data-variant="pill"] [role="tablist"] [role="tab"]) { padding: 0 var(--mv-space-4); }
+    :where(:scope[data-variant="pill"] [role="tablist"] [role="tab"][aria-selected="true"]) { color: var(--mv-accent-fg); }
+    :where(:scope[data-variant="pill"] [role="tablist"] [role="tab"]:not([aria-selected="true"], :disabled, [aria-disabled="true"])):hover { background: var(--mv-bg-muted); }
+    :where(:scope[data-variant="pill"] [role="tablist"] > .mv-tabs-indicator) { box-shadow: inset 0 0 0 1px color-mix(in oklch, var(--mv-accent) 22%, transparent); }
+
+    /* ── Variant: underline ───────────────────────────────────── */
+    :where(:scope[data-variant="underline"] [role="tablist"]) {
+      justify-self: stretch;
+      gap: var(--mv-space-1);
+      border-radius: 0;
+      background: none;
+      box-shadow: inset 0 -1px 0 var(--mv-border);
+    }
+    :where(:scope[data-variant="underline"] [role="tablist"] [role="tab"]) { padding: 0 var(--mv-space-3); border-radius: var(--mv-radius-sm); }
+    :where(:scope[data-variant="underline"] [role="tablist"] [role="tab"]):focus-visible { box-shadow: inset 0 0 0 2px var(--mv-ring); }
+    :where(:scope[data-variant="underline"] [role="tablist"] > .mv-tabs-indicator) {
+      top: auto;
+      bottom: 0;
+      height: 2px;
+      translate: var(--mv-tabs-x, 0) 0;
+      border-radius: 2px 2px 0 0;
+      box-shadow: none;
+    }
+    /* Vertical underline → rail on the inline-start edge */
+    :where(:scope[data-variant="underline"][orientation="vertical"] [role="tablist"]) { box-shadow: inset 1px 0 0 var(--mv-border); padding-inline-start: var(--mv-space-2); gap: 2px; }
+    :where(:scope[data-variant="underline"][orientation="vertical"] [role="tablist"] [role="tab"]) { height: var(--mv-control-md); }
+    :where(:scope[data-variant="underline"][orientation="vertical"] [role="tablist"] > .mv-tabs-indicator) {
+      bottom: auto;
+      width: 2px;
+      height: var(--mv-tabs-h, 0);
+      translate: 0 var(--mv-tabs-y, 0);
+      border-radius: 0 2px 2px 0;
+    }
+
+    /* ── Panels: cross-fade (outgoing keeps display during its fade) ── */
+    :where([role="tabpanel"]) {
+      min-width: 0;
+      border-radius: var(--mv-radius-md);
+      opacity: 1;
+      translate: 0 0;
+      filter: blur(0);
+      transition:
+        opacity var(--mv-duration-normal) var(--mv-ease-out),
+        translate var(--mv-duration-normal) var(--mv-ease-out),
+        filter var(--mv-duration-normal) var(--mv-ease-out),
+        display var(--mv-duration-normal) allow-discrete;
+    }
+    :where(:scope > [role="tabpanel"]) { grid-area: panels; }
+    :where([role="tabpanel"][hidden]) {
+      display: none;
+      opacity: 0;
+      filter: blur(2px);
+      pointer-events: none;
+      transition-duration: var(--mv-duration-fast);
+    }
+    /* A wrapped panel is not stacked in the host's grid cell: it leaves at once instead of fading out under the new one */
+    :where(:not(:scope) > [role="tabpanel"][hidden]) { transition: none; }
+    @starting-style {
+      :where([role="tabpanel"]:not([hidden])) {
+        opacity: 0;
+        translate: 0 calc(4px * var(--mv-motion));
+        filter: blur(2px);
+      }
+    }
+    /* Inset ring: a panel that runs edge to edge in a clipped frame would lose an outer one. It is drawn by an overlay,
+       not the panel's own outline: a positioned child with a background (a footer, a navbar) paints over that outline. */
+    :where([role="tabpanel"]) { position: relative; }
+    :where([role="tabpanel"]):focus-visible { outline: none; box-shadow: none; }
+    :where([role="tabpanel"]):focus-visible::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      border-radius: inherit;
+      outline: 2px solid var(--mv-ring);
+      outline-offset: -2px;
+      pointer-events: none;
+    }
+
+    /* Before upgrade, show only the first panel */
+    :where(:scope:not(:defined) [role="tabpanel"]:not(:nth-child(1 of [role="tabpanel"]))) { display: none; }
+  }
+}
+
+/* Forced colors flatten the sliding indicator: mark the selected tab itself with system colors */
+@layer mv.components {
+  @media (forced-colors: active) {
+    :where(mv-tabs) > :where([role="tablist"]) > :where(.mv-tabs-indicator) { display: none; }
+    :where(mv-tabs) > :where([role="tablist"]) > :where([role="tab"][aria-selected="true"]) { forced-color-adjust: none; background: Highlight; color: HighlightText; }
+    @scope (mv-tabs) to (:where(mv-tabs, [role="tabpanel"] > *)) {
+      :where([role="tablist"] > .mv-tabs-indicator) { display: none; }
+      :where([role="tablist"] [role="tab"][aria-selected="true"]) { forced-color-adjust: none; background: Highlight; color: HighlightText; }
+    }
+  }
+}

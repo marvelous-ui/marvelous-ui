@@ -1,0 +1,124 @@
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr));gap:2.5rem 3rem;width:100%;font-size:.875rem;color:var(--mv-fg-muted);line-height:1.55">
+
+  <!-- Underline, with icons and a count badge -->
+  <mv-tabs data-variant="underline" value="apercu" style="grid-column:1/-1">
+    <div role="tablist" aria-label="Project Atlas">
+      <button role="tab" data-value="apercu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+        Overview
+      </button>
+      <button role="tab" data-value="activite">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        Activity <span class="mv-tabs-count">12</span>
+      </button>
+      <button role="tab" data-value="membres">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Members
+      </button>
+      <button role="tab" data-value="parametres">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7h-9M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>
+        Settings
+      </button>
+      <button role="tab" data-value="archives" disabled>Archive</button>
+    </div>
+    <div role="tabpanel" data-value="apercu">
+      <p style="margin:0 0 .25rem;color:var(--mv-fg);font-weight:600">Customer portal redesign</p>
+      <p style="margin:0">Launch is set for Oct 14. 18 of 24 tasks are done; two design reviews still need to be scheduled with the product team.</p>
+    </div>
+    <div role="tabpanel" data-value="activite">
+      <p style="margin:0 0 .25rem;color:var(--mv-fg);font-weight:600">12 new updates</p>
+      <p style="margin:0">Emma approved the dashboard mockup, Kenji opened 3 tickets on PDF export and Amara merged the “checkout-flow” branch.</p>
+    </div>
+    <div role="tabpanel" data-value="membres">
+      <p style="margin:0 0 .25rem;color:var(--mv-fg);font-weight:600">6 members</p>
+      <p style="margin:0">Emma Clarke (owner), Kenji Tanaka, Amara Okafor, Lucas Silva, Sofia Rossi and Omar Haddad have access to the project.</p>
+    </div>
+    <div role="tabpanel" data-value="parametres">
+      <p style="margin:0 0 .25rem;color:var(--mv-fg);font-weight:600">Visibility: private</p>
+      <p style="margin:0">Only invited members can view and edit this project. Notifications go out every morning at 9 a.m.</p>
+    </div>
+    <div role="tabpanel" data-value="archives"><p style="margin:0">Nothing archived yet.</p></div>
+  </mv-tabs>
+
+  <!-- Segmented (default) -->
+  <mv-tabs value="annuel" data-stretch style="max-width:22rem">
+    <div role="tablist" aria-label="Billing period">
+      <button role="tab" data-value="mensuel">Monthly</button>
+      <button role="tab" data-value="annuel">Yearly <span class="mv-tabs-count">−20%</span></button>
+    </div>
+    <div role="tabpanel" data-value="mensuel">
+      <p style="margin:0;font-size:1.875rem;font-weight:700;letter-spacing:-.02em;color:var(--mv-fg)">$24 <span style="font-size:.875rem;font-weight:500;color:var(--mv-fg-muted)">/ month</span></p>
+      <p style="margin:.25rem 0 0">No commitment, cancel anytime.</p>
+    </div>
+    <div role="tabpanel" data-value="annuel">
+      <p style="margin:0;font-size:1.875rem;font-weight:700;letter-spacing:-.02em;color:var(--mv-fg)">$19 <span style="font-size:.875rem;font-weight:500;color:var(--mv-fg-muted)">/ month</span></p>
+      <p style="margin:.25rem 0 0">Billed $228 a year, two months free.</p>
+    </div>
+  </mv-tabs>
+
+  <!-- Pill -->
+  <mv-tabs data-variant="pill" data-size="sm">
+    <div role="tablist" aria-label="Filter orders">
+      <button role="tab">All</button>
+      <button role="tab">In progress</button>
+      <button role="tab">Delivered</button>
+      <button role="tab">Returned</button>
+    </div>
+    <div role="tabpanel"><p style="margin:0">148 orders in the last 30 days, totaling $12,480.</p></div>
+    <div role="tabpanel"><p style="margin:0">9 orders being prepared, 3 of them shipped today.</p></div>
+    <div role="tabpanel"><p style="margin:0">132 orders delivered, with a 2.4-day average delivery time.</p></div>
+    <div role="tabpanel"><p style="margin:0">7 returns awaiting a refund.</p></div>
+  </mv-tabs>
+
+  <!-- Vertical, manual activation -->
+  <mv-tabs data-variant="underline" orientation="vertical" activation="manual" style="grid-column:1/-1">
+    <div role="tablist" aria-label="Account settings">
+      <button role="tab">Profile</button>
+      <button role="tab">Notifications</button>
+      <button role="tab">Security</button>
+      <button role="tab">Billing</button>
+    </div>
+    <div role="tabpanel">
+      <p style="margin:0 0 .25rem;color:var(--mv-fg);font-weight:600">Public profile</p>
+      <p style="margin:0">Your name, photo and bio are visible to members of your workspaces.</p>
+    </div>
+    <div role="tabpanel">
+      <p style="margin:0 0 .25rem;color:var(--mv-fg);font-weight:600">Notifications</p>
+      <p style="margin:0">Get a daily digest or an alert for every mention.</p>
+    </div>
+    <div role="tabpanel">
+      <p style="margin:0 0 .25rem;color:var(--mv-fg);font-weight:600">Two-factor authentication enabled</p>
+      <p style="margin:0">Last sign-in on Sep 21 from London, UK (Firefox on macOS).</p>
+    </div>
+    <div role="tabpanel">
+      <p style="margin:0 0 .25rem;color:var(--mv-fg);font-weight:600">Team plan</p>
+      <p style="margin:0">Next invoice of $228 on Nov 1, charged to the Visa ending in 4242.</p>
+    </div>
+  </mv-tabs>
+
+  <!-- Wrapped: a card header holds the list (tabs inside list items), a card body holds the panels -->
+  <mv-tabs data-variant="pill" data-size="sm" value="week" style="grid-column:1/-1;gap:0;border:1px solid var(--mv-border);border-radius:var(--mv-radius-lg);background:var(--mv-bg)">
+    <header style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.5rem 1rem;padding:.75rem 1rem;border-bottom:1px solid var(--mv-border)">
+      <p style="margin:0;color:var(--mv-fg);font-weight:600">Website traffic</p>
+      <ul role="tablist" aria-label="Traffic period">
+        <li role="presentation"><button role="tab" data-value="day">24 hours</button></li>
+        <li role="presentation"><button role="tab" data-value="week">7 days</button></li>
+        <li role="presentation"><button role="tab" data-value="month">30 days</button></li>
+      </ul>
+    </header>
+    <div style="padding:1rem">
+      <div role="tabpanel" data-value="day">
+        <p style="margin:0;font-size:1.5rem;font-weight:700;letter-spacing:-.02em;color:var(--mv-fg)">2,614 <span style="font-size:.875rem;font-weight:500;color:var(--mv-fg-muted)">visitors</span></p>
+        <p style="margin:.25rem 0 0">Up 6% from yesterday. Most visits came from Germany, Brazil and Japan.</p>
+      </div>
+      <div role="tabpanel" data-value="week">
+        <p style="margin:0;font-size:1.5rem;font-weight:700;letter-spacing:-.02em;color:var(--mv-fg)">18,240 <span style="font-size:.875rem;font-weight:500;color:var(--mv-fg-muted)">visitors</span></p>
+        <p style="margin:.25rem 0 0">Busiest day: Tuesday, right after the newsletter went out to 42,000 subscribers.</p>
+      </div>
+      <div role="tabpanel" data-value="month">
+        <p style="margin:0;font-size:1.5rem;font-weight:700;letter-spacing:-.02em;color:var(--mv-fg)">71,905 <span style="font-size:.875rem;font-weight:500;color:var(--mv-fg-muted)">visitors</span></p>
+        <p style="margin:.25rem 0 0">Organic search brought 58% of visits; the pricing page converted 3.1% of them.</p>
+      </div>
+    </div>
+  </mv-tabs>
+</div>

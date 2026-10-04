@@ -1,0 +1,216 @@
+{
+  "name": "Field",
+  "slug": "field",
+  "kind": "css",
+  "category": "form",
+  "wave": 1,
+  "description": "Pure-CSS field layout: label (required / optional), help text, an error message that shows up on its own when the control is invalid, vertical, horizontal, responsive and inline orientations, choice cards and fieldset.",
+  "preview": {
+    "viewport": {
+      "width": 1000,
+      "height": 640
+    },
+    "steps": [
+      [
+        "wait",
+        300
+      ],
+      [
+        "click",
+        "#fd-first"
+      ],
+      [
+        "press",
+        "Control+A"
+      ],
+      [
+        "press",
+        "Backspace"
+      ],
+      [
+        "press",
+        "Tab"
+      ],
+      [
+        "wait",
+        800
+      ],
+      [
+        "click",
+        "#fd-first"
+      ],
+      [
+        "type",
+        "Sarah"
+      ],
+      [
+        "wait",
+        200
+      ],
+      [
+        "click",
+        "#fd-n2"
+      ],
+      [
+        "wait",
+        500
+      ],
+      [
+        "click",
+        "#fd-beta"
+      ],
+      [
+        "wait",
+        400
+      ],
+      [
+        "click",
+        "#fd-beta"
+      ],
+      [
+        "click",
+        "#fd-n1"
+      ],
+      [
+        "wait",
+        300
+      ],
+      [
+        "leave"
+      ],
+      [
+        "wait",
+        300
+      ]
+    ]
+  },
+  "useWhen": [
+    "Every form control needs a consistent label, help text and an error message that appears on invalid input",
+    "Settings forms should show labels on the left on wide screens and stack them on narrow ones",
+    "Related radios or checkboxes must be grouped under a legend, optionally as selectable choice cards"
+  ],
+  "avoidWhen": [
+    {
+      "when": "The need is the text control itself rather than its label and messages",
+      "instead": "input"
+    },
+    {
+      "when": "A standalone message must be shown for the whole form, not tied to one control",
+      "instead": "alert"
+    }
+  ],
+  "files": [
+    "field.css"
+  ],
+  "usage": {
+    "class": "mv-field"
+  },
+  "tags": [
+    "field",
+    "label",
+    "form",
+    "fieldset",
+    "legend",
+    "error",
+    "helper-text",
+    "validation",
+    "choice-card"
+  ],
+  "demo": {
+    "layout": "wide",
+    "height": 640,
+    "requires": [
+      "input",
+      "textarea",
+      "select",
+      "button"
+    ]
+  },
+  "api": {
+    "classes": [
+      {
+        "name": "mv-field",
+        "description": "Field container: label, control, description, error."
+      },
+      {
+        "name": "mv-label",
+        "description": "Label (<label for>). Can be used on its own, outside .mv-field."
+      },
+      {
+        "name": "mv-field-header",
+        "description": "Row with the label + a secondary element on the right (“Forgot password?” link, counter)."
+      },
+      {
+        "name": "mv-field-label-group",
+        "description": "Label + description stacked in the left column (horizontal orientation)."
+      },
+      {
+        "name": "mv-field-description",
+        "description": "Help text."
+      },
+      {
+        "name": "mv-field-error",
+        "description": "Error message: hidden, then shown (fade) when the field contains a :user-invalid or aria-invalid=\"true\" control, or has data-invalid. Never shown when empty."
+      },
+      {
+        "name": "mv-field-group",
+        "description": "Stack of spaced fields; container-query container (responsive orientation)."
+      },
+      {
+        "name": "mv-field-row",
+        "description": "Side-by-side fields that wrap below 12rem."
+      },
+      {
+        "name": "mv-fieldset",
+        "description": "On <fieldset>: styled <legend> (no notch), description, footer."
+      },
+      {
+        "name": "mv-fieldset-description / -footer",
+        "description": "Text under the legend; action row (muted background in the card variant)."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "data-required (label)",
+        "type": "boolean",
+        "description": "Decorative asterisk (ignored by screen readers: put required on the control)."
+      },
+      {
+        "name": "data-optional (label)",
+        "type": "string",
+        "description": "Note shown after the label, e.g. data-optional=\"optional\"."
+      },
+      {
+        "name": "data-orientation",
+        "type": "horizontal | responsive | inline",
+        "default": "(vertical)",
+        "description": "horizontal: label on the left; responsive: horizontal when the container is ≥ 36rem; inline: checkbox/radio first, label next to it."
+      },
+      {
+        "name": "data-variant (field)",
+        "type": "card",
+        "description": "Selectable choice card (with inline orientation, on a <label>)."
+      },
+      {
+        "name": "data-variant (fieldset)",
+        "type": "card",
+        "description": "Framed fieldset with a built-in action footer."
+      },
+      {
+        "name": "data-invalid / data-disabled",
+        "type": "boolean",
+        "description": "Forces the state on the field (otherwise inferred from the control)."
+      }
+    ],
+    "cssVars": [
+      {
+        "name": "--mv-field-label-width",
+        "default": "11rem",
+        "description": "Width of the label column (horizontal / responsive)."
+      }
+    ]
+  },
+  "a11y": "Associate each label with <label for=\"id\">. Link help text and error to the control: aria-describedby=\"help-id error-id\" (an error hidden with display:none is not read; it is as soon as it shows). Set aria-invalid=\"true\" on the control for a server error, and required for a required field (the asterisk is decorative). Group related options in <fieldset class=\"mv-fieldset\"> + <legend>; a disabled fieldset disables all its content. Choice cards: the <label> wraps the radio/checkbox input, and keyboard focus is shown on the card. A disabled field dims its label but keeps its help text readable (fg-subtle), since it often says why the field is locked. Forced colors: the error keeps its icon; the red tint of the label and border is lost there, so the error text itself must carry the message.",
+  "inspiredBy": [],
+  "status": "stable"
+}

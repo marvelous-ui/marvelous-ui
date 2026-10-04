@@ -1,0 +1,10 @@
+[
+  { "id": "forms", "name": "Forms that don't lose people", "need": "Validation, recovery and review steps that keep long or high-stakes forms from failing people." },
+  { "id": "safe-actions", "name": "Safe destructive actions and secrets", "need": "Deletes, revokes, elevated modes and one-time secrets with friction that matches the real risk." },
+  { "id": "honest-states", "name": "Honest system states", "need": "Waits, refusals, locks, pauses and sync states that say what is really happening." },
+  { "id": "ai-trust", "name": "AI you can check", "need": "Sources, interpretation, authorship, confidence and autonomy made visible for AI features." },
+  { "id": "trust-privacy", "name": "Trust and privacy", "need": "Look-alike detection, consent-first embeds, environment and identity guards, honest prices and audiences." },
+  { "id": "monitoring", "name": "Monitoring without alert fatigue", "need": "Alerts that decay, absences that alarm and walls that say where to look." },
+  { "id": "numbers", "name": "Numbers that explain themselves", "need": "Figures shown with how they are computed, against what, and at a human scale." },
+  { "id": "power-nav", "name": "Power-user navigation", "need": "Keyboard targeting, return threads, trails and off-screen cues for dense apps." }
+]

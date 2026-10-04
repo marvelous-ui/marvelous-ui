@@ -1,0 +1,83 @@
+@layer mv.components {
+  :where(.mv-skeleton) {
+    --_base: var(--mv-skeleton-base, color-mix(in oklch, var(--mv-fg) 8%, transparent));
+    --_shine: var(--mv-skeleton-shine, color-mix(in oklch, var(--mv-fg) 6%, transparent));
+    display: block;
+    height: 1rem;
+    border-radius: var(--mv-radius-md);
+    background-color: var(--_base);
+    /* Fixed attachment: every skeleton on the page shares one sweep, in sync */
+    background-image: linear-gradient(100deg, transparent 38%, var(--_shine) 50%, transparent 62%);
+    background-size: 200vw 100%;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    animation: mv-skeleton-shimmer var(--mv-skeleton-duration, 2s) linear infinite;
+    color: transparent;
+    user-select: none;
+    pointer-events: none;
+  }
+  @keyframes mv-skeleton-shimmer {
+    from { background-position: -150vw 0; }
+    to { background-position: 50vw 0; }
+  }
+
+  /* Pulse instead of a sweep */
+  :where(.mv-skeleton[data-variant="pulse"]) {
+    background-image: none;
+    animation: mv-skeleton-pulse var(--mv-skeleton-duration, 2s) var(--mv-ease-in-out) infinite;
+  }
+  @keyframes mv-skeleton-pulse { 50% { opacity: 0.5; } }
+  :where(.mv-skeleton[data-variant="static"]) { background-image: none; animation: none; }
+  /* A container can set the variant for all its skeletons */
+  :where([data-skeleton="pulse"]) :where(.mv-skeleton) {
+    background-image: none;
+    animation: mv-skeleton-pulse var(--mv-skeleton-duration, 2s) var(--mv-ease-in-out) infinite;
+  }
+
+  /* Shapes */
+  :where(.mv-skeleton[data-shape="circle"]) { width: var(--mv-skeleton-size, 2.5rem); height: var(--mv-skeleton-size, 2.5rem); border-radius: var(--mv-radius-full); flex-shrink: 0; }
+  :where(.mv-skeleton[data-shape="square"]) { width: var(--mv-skeleton-size, 2.5rem); height: var(--mv-skeleton-size, 2.5rem); border-radius: var(--mv-radius-lg); flex-shrink: 0; }
+  :where(.mv-skeleton[data-shape="text"]) { height: 0.75em; margin-block: 0.25em; border-radius: var(--mv-radius-sm); }
+  :where(.mv-skeleton[data-shape="heading"]) { height: 1.25em; width: 55%; border-radius: var(--mv-radius-sm); }
+  :where(.mv-skeleton[data-shape="button"]) { width: 6rem; height: var(--mv-control-md); border-radius: var(--mv-radius-md); }
+  :where(.mv-skeleton[data-shape="media"]) { aspect-ratio: 16 / 9; height: auto; width: 100%; border-radius: var(--mv-radius-lg); }
+
+  /* Paragraph: stack of text lines, the last one shorter */
+  :where(.mv-skeleton-text) {
+    display: grid;
+    gap: var(--mv-space-2-5, 0.625rem);
+    font-size: var(--mv-text-sm);
+  }
+  :where(.mv-skeleton-text) > :where(.mv-skeleton) { height: 0.75em; border-radius: var(--mv-radius-sm); }
+  :where(.mv-skeleton-text) > :where(.mv-skeleton:last-child:not(:first-child)) { width: 62%; }
+
+  /* ── Reveal: skeleton and content stacked, cross-fade + blur ──
+     <div class="mv-skeleton-reveal" aria-busy="true">
+       <div data-skeleton>…</div> <div data-content>…</div>
+     </div>  → set aria-busy="false" when loaded. */
+  :where(.mv-skeleton-reveal) { display: grid; }
+  :where(.mv-skeleton-reveal) > :where([data-skeleton], [data-content]) {
+    grid-area: 1 / 1;
+    transition:
+      opacity var(--mv-duration-slow) var(--mv-ease-in-out),
+      filter var(--mv-duration-slow) var(--mv-ease-in-out),
+      visibility var(--mv-duration-slow) allow-discrete;
+  }
+  :where(.mv-skeleton-reveal[aria-busy="true"]) > :where([data-content]),
+  :where(.mv-skeleton-reveal:not([aria-busy="true"])) > :where([data-skeleton]) {
+    opacity: 0;
+    filter: blur(4px);
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :where(.mv-skeleton) { animation: none; }
+  }
+  :where([data-motion="reduce"]) :where(.mv-skeleton) { animation: none; }
+
+  /* Forced colors: a translucent fill becomes the page color; keep the placeholder shapes visible. */
+  @media (forced-colors: active) {
+    :where(.mv-skeleton) { forced-color-adjust: none; background-color: GrayText; background-image: none; }
+  }
+}

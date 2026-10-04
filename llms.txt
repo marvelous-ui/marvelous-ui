@@ -1,0 +1,41 @@
+# Marvelous UI
+
+> 21 framework-agnostic UI components and animations (v1.4.0): native Web Components (`<mv-*>`) and CSS classes (`.mv-*`), themed with CSS variables (`--mv-*`), zero runtime dependencies. Works in plain HTML, React 19+, Vue 3, Svelte, Angular and Astro.
+
+Rules for AI agents:
+
+- Before writing a UI component, animation or visual effect by hand, look for it here (MCP `search_components`, or the catalog below).
+- Install with `node scripts/add.mjs <slug...> --out <project>/src/marvelous` (or MCP `install_components`); dependencies (tokens, core helpers, other components) are copied automatically.
+- Reproduce the component page's canonical markup, then customize with attributes, `data-*` and CSS variables. Never edit installed files: override in the app's CSS (library CSS lives in `@layer mv` with zero-specificity selectors).
+- Theme on `:root` with `--mv-accent-h`, `--mv-accent-c`, `--mv-radius-*`, `--mv-font-sans`. Dark mode: `data-theme="dark|light"`. Reduced motion is handled by every component.
+- Vue needs `isCustomElement: (tag) => tag.startsWith("mv-")`; Angular needs `CUSTOM_ELEMENTS_SCHEMA`; in React listen to `mv-*` events with a ref + `addEventListener`.
+
+## Docs
+
+- [Getting started](docs/GUIDE.md): install, frameworks, theming, events, accessibility
+- [AI agents & MCP](docs/MCP.md): connect Claude Code, Codex, Cursor, VS Code, Antigravity, Devin Desktop, Gemini CLI, Zed
+- [Component catalog](docs/COMPONENTS.md): every component by category
+
+## Components
+
+- [Badge](docs/components/badge.md): `.mv-badge`, Pure-CSS badge: 7 variants (soft or solid tints), animatable status dot, icon, remove button, pill/square, 3 sizes, and a counter positioned on the corner of an avatar or icon.
+- [Button](docs/components/button.md): `.mv-button`, Pure-CSS button on `<button>` or `<a>`: 6 variants, 4 sizes, loading state, group.
+- [Checkbox](docs/components/checkbox.md): `.mv-checkbox`, Native pure-CSS checkbox: a self-drawing (reversible) check mark, indeterminate state, sizes, invalid; also provides the shared .mv-choice and .mv-choice-card layouts (option cards highlighted via :has(:checked)).
+- [Input](docs/components/input.md): `.mv-input`, Pure-CSS text field: 3 sizes, invalid (aria-invalid / :user-invalid), read-only and file states, plus a group with icons, prefixes/suffixes, inline buttons and a clear button.
+- [Kbd](docs/components/kbd.md): `.mv-kbd`, Subtly raised keyboard keys on `<kbd>`: nested combinations, 3 sizes, a flat variant, adapts inside buttons and tooltips.
+- [Radio](docs/components/radio.md): `.mv-radio`, Pure-CSS native radio button: an inner dot that springs in, sizes, an outline variant, inline or stacked groups, and option cards (plan lists, tiles with a badge).
+- [Select](docs/components/select.md): `.mv-select`, Styled native `<select>` (token-colored chevron), progressively enhanced into a customizable select (appearance: base-select): animated list, status dots, icons, descriptions and checkmark, optional “liquid” opening; clean fallback elsewhere.
+- [Separator](docs/components/separator.md): `.mv-separator`, Pure-CSS horizontal or vertical separator: solid, dashed, dotted or faded, with a centered (“or”) or aligned label, on `<hr>` or `<div>`.
+- [Switch](docs/components/switch.md): `.mv-switch`, Pure-CSS switch on `<input type="checkbox" role="switch">`: thumb that slides on a spring and stretches when pressed, icons in the thumb (customizable), sizes, label on the left or right, option card.
+- [Textarea](docs/components/textarea.md): `.mv-textarea`, Textarea that grows on its own (field-sizing: content) between a minimum and maximum number of rows, with an optional resize handle, a group with a toolbar and an `<mv-char-count>` character counter.
+- [Field](docs/components/field.md): `.mv-field`, Pure-CSS field layout: label (required / optional), help text, an error message that shows up on its own when the control is invalid, vertical, horizontal, responsive and inline orientations, choice cards and fieldset.
+- [Dialog](docs/components/dialog.md): `<mv-dialog>`, Animated native `<dialog>` modal; also covers Alert Dialog (persistent), Sheet (4 sides) and a mobile Drawer with swipe to close.
+- [Menu](docs/components/menu.md): `<mv-menu>`, Full-featured dropdown menu: checkboxes, radio items, submenus with a safe-triangle, shortcuts, typeahead and APG keyboard navigation; opt-in data-motion="glide" (opens from the trigger’s corner, a single highlight that glides between items, submenus that slide in).
+- [Popover](docs/components/popover.md): `<mv-popover>`, Non-modal floating panel in the top layer (Popover API): auto placement with flip, optional arrow, closes on outside click/Escape with managed focus; data-open="liquid" option where the panel stretches out of the trigger through a liquid “neck”, then pinches back into it on close.
+- [Toast](docs/components/toast.md): `<mv-toaster>`, Sonner-style stacked notifications: a compact stack that expands on hover, paused timers, swipe to dismiss, promises and in-place updates by id, through an imperative toast() API.
+- [Tooltip](docs/components/tooltip.md): `<mv-tooltip>`, Tooltip in the top layer (Popover API), automatic placement with flip, arrow, grouped delay.
+- [Tabs](docs/components/tabs.md): `<mv-tabs>`, Accessible tabs with a sliding indicator (underline, pill or segmented), horizontal or vertical, automatic or manual activation, and crossfading panels.
+- [Accordion](docs/components/accordion.md): `<mv-accordion>`, CSS accordion on native `<details>`: animated height (::details-content + interpolate-size), chevron or plus/minus, bordered, separated and card variants; optional `<mv-accordion type="single">`.
+- [Card](docs/components/card.md): `.mv-card`, Composable card (media, header, action, content, footer): outline, elevated, ghost and muted variants, plus a fully clickable card.
+- [Skeleton](docs/components/skeleton.md): `.mv-skeleton`, Loading placeholders with a shimmer synced across the whole page (or a pulse), text, heading, avatar, media and button shapes, and a blurred cross-fade reveal into the loaded content driven by aria-busy.
+- [Typography](docs/components/typography.md): `.mv-prose`, Long-form text styles on one class: headings, lists, quotes, inline and block code, keys, tables, figures, definition lists and disclosures get a steady vertical rhythm and a capped reading measure, in 3 sizes.

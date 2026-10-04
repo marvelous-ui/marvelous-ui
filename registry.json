@@ -1,0 +1,2907 @@
+{
+  "name": "marvelous-ui",
+  "version": "1.4.0",
+  "base": [
+    "tokens/tokens.css",
+    "core/base.css"
+  ],
+  "count": 21,
+  "items": [
+    {
+      "name": "Badge",
+      "slug": "badge",
+      "tag": null,
+      "kind": "css",
+      "category": "primitive",
+      "wave": 1,
+      "description": "Pure-CSS badge: 7 variants (soft or solid tints), animatable status dot, icon, remove button, pill/square, 3 sizes, and a counter positioned on the corner of an avatar or icon.",
+      "useWhen": [
+        "A short status label must sit next to an item, such as Paid, Failed or Beta",
+        "An unread count or presence dot must be pinned to the corner of an icon or avatar",
+        "Removable tags or active filters need a compact chip with a remove button"
+      ],
+      "avoidWhen": [
+        {
+          "when": "The item is a primary action the user is expected to click",
+          "instead": "button"
+        },
+        {
+          "when": "The status would be conveyed by color alone without a readable label"
+        }
+      ],
+      "tags": [
+        "badge",
+        "chip",
+        "tag",
+        "pill",
+        "status",
+        "counter",
+        "notification",
+        "dot"
+      ],
+      "usage": {
+        "class": "mv-badge"
+      },
+      "api": {
+        "classes": [
+          {
+            "name": "mv-badge",
+            "description": "On <span>, or <a>/<button> for an interactive badge (hover + focus)."
+          },
+          {
+            "name": "mv-badge-dot",
+            "description": "Status dot; takes the variant’s tint or --mv-badge-dot. data-pulse: “live” ripple."
+          },
+          {
+            "name": "mv-badge-remove",
+            "description": "Remove <button> inside the badge (the removal itself is up to you)."
+          },
+          {
+            "name": "mv-badge-anchor",
+            "description": "Relative container around an avatar/icon to place a .mv-badge[data-position] on it."
+          }
+        ],
+        "attributes": [
+          {
+            "name": "data-variant",
+            "type": "secondary | outline | success | warning | danger | info",
+            "default": "(solid accent)",
+            "description": "Visual style; semantic variants are tinted."
+          },
+          {
+            "name": "data-appearance",
+            "type": "solid",
+            "description": "Semantic variant in solid color (counters, strong statuses)."
+          },
+          {
+            "name": "data-shape",
+            "type": "pill | square",
+            "default": "(rounded)",
+            "description": "Corner shape."
+          },
+          {
+            "name": "data-size",
+            "type": "sm | lg",
+            "default": "(md)",
+            "description": "Height 18 / 22 / 26px."
+          },
+          {
+            "name": "data-position",
+            "type": "top-right | top-left | bottom-right | bottom-left",
+            "description": "Counter positioned on the corner of the parent .mv-badge-anchor, cut out by a ring; empty = plain dot (unread, presence)."
+          }
+        ],
+        "cssVars": [
+          {
+            "name": "--mv-badge-radius",
+            "default": "var(--mv-radius-sm)",
+            "description": "Default radius."
+          },
+          {
+            "name": "--mv-badge-dot",
+            "description": "Dot color."
+          },
+          {
+            "name": "--mv-badge-offset",
+            "default": "0px",
+            "description": "Inward offset of the positioned badge (useful on a round avatar)."
+          },
+          {
+            "name": "--mv-badge-ring",
+            "default": "var(--mv-bg)",
+            "description": "Color of the positioned badge’s cut-out ring (set it to the background color)."
+          }
+        ]
+      },
+      "a11y": "A badge is text: it’s read as is. Don’t convey information through color alone (keep a label: “Paid”, “Failed”). Positioned counter: mark it aria-hidden=\"true\" and carry the information in the trigger’s accessible name (aria-label=\"Notifications, 3 unread\"). Remove button: explicit aria-label (“Remove Design”) and move focus to the neighboring badge after removal. The data-pulse ripple is disabled with reduced motion.",
+      "inspiredBy": [],
+      "culture": null,
+      "kit": null,
+      "featured": false,
+      "labs": false,
+      "quickstart": null,
+      "demo": {
+        "file": "components/badge/demo.html",
+        "layout": "center",
+        "height": 360,
+        "theme": null,
+        "requires": [
+          "button"
+        ]
+      },
+      "files": [
+        "components/badge/badge.css"
+      ],
+      "core": [],
+      "shaders": [],
+      "dependencies": [],
+      "npm": [],
+      "status": "stable",
+      "added": "2026-09-22T21:53:38.000Z"
+    },
+    {
+      "name": "Button",
+      "slug": "button",
+      "tag": null,
+      "kind": "css",
+      "category": "primitive",
+      "wave": 1,
+      "description": "Pure-CSS button on <button> or <a>: 6 variants, 4 sizes, loading state, group.",
+      "useWhen": [
+        "A form submission or in-page action needs a clear, consistently styled trigger",
+        "Actions must be ranked by importance with primary, secondary, outline, ghost, destructive or link styles",
+        "An action runs asynchronously and should show a loading state that blocks repeat clicks",
+        "Related actions should be joined into a single attached group"
+      ],
+      "avoidWhen": [],
+      "tags": [
+        "button",
+        "cta",
+        "group",
+        "loading"
+      ],
+      "usage": {
+        "class": "mv-button"
+      },
+      "api": {
+        "classes": [
+          {
+            "name": "mv-button",
+            "description": "Base class, on <button> or <a>."
+          },
+          {
+            "name": "mv-button-group",
+            "description": "Container that joins several buttons together (add role=\"group\")."
+          }
+        ],
+        "attributes": [
+          {
+            "name": "data-variant",
+            "type": "secondary | outline | ghost | destructive | link",
+            "default": "(primary)",
+            "description": "Visual style."
+          },
+          {
+            "name": "data-size",
+            "type": "sm | lg | icon | icon-sm | icon-xs",
+            "default": "(md)",
+            "description": "Size; icon = square (36px), icon-sm = 32px for toolbars, icon-xs = 24px for compact tables. Name icon-only buttons with aria-label."
+          },
+          {
+            "name": "data-shape",
+            "type": "pill | round",
+            "description": "Fully rounded corners."
+          },
+          {
+            "name": "aria-busy",
+            "type": "true",
+            "description": "Shows a spinner and blocks clicks."
+          }
+        ],
+        "cssVars": [
+          {
+            "name": "--mv-button-radius",
+            "default": "var(--mv-radius-md)",
+            "description": "Corner radius."
+          }
+        ]
+      },
+      "a11y": "Use a real <button> (or <a href> for navigation). Icon buttons must have an aria-label.",
+      "inspiredBy": [],
+      "culture": null,
+      "kit": null,
+      "featured": false,
+      "labs": false,
+      "quickstart": null,
+      "demo": {
+        "file": "components/button/demo.html",
+        "layout": "center",
+        "height": null,
+        "theme": null,
+        "requires": []
+      },
+      "files": [
+        "components/button/button.css"
+      ],
+      "core": [],
+      "shaders": [],
+      "dependencies": [],
+      "npm": [],
+      "status": "stable",
+      "added": "2026-09-22T21:09:35.000Z"
+    },
+    {
+      "name": "Checkbox",
+      "slug": "checkbox",
+      "tag": null,
+      "kind": "css",
+      "category": "primitive",
+      "wave": 1,
+      "description": "Native pure-CSS checkbox: a self-drawing (reversible) check mark, indeterminate state, sizes, invalid; also provides the shared .mv-choice and .mv-choice-card layouts (option cards highlighted via :has(:checked)).",
+      "useWhen": [
+        "Users pick any number of options from a list, or give a single opt-in such as accepting terms",
+        "A select-all control needs an indeterminate state above a nested list of options",
+        "Options need richer presentation as clickable cards with a title, description and icon"
+      ],
+      "avoidWhen": [
+        {
+          "when": "The setting takes effect immediately, like turning a feature on or off",
+          "instead": "switch"
+        },
+        {
+          "when": "Only one option in the set may be chosen",
+          "instead": "radio"
+        }
+      ],
+      "tags": [
+        "checkbox",
+        "form",
+        "indeterminate",
+        "choice-card",
+        "check",
+        "select-all"
+      ],
+      "usage": {
+        "class": "mv-checkbox"
+      },
+      "api": {
+        "classes": [
+          {
+            "name": "mv-checkbox",
+            "description": "On <input type=\"checkbox\">. Set the indeterminate state in JS: input.indeterminate = true."
+          },
+          {
+            "name": "mv-choice",
+            "description": "Shared (radio, switch): a <label> row with control + label, the control centered on the first line."
+          },
+          {
+            "name": "mv-choice-card",
+            "description": "Shared: a clickable card <label> containing the input; highlighted when checked, ring on keyboard focus."
+          },
+          {
+            "name": "mv-choice-text / -title / -description",
+            "description": "Text block: title + muted description."
+          },
+          {
+            "name": "mv-choice-icon",
+            "description": "Optional icon tile inside a card (tinted when checked)."
+          },
+          {
+            "name": "mv-choice-group",
+            "description": "List of options (ideally <fieldset> + <legend>)."
+          },
+          {
+            "name": "mv-choice-group-nested",
+            "description": "Indented sub-list (“select all” tree)."
+          }
+        ],
+        "attributes": [
+          {
+            "name": "data-size",
+            "type": "sm | lg",
+            "default": "(md)",
+            "description": "Box size (14 / 16 / 20 px)."
+          },
+          {
+            "name": "data-shape",
+            "type": "round",
+            "description": "Round box."
+          },
+          {
+            "name": "aria-invalid",
+            "type": "true",
+            "description": "Error border and halo."
+          },
+          {
+            "name": "data-control",
+            "type": "end",
+            "description": "On .mv-choice / .mv-choice-card: puts the control at the end of the row."
+          },
+          {
+            "name": "data-orientation",
+            "type": "horizontal",
+            "description": "On .mv-choice-group: options in a row."
+          },
+          {
+            "name": "data-layout",
+            "type": "grid",
+            "description": "On .mv-choice-group: auto-fit grid of cards (min width --mv-choice-min)."
+          }
+        ],
+        "cssVars": [
+          {
+            "name": "--mv-checkbox-size",
+            "default": "1rem",
+            "description": "Box size."
+          },
+          {
+            "name": "--mv-checkbox-radius",
+            "default": "28% of the size",
+            "description": "Corner radius."
+          },
+          {
+            "name": "--mv-choice-card-radius",
+            "default": "var(--mv-radius-lg)",
+            "description": "Option card radius."
+          },
+          {
+            "name": "--mv-choice-min",
+            "default": "11rem",
+            "description": "Minimum card width with data-layout=\"grid\"."
+          }
+        ]
+      },
+      "a11y": "Native input: role, checked/mixed state (aria-checked=mixed for indeterminate), Space and form submission handled by the browser. The wrapping <label> provides the accessible name; link the description with aria-describedby. Focus ring visible for keyboard only; animations disabled with reduced motion.",
+      "inspiredBy": [],
+      "culture": null,
+      "kit": null,
+      "featured": false,
+      "labs": false,
+      "quickstart": null,
+      "demo": {
+        "file": "components/checkbox/demo.html",
+        "layout": "center",
+        "height": 420,
+        "theme": null,
+        "requires": []
+      },
+      "files": [
+        "components/checkbox/checkbox.css"
+      ],
+      "core": [],
+      "shaders": [],
+      "dependencies": [],
+      "npm": [],
+      "status": "stable",
+      "added": "2026-09-22T21:53:38.000Z"
+    },
+    {
+      "name": "Input",
+      "slug": "input",
+      "tag": null,
+      "kind": "css",
+      "category": "primitive",
+      "wave": 1,
+      "description": "Pure-CSS text field: 3 sizes, invalid (aria-invalid / :user-invalid), read-only and file states, plus a group with icons, prefixes/suffixes, inline buttons and a clear button.",
+      "useWhen": [
+        "A single-line value is needed, such as a name, email, password, URL or search query",
+        "The field needs a prefix, suffix, icon, inline button or clear button inside one bordered group",
+        "Server-side or native validation errors must be shown directly on the field"
+      ],
+      "avoidWhen": [
+        {
+          "when": "The text can span several lines, such as a comment or message",
+          "instead": "textarea"
+        }
+      ],
+      "tags": [
+        "input",
+        "text-field",
+        "input-group",
+        "addon",
+        "search",
+        "file",
+        "clear",
+        "password"
+      ],
+      "usage": {
+        "class": "mv-input"
+      },
+      "api": {
+        "classes": [
+          {
+            "name": "mv-input",
+            "description": "On <input> (text, email, search, password, number, file…)."
+          },
+          {
+            "name": "mv-input-group",
+            "description": "Container that carries the border and focus ring; the inner .mv-input becomes borderless."
+          },
+          {
+            "name": "mv-input-group-addon",
+            "description": "Icon, text (“https://”, “$”), <kbd> or indicator placed before/after the input. Use a <label for> so clicking it focuses the input."
+          },
+          {
+            "name": "mv-input-clear",
+            "description": "Clear button: hidden automatically while the input is empty (the input needs a placeholder). The clearing itself is up to you (3 lines of JS)."
+          }
+        ],
+        "attributes": [
+          {
+            "name": "data-size",
+            "type": "sm | lg",
+            "default": "(md)",
+            "description": "Height 32 / 36 / 44px; on .mv-input or .mv-input-group."
+          },
+          {
+            "name": "aria-invalid",
+            "type": "true",
+            "description": "Forces the error state (server-side validation). :user-invalid is also supported natively."
+          },
+          {
+            "name": "data-variant (addon)",
+            "type": "filled",
+            "description": "Addon separated by a divider, on a muted background."
+          },
+          {
+            "name": "type=\"search\"",
+            "type": "native",
+            "description": "The native clear button (WebKit/Blink) is restyled: clearing without JS."
+          }
+        ],
+        "cssVars": [
+          {
+            "name": "--mv-input-radius",
+            "default": "var(--mv-radius-md)",
+            "description": "Corner radius (input and group)."
+          },
+          {
+            "name": "--mv-input-bg",
+            "description": "Field background."
+          }
+        ]
+      },
+      "a11y": "Always pair with a <label for> (or aria-label). Decorative icons have aria-hidden=\"true\". Text addons in a <label for> join the accessible name (“https://” is then announced). Inline buttons are real <button type=\"button\"> elements with an aria-label; the show/hide password button uses aria-pressed. On error, set aria-invalid=\"true\" and link the message via aria-describedby (see Field).",
+      "inspiredBy": [],
+      "culture": null,
+      "kit": null,
+      "featured": false,
+      "labs": false,
+      "quickstart": null,
+      "demo": {
+        "file": "components/input/demo.html",
+        "layout": "wide",
+        "height": 380,
+        "theme": null,
+        "requires": [
+          "button",
+          "kbd"
+        ]
+      },
+      "files": [
+        "components/input/input.css"
+      ],
+      "core": [],
+      "shaders": [],
+      "dependencies": [],
+      "npm": [],
+      "status": "stable",
+      "added": "2026-09-22T21:53:38.000Z"
+    },
+    {
+      "name": "Kbd",
+      "slug": "kbd",
+      "tag": null,
+      "kind": "css",
+      "category": "primitive",
+      "wave": 1,
+      "description": "Subtly raised keyboard keys on <kbd>: nested combinations, 3 sizes, a flat variant, adapts inside buttons and tooltips.",
+      "useWhen": [
+        "Keyboard shortcuts must be displayed in docs, menus, tooltips or a command palette",
+        "A key combination such as Ctrl+K needs to read as a group of keycaps"
+      ],
+      "avoidWhen": [
+        {
+          "when": "The text is a status or category label rather than a key to press",
+          "instead": "badge"
+        },
+        {
+          "when": "The content is inline code or a command to run rather than a keyboard key"
+        }
+      ],
+      "tags": [
+        "kbd",
+        "keyboard",
+        "shortcut",
+        "hotkey",
+        "keycap"
+      ],
+      "usage": {
+        "class": "mv-kbd"
+      },
+      "api": {
+        "classes": [
+          {
+            "name": "mv-kbd",
+            "description": "Key, on <kbd>."
+          },
+          {
+            "name": "mv-kbd-group",
+            "description": "Combination: a parent <kbd> holding several .mv-kbd; text between keys (“+”, “then”) stays subtle."
+          }
+        ],
+        "attributes": [
+          {
+            "name": "data-size",
+            "type": "sm | lg",
+            "default": "(md)",
+            "description": "Height 16 / 20 / 28 px."
+          },
+          {
+            "name": "data-variant",
+            "type": "flat",
+            "description": "No relief, tinted background (menus, command palettes)."
+          }
+        ],
+        "cssVars": [
+          {
+            "name": "--mv-kbd-bg",
+            "description": "Key background."
+          },
+          {
+            "name": "--mv-kbd-fg",
+            "default": "var(--mv-fg-muted)",
+            "description": "Text."
+          },
+          {
+            "name": "--mv-kbd-border",
+            "description": "Border."
+          },
+          {
+            "name": "--mv-kbd-depth",
+            "description": "Bottom edge color (3D effect)."
+          },
+          {
+            "name": "--mv-kbd-radius",
+            "default": "var(--mv-radius-xs)",
+            "description": "Corner radius."
+          }
+        ]
+      },
+      "a11y": "Use the <kbd> element (“keyboard input” semantics). For a combination, nest the <kbd>s inside a parent <kbd>, as the HTML spec recommends. Symbols (⌘, ⇧, ⌥) are read inconsistently: add an aria-label on the group (e.g. aria-label=\"Command K\") or a .mv-sr-only text if the shortcut is important information.",
+      "inspiredBy": [],
+      "culture": null,
+      "kit": null,
+      "featured": false,
+      "labs": false,
+      "quickstart": null,
+      "demo": {
+        "file": "components/kbd/demo.html",
+        "layout": "center",
+        "height": 420,
+        "theme": null,
+        "requires": [
+          "button"
+        ]
+      },
+      "files": [
+        "components/kbd/kbd.css"
+      ],
+      "core": [],
+      "shaders": [],
+      "dependencies": [],
+      "npm": [],
+      "status": "stable",
+      "added": "2026-09-22T21:53:38.000Z"
+    },
+    {
+      "name": "Radio",
+      "slug": "radio",
+      "tag": null,
+      "kind": "css",
+      "category": "primitive",
+      "wave": 1,
+      "description": "Pure-CSS native radio button: an inner dot that springs in, sizes, an outline variant, inline or stacked groups, and option cards (plan lists, tiles with a badge).",
+      "useWhen": [
+        "Users must choose exactly one option from a small set and benefit from seeing every choice at once",
+        "Plans or shipping methods must be compared as option cards with a price, description or badge"
+      ],
+      "avoidWhen": [
+        {
+          "when": "There are many options and vertical space is limited",
+          "instead": "select"
+        },
+        {
+          "when": "Several options can be selected at the same time",
+          "instead": "checkbox"
+        }
+      ],
+      "tags": [
+        "radio",
+        "radio-group",
+        "form",
+        "choice-card",
+        "plan-selector"
+      ],
+      "usage": {
+        "class": "mv-radio"
+      },
+      "api": {
+        "classes": [
+          {
+            "name": "mv-radio",
+            "description": "On <input type=\"radio\">."
+          },
+          {
+            "name": "mv-choice / mv-choice-card / mv-choice-group",
+            "description": "Shared layouts, provided by the checkbox component (dependency)."
+          },
+          {
+            "name": "mv-radio-meta",
+            "description": "Price or info aligned at the end of the card (<small> for the unit)."
+          }
+        ],
+        "attributes": [
+          {
+            "name": "data-size",
+            "type": "sm | lg",
+            "default": "(md)",
+            "description": "Size (14 / 16 / 20 px)."
+          },
+          {
+            "name": "data-variant",
+            "type": "outline",
+            "description": "On the input: neutral ring, only the dot takes the accent."
+          },
+          {
+            "name": "aria-invalid",
+            "type": "true",
+            "description": "Error border and halo."
+          },
+          {
+            "name": "data-variant=\"badge\"",
+            "type": "on .mv-choice-card",
+            "description": "Vertical tile; the radio becomes a corner badge, visible once checked or on focus."
+          }
+        ],
+        "cssVars": [
+          {
+            "name": "--mv-radio-size",
+            "default": "1rem",
+            "description": "Control size."
+          }
+        ]
+      },
+      "a11y": "Native radios grouped by name: arrows change the option, Tab enters/leaves the group, all handled by the browser. Wrap them in <fieldset> + <legend> (or role=\"radiogroup\" + aria-label). In the badge variant, the radio stays present and focusable (only visually hidden until checked).",
+      "inspiredBy": [],
+      "culture": null,
+      "kit": null,
+      "featured": false,
+      "labs": false,
+      "quickstart": null,
+      "demo": {
+        "file": "components/radio/demo.html",
+        "layout": "center",
+        "height": 520,
+        "theme": null,
+        "requires": []
+      },
+      "files": [
+        "components/radio/radio.css"
+      ],
+      "core": [],
+      "shaders": [],
+      "dependencies": [
+        "checkbox"
+      ],
+      "npm": [],
+      "status": "stable",
+      "added": "2026-09-22T21:53:38.000Z"
+    },
+    {
+      "name": "Select",
+      "slug": "select",
+      "tag": null,
+      "kind": "css",
+      "category": "primitive",
+      "wave": 1,
+      "description": "Styled native <select> (token-colored chevron), progressively enhanced into a customizable select (appearance: base-select): animated list, status dots, icons, descriptions and checkmark, optional “liquid” opening; clean fallback elsewhere.",
+      "useWhen": [
+        "Users pick one value from a medium-sized list where native mobile pickers and keyboard support matter",
+        "Options benefit from status dots, icons or descriptions while staying a real form control",
+        "A playful liquid opening fits the product, with a clean native fallback on unsupported browsers"
+      ],
+      "avoidWhen": [
+        {
+          "when": "The list holds actions to run rather than a value to submit",
+          "instead": "menu"
+        },
+        {
+          "when": "Only two to five options exist and showing them all helps the decision",
+          "instead": "radio"
+        }
+      ],
+      "tags": [
+        "select",
+        "native-select",
+        "base-select",
+        "customizable-select",
+        "dropdown",
+        "listbox",
+        "picker",
+        "liquid",
+        "gooey"
+      ],
+      "usage": {
+        "class": "mv-select"
+      },
+      "api": {
+        "classes": [
+          {
+            "name": "mv-select",
+            "description": "On <select>. Classic everywhere; customizable where appearance: base-select is supported."
+          },
+          {
+            "name": "mv-select-dot",
+            "description": "Status dot inside an option; data-tone=\"success | warning | danger | info\" or --mv-select-dot."
+          },
+          {
+            "name": "mv-select-icon",
+            "description": "Option icon (svg)."
+          },
+          {
+            "name": "mv-select-text",
+            "description": "Label + description container inside an option."
+          },
+          {
+            "name": "mv-select-description",
+            "description": "Secondary option text, hidden in the displayed value (selectedcontent)."
+          }
+        ],
+        "attributes": [
+          {
+            "name": "data-size",
+            "type": "sm | lg",
+            "default": "(md)",
+            "description": "Height 32 / 36 / 44px."
+          },
+          {
+            "name": "data-native",
+            "type": "boolean",
+            "description": "Keeps native rendering even when base-select is available."
+          },
+          {
+            "name": "aria-invalid",
+            "type": "true",
+            "description": "Error state; :user-invalid is supported too."
+          },
+          {
+            "name": "<button><selectedcontent>",
+            "type": "structure",
+            "description": "Optional first child: the displayed value mirrors the selected option’s rich content (dot, icon)."
+          },
+          {
+            "name": "data-open",
+            "type": "\"liquid\"",
+            "description": "Opt-in, pure CSS: the list stretches out of the trigger (a drop hanging from a neck, clip-path shape() driven by @property properties), spreads out, then pinches back into the trigger on close. Requires base-select + shape(); otherwise a standard animation. Instant with reduced motion."
+          }
+        ],
+        "cssVars": [
+          {
+            "name": "--mv-select-radius",
+            "default": "var(--mv-radius-md)",
+            "description": "Trigger radius."
+          },
+          {
+            "name": "--mv-select-picker-radius",
+            "default": "var(--mv-radius-lg)",
+            "description": "List radius."
+          },
+          {
+            "name": "--mv-select-bg",
+            "description": "Trigger background."
+          },
+          {
+            "name": "--mv-select-dot",
+            "description": "Dot color."
+          }
+        ]
+      },
+      "a11y": "Stays a real <select>: combobox/listbox role, keyboard (arrows, type-ahead, Enter, Escape), screen readers and native mobile pickers handled by the browser. Pair it with a <label for>. Option icons are aria-hidden. Fallback: without base-select, rich option content is reduced to its text (keep descriptions short; don’t use the label attribute, which would hide the rich content). For a required choice, use required + a first option with value=\"\" disabled (placeholder styling applied). Known limits: the custom picker, rich options and data-open=\"liquid\" need appearance: base-select (Chromium-based browsers today), and the liquid opening also needs clip-path: shape(); elsewhere the field stays a styled native select with plain-text options and the browser's own list.",
+      "inspiredBy": [],
+      "culture": null,
+      "kit": null,
+      "featured": false,
+      "labs": false,
+      "quickstart": null,
+      "demo": {
+        "file": "components/select/demo.html",
+        "layout": "wide",
+        "height": 480,
+        "theme": null,
+        "requires": []
+      },
+      "files": [
+        "components/select/select.css"
+      ],
+      "core": [],
+      "shaders": [],
+      "dependencies": [],
+      "npm": [],
+      "status": "stable",
+      "added": "2026-09-22T21:53:38.000Z"
+    },
+    {
+      "name": "Separator",
+      "slug": "separator",
+      "tag": null,
+      "kind": "css",
+      "category": "primitive",
+      "wave": 1,
+      "description": "Pure-CSS horizontal or vertical separator: solid, dashed, dotted or faded, with a centered (“or”) or aligned label, on <hr> or <div>.",
+      "useWhen": [
+        "Two groups of content or controls need a quiet visual split, horizontal or vertical",
+        "Alternative paths need a labeled divider, such as “or” between social login and email",
+        "A feed or timeline needs inline labels like Today between groups of items"
+      ],
+      "avoidWhen": [
+        {
+          "when": "Spacing alone already separates the groups clearly and extra lines would add clutter"
+        },
+        {
+          "when": "Sections need collapsible headings rather than a static line",
+          "instead": "accordion"
+        }
+      ],
+      "tags": [
+        "separator",
+        "divider",
+        "hr",
+        "rule",
+        "or"
+      ],
+      "usage": {
+        "class": "mv-separator"
+      },
+      "api": {
+        "classes": [
+          {
+            "name": "mv-separator",
+            "description": "On <hr> (horizontal) or <div>. If the element contains text or an icon, it becomes a labeled divider (line, label, line). Without a label, it must be strictly empty (no whitespace)."
+          }
+        ],
+        "attributes": [
+          {
+            "name": "data-orientation",
+            "type": "vertical",
+            "default": "(horizontal)",
+            "description": "Vertical line; stretches to the height of the flex parent (min. 1em)."
+          },
+          {
+            "name": "data-variant",
+            "type": "dashed | dotted | fade",
+            "description": "Line style; fade tapers off at the ends."
+          },
+          {
+            "name": "data-align",
+            "type": "start | end",
+            "default": "(centered)",
+            "description": "Label position."
+          }
+        ],
+        "cssVars": [
+          {
+            "name": "--mv-separator-color",
+            "default": "var(--mv-border)",
+            "description": "Line color."
+          },
+          {
+            "name": "--mv-separator-thickness",
+            "default": "1px",
+            "description": "Thickness (dotted: 2px)."
+          },
+          {
+            "name": "--mv-separator-spacing",
+            "default": "0",
+            "description": "Spacing on either side of the line."
+          }
+        ]
+      },
+      "a11y": "<hr> already has role=separator. For a semantic <div>: role=\"separator\" + aria-orientation=\"vertical\" when vertical. Purely decorative: role=\"none\" (or aria-hidden=\"true\"). With a label (“or”, “Today”), don’t set role=separator (its children would become presentational): keep a plain <div> so the text is read.",
+      "inspiredBy": [],
+      "culture": null,
+      "kit": null,
+      "featured": false,
+      "labs": false,
+      "quickstart": null,
+      "demo": {
+        "file": "components/separator/demo.html",
+        "layout": "center",
+        "height": 380,
+        "theme": null,
+        "requires": [
+          "button"
+        ]
+      },
+      "files": [
+        "components/separator/separator.css"
+      ],
+      "core": [],
+      "shaders": [],
+      "dependencies": [],
+      "npm": [],
+      "status": "stable",
+      "added": "2026-09-22T21:53:38.000Z"
+    },
+    {
+      "name": "Switch",
+      "slug": "switch",
+      "tag": null,
+      "kind": "css",
+      "category": "primitive",
+      "wave": 1,
+      "description": "Pure-CSS switch on <input type=\"checkbox\" role=\"switch\">: thumb that slides on a spring and stretches when pressed, icons in the thumb (customizable), sizes, label on the left or right, option card.",
+      "useWhen": [
+        "A setting turns on or off and takes effect immediately, as in a preferences panel",
+        "A list of settings needs on/off rows or option cards with descriptions"
+      ],
+      "avoidWhen": [
+        {
+          "when": "The choice only applies after submitting a form, or is an agreement such as accepting terms",
+          "instead": "checkbox"
+        }
+      ],
+      "tags": [
+        "switch",
+        "toggle",
+        "form",
+        "settings",
+        "spring",
+        "choice-card"
+      ],
+      "usage": {
+        "class": "mv-switch"
+      },
+      "api": {
+        "classes": [
+          {
+            "name": "mv-switch",
+            "description": "On <input type=\"checkbox\" role=\"switch\">."
+          },
+          {
+            "name": "mv-choice / mv-choice-card",
+            "description": "Shared label and card (checkbox component). data-control=\"end\" puts the switch to the right of the label (settings row)."
+          }
+        ],
+        "attributes": [
+          {
+            "name": "data-size",
+            "type": "sm | lg",
+            "default": "(md)",
+            "description": "Height 16 / 20 / 24 px."
+          },
+          {
+            "name": "data-shape",
+            "type": "square",
+            "description": "Slightly rounded corners instead of a pill."
+          },
+          {
+            "name": "data-icons",
+            "type": "boolean",
+            "description": "Shows an icon in the thumb (✕ / ✓ by default)."
+          },
+          {
+            "name": "aria-invalid",
+            "type": "true",
+            "description": "Error halo."
+          }
+        ],
+        "cssVars": [
+          {
+            "name": "--mv-switch-height",
+            "default": "1.25rem",
+            "description": "Track height (the thumb follows)."
+          },
+          {
+            "name": "--mv-switch-width",
+            "default": "1.8 × height",
+            "description": "Track width."
+          },
+          {
+            "name": "--mv-switch-radius",
+            "default": "var(--mv-radius-full)",
+            "description": "Track radius."
+          },
+          {
+            "name": "--mv-switch-icon-off / -on",
+            "type": "url()",
+            "description": "SVG icon masks (e.g. sun / moon)."
+          },
+          {
+            "name": "--mv-switch-icon-color / -color-on",
+            "default": "--mv-fg-subtle / --mv-accent",
+            "description": "Icon color."
+          }
+        ]
+      },
+      "a11y": "role=\"switch\" on a native checkbox: state announced as “on / off”, Space toggles, value submitted with the form. The wrapping <label> provides the name; link a description via aria-describedby if needed. Icons are decorative (pseudo-elements).",
+      "inspiredBy": [],
+      "culture": null,
+      "kit": null,
+      "featured": false,
+      "labs": false,
+      "quickstart": null,
+      "demo": {
+        "file": "components/switch/demo.html",
+        "layout": "center",
+        "height": 400,
+        "theme": null,
+        "requires": []
+      },
+      "files": [
+        "components/switch/switch.css"
+      ],
+      "core": [],
+      "shaders": [],
+      "dependencies": [
+        "checkbox"
+      ],
+      "npm": [],
+      "status": "stable",
+      "added": "2026-09-22T21:53:38.000Z"
+    },
+    {
+      "name": "Textarea",
+      "slug": "textarea",
+      "tag": null,
+      "kind": "css",
+      "category": "primitive",
+      "wave": 1,
+      "description": "Textarea that grows on its own (field-sizing: content) between a minimum and maximum number of rows, with an optional resize handle, a group with a toolbar and an <mv-char-count> character counter.",
+      "useWhen": [
+        "Users write multi-line text such as a comment, message, bio or description",
+        "The field should grow with its content between a minimum and a maximum number of rows",
+        "A character limit must be shown with a counter that warns near the limit",
+        "A composer needs a toolbar for formatting or attachment buttons next to the text"
+      ],
+      "avoidWhen": [
+        {
+          "when": "The value is short and single-line, like a name or an email",
+          "instead": "input"
+        },
+        {
+          "when": "Rich text such as headings, bold and links must render while typing; this field is plain text"
+        }
+      ],
+      "tags": [
+        "textarea",
+        "autosize",
+        "auto-grow",
+        "character-count",
+        "composer",
+        "counter"
+      ],
+      "usage": {
+        "class": "mv-textarea"
+      },
+      "api": {
+        "classes": [
+          {
+            "name": "mv-textarea",
+            "description": "On <textarea>. Height adapts to the content."
+          },
+          {
+            "name": "mv-textarea-group",
+            "description": "Shared container for textarea + toolbar (message composer, comment box)."
+          },
+          {
+            "name": "mv-textarea-toolbar",
+            "description": "Row of buttons below the textarea; data-divider adds a rule and a background."
+          },
+          {
+            "name": "mv-textarea-toolbar-spacer",
+            "description": "Pushes the following items to the right."
+          }
+        ],
+        "attributes": [
+          {
+            "name": "data-size",
+            "type": "sm | lg",
+            "default": "(md)",
+            "description": "Padding and text size; on .mv-textarea or .mv-textarea-group."
+          },
+          {
+            "name": "data-resize",
+            "type": "vertical | both",
+            "default": "(none)",
+            "description": "Shows the resize handle."
+          },
+          {
+            "name": "data-autosize",
+            "type": "false",
+            "description": "Disables auto-grow (height set via rows)."
+          },
+          {
+            "name": "aria-invalid",
+            "type": "true",
+            "description": "Forces the error state; :user-invalid is also supported."
+          },
+          {
+            "name": "<mv-char-count for>",
+            "type": "id",
+            "description": "Tracked control (otherwise: the first textarea/input of the parent .mv-field or group)."
+          },
+          {
+            "name": "<mv-char-count max>",
+            "type": "number",
+            "default": "the control's maxlength",
+            "description": "Limit. Without maxlength it is a soft limit: the control becomes invalid past it."
+          },
+          {
+            "name": "<mv-char-count mode>",
+            "type": "count | remaining",
+            "default": "count",
+            "description": "“42 / 280” or the number of characters left."
+          },
+          {
+            "name": "<mv-char-count warn-at>",
+            "type": "number",
+            "default": "0.9",
+            "description": "Ratio at which data-state=\"near\" applies."
+          },
+          {
+            "name": "<mv-char-count data-variant>",
+            "type": "ring",
+            "description": "Circular gauge; the number only appears near the limit."
+          }
+        ],
+        "methods": [
+          {
+            "name": "<mv-char-count>.refresh()",
+            "description": "Recomputes after a programmatic value change."
+          }
+        ],
+        "cssVars": [
+          {
+            "name": "--mv-textarea-min-rows",
+            "default": "3",
+            "description": "Minimum height in rows."
+          },
+          {
+            "name": "--mv-textarea-max-rows",
+            "default": "12",
+            "description": "Maximum height in rows before scrolling."
+          },
+          {
+            "name": "--mv-textarea-radius",
+            "default": "var(--mv-radius-md)",
+            "description": "Radius (group: radius-lg)."
+          },
+          {
+            "name": "--mv-textarea-bg",
+            "description": "Background."
+          },
+          {
+            "name": "--mv-char-progress",
+            "description": "0 → 1, set by <mv-char-count> (use it for your own gauges)."
+          }
+        ]
+      },
+      "a11y": "Pair with a <label for>. <mv-char-count> adds its description (“120 characters left of 200”) to the control's aria-describedby without overwriting existing ids, and only announces (role=status) when crossing the warning threshold or the limit, not on every keystroke. The visible number is aria-hidden. Toolbar buttons are <button type=\"button\"> with an aria-label.",
+      "inspiredBy": [],
+      "culture": null,
+      "kit": null,
+      "featured": false,
+      "labs": false,
+      "quickstart": null,
+      "demo": {
+        "file": "components/textarea/demo.html",
+        "layout": "wide",
+        "height": 420,
+        "theme": null,
+        "requires": [
+          "button"
+        ]
+      },
+      "files": [
+        "components/textarea/textarea.css",
+        "components/textarea/char-count.js"
+      ],
+      "core": [
+        "core/dom.js",
+        "core/element.js",
+        "core/i18n.js"
+      ],
+      "shaders": [],
+      "dependencies": [],
+      "npm": [],
+      "status": "stable",
+      "added": "2026-09-22T21:53:38.000Z"
+    },
+    {
+      "name": "Field",
+      "slug": "field",
+      "tag": null,
+      "kind": "css",
+      "category": "form",
+      "wave": 1,
+      "description": "Pure-CSS field layout: label (required / optional), help text, an error message that shows up on its own when the control is invalid, vertical, horizontal, responsive and inline orientations, choice cards and fieldset.",
+      "useWhen": [
+        "Every form control needs a consistent label, help text and an error message that appears on invalid input",
+        "Settings forms should show labels on the left on wide screens and stack them on narrow ones",
+        "Related radios or checkboxes must be grouped under a legend, optionally as selectable choice cards"
+      ],
+      "avoidWhen": [
+        {
+          "when": "The need is the text control itself rather than its label and messages",
+          "instead": "input"
+        }
+      ],
+      "tags": [
+        "field",
+        "label",
+        "form",
+        "fieldset",
+        "legend",
+        "error",
+        "helper-text",
+        "validation",
+        "choice-card"
+      ],
+      "usage": {
+        "class": "mv-field"
+      },
+      "api": {
+        "classes": [
+          {
+            "name": "mv-field",
+            "description": "Field container: label, control, description, error."
+          },
+          {
+            "name": "mv-label",
+            "description": "Label (<label for>). Can be used on its own, outside .mv-field."
+          },
+          {
+            "name": "mv-field-header",
+            "description": "Row with the label + a secondary element on the right (“Forgot password?” link, counter)."
+          },
+          {
+            "name": "mv-field-label-group",
+            "description": "Label + description stacked in the left column (horizontal orientation)."
+          },
+          {
+            "name": "mv-field-description",
+            "description": "Help text."
+          },
+          {
+            "name": "mv-field-error",
+            "description": "Error message: hidden, then shown (fade) when the field contains a :user-invalid or aria-invalid=\"true\" control, or has data-invalid. Never shown when empty."
+          },
+          {
+            "name": "mv-field-group",
+            "description": "Stack of spaced fields; container-query container (responsive orientation)."
+          },
+          {
+            "name": "mv-field-row",
+            "description": "Side-by-side fields that wrap below 12rem."
+          },
+          {
+            "name": "mv-fieldset",
+            "description": "On <fieldset>: styled <legend> (no notch), description, footer."
+          },
+          {
+            "name": "mv-fieldset-description / -footer",
+            "description": "Text under the legend; action row (muted background in the card variant)."
+          }
+        ],
+        "attributes": [
+          {
+            "name": "data-required (label)",
+            "type": "boolean",
+            "description": "Decorative asterisk (ignored by screen readers: put required on the control)."
+          },
+          {
+            "name": "data-optional (label)",
+            "type": "string",
+            "description": "Note shown after the label, e.g. data-optional=\"optional\"."
+          },
+          {
+            "name": "data-orientation",
+            "type": "horizontal | responsive | inline",
+            "default": "(vertical)",
+            "description": "horizontal: label on the left; responsive: horizontal when the container is ≥ 36rem; inline: checkbox/radio first, label next to it."
+          },
+          {
+            "name": "data-variant (field)",
+            "type": "card",
+            "description": "Selectable choice card (with inline orientation, on a <label>)."
+          },
+          {
+            "name": "data-variant (fieldset)",
+            "type": "card",
+            "description": "Framed fieldset with a built-in action footer."
+          },
+          {
+            "name": "data-invalid / data-disabled",
+            "type": "boolean",
+            "description": "Forces the state on the field (otherwise inferred from the control)."
+          }
+        ],
+        "cssVars": [
+          {
+            "name": "--mv-field-label-width",
+            "default": "11rem",
+            "description": "Width of the label column (horizontal / responsive)."
+          }
+        ]
+      },
+      "a11y": "Associate each label with <label for=\"id\">. Link help text and error to the control: aria-describedby=\"help-id error-id\" (an error hidden with display:none is not read; it is as soon as it shows). Set aria-invalid=\"true\" on the control for a server error, and required for a required field (the asterisk is decorative). Group related options in <fieldset class=\"mv-fieldset\"> + <legend>; a disabled fieldset disables all its content. Choice cards: the <label> wraps the radio/checkbox input, and keyboard focus is shown on the card. A disabled field dims its label but keeps its help text readable (fg-subtle), since it often says why the field is locked. Forced colors: the error keeps its icon; the red tint of the label and border is lost there, so the error text itself must carry the message.",
+      "inspiredBy": [],
+      "culture": null,
+      "kit": null,
+      "featured": false,
+      "labs": false,
+      "quickstart": null,
+      "demo": {
+        "file": "components/field/demo.html",
+        "layout": "wide",
+        "height": 640,
+        "theme": null,
+        "requires": [
+          "input",
+          "textarea",
+          "select",
+          "button"
+        ]
+      },
+      "files": [
+        "components/field/field.css"
+      ],
+      "core": [],
+      "shaders": [],
+      "dependencies": [],
+      "npm": [],
+      "status": "stable",
+      "added": "2026-09-22T21:53:38.000Z"
+    },
+    {
+      "name": "Dialog",
+      "slug": "dialog",
+      "tag": "mv-dialog",
+      "kind": "element",
+      "category": "overlay",
+      "wave": 1,
+      "description": "Animated native <dialog> modal; also covers Alert Dialog (persistent), Sheet (4 sides) and a mobile Drawer with swipe to close.",
+      "useWhen": [
+        "A blocking confirmation is needed before a destructive or irreversible action",
+        "A short form or detail view must stay in context without leaving the page",
+        "A side sheet must slide in from an edge for settings, filters or a cart",
+        "On mobile, a bottom drawer the user can swipe away fits better than a centered modal"
+      ],
+      "avoidWhen": [
+        {
+          "when": "The message is transient feedback that shouldn't interrupt the user",
+          "instead": "toast"
+        },
+        {
+          "when": "The content is a small panel anchored to a trigger that shouldn't block the page",
+          "instead": "popover"
+        },
+        {
+          "when": "The flow has many steps or needs its own URL; use a dedicated page instead"
+        }
+      ],
+      "tags": [
+        "modal",
+        "dialog",
+        "alert-dialog",
+        "confirm",
+        "sheet",
+        "drawer",
+        "side-panel",
+        "slide-over",
+        "swipe"
+      ],
+      "usage": null,
+      "api": {
+        "attributes": [
+          {
+            "name": "open",
+            "type": "boolean",
+            "description": "Opens/closes the modal."
+          },
+          {
+            "name": "persistent",
+            "type": "boolean",
+            "description": "Alert mode: no closing via Escape or outside click, role=alertdialog (follows later changes)."
+          },
+          {
+            "name": "swipe",
+            "type": "boolean",
+            "description": "Swipe to close (sheets / drawers); can be turned on or off at any time."
+          }
+        ],
+        "methods": [
+          {
+            "name": "show()",
+            "description": "Opens as a modal."
+          },
+          {
+            "name": "close(returnValue?)",
+            "description": "Closes with a return value."
+          }
+        ],
+        "events": [
+          {
+            "name": "mv-before-open",
+            "description": "Cancelable (preventDefault)."
+          },
+          {
+            "name": "mv-open",
+            "description": "After opening."
+          },
+          {
+            "name": "mv-close",
+            "description": "detail.returnValue: value of the [data-mv-close] button, or “dismiss” / “swipe”."
+          }
+        ],
+        "slots": [
+          {
+            "name": "[data-mv-open]",
+            "description": "Internal trigger; for an external one: data-mv-open=\"#id\"."
+          },
+          {
+            "name": "<dialog>",
+            "description": "Content; data-variant=\"sheet\" + data-side=\"right|left|top|bottom\". May be rendered or replaced after the element connects (Angular, a late v-if): it is looked up when needed, and a pending open applies once it exists."
+          },
+          {
+            "name": "[data-mv-close]",
+            "description": "Closes; its value becomes returnValue."
+          }
+        ],
+        "classes": [
+          {
+            "name": "mv-dialog-header / -title / -description / -footer / -close",
+            "description": "Content layout."
+          }
+        ],
+        "cssVars": [
+          {
+            "name": "--mv-dialog-width",
+            "default": "30rem",
+            "description": "Width (sheet: 24rem)."
+          },
+          {
+            "name": "--mv-dialog-radius",
+            "description": "Radius."
+          },
+          {
+            "name": "--mv-dialog-backdrop-blur",
+            "default": "3px",
+            "description": "Backdrop blur."
+          }
+        ]
+      },
+      "a11y": "Focus trapped and restored by the native <dialog>, inert page, Escape. aria-labelledby/-describedby wired automatically from .mv-dialog-title / .mv-dialog-description, checked again at each opening so a title rendered late by a framework is still used.",
+      "inspiredBy": [],
+      "culture": null,
+      "kit": null,
+      "featured": false,
+      "labs": false,
+      "quickstart": null,
+      "demo": {
+        "file": "components/dialog/demo.html",
+        "layout": "center",
+        "height": null,
+        "theme": null,
+        "requires": [
+          "button",
+          "input"
+        ]
+      },
+      "files": [
+        "components/dialog/dialog.js",
+        "components/dialog/dialog.css"
+      ],
+      "core": [
+        "core/dom.js",
+        "core/element.js",
+        "core/i18n.js",
+        "core/motion.js"
+      ],
+      "shaders": [],
+      "dependencies": [],
+      "npm": [],
+      "status": "stable",
+      "added": "2026-09-22T21:09:35.000Z"
+    },
+    {
+      "name": "Menu",
+      "slug": "menu",
+      "tag": "mv-menu",
+      "kind": "element",
+      "category": "overlay",
+      "wave": 1,
+      "description": "Full-featured dropdown menu: checkboxes, radio items, submenus with a safe-triangle, shortcuts, typeahead and APG keyboard navigation; opt-in data-motion=\"glide\" (opens from the trigger’s corner, a single highlight that glides between items, submenus that slide in).",
+      "useWhen": [
+        "A button opens a list of actions, such as a row's Edit, Duplicate and Delete",
+        "Actions need checkable items, radio groups, shortcuts or nested submenus",
+        "An account or overflow menu must open from a trigger with full keyboard and typeahead support"
+      ],
+      "avoidWhen": [
+        {
+          "when": "The user is choosing a value to submit with a form",
+          "instead": "select"
+        },
+        {
+          "when": "The panel holds a form or rich interactive content rather than a list of actions",
+          "instead": "popover"
+        }
+      ],
+      "tags": [
+        "dropdown",
+        "dropdown-menu",
+        "menu-button",
+        "submenu",
+        "typeahead",
+        "checkbox",
+        "radio",
+        "animated-dropdown",
+        "glide",
+        "highlight-pill"
+      ],
+      "usage": null,
+      "api": {
+        "attributes": [
+          {
+            "name": "placement",
+            "type": "top | bottom | left | right[-start|-end]",
+            "default": "bottom-start",
+            "description": "Panel position relative to the trigger (automatic flip/shift)."
+          },
+          {
+            "name": "offset",
+            "type": "number",
+            "default": "6",
+            "description": "Distance from the trigger (px)."
+          },
+          {
+            "name": "open",
+            "type": "boolean",
+            "description": "Opens/closes programmatically (reflects the state)."
+          },
+          {
+            "name": "data-motion",
+            "type": "\"glide\"",
+            "description": "Opt-in (on mv-menu, mv-context-menu or an ancestor): the panel blooms from the corner closest to the trigger (based on data-side / data-align), a single highlight pill glides from item to item (hover and keyboard) instead of per-item backgrounds, and submenus slide out from their row. Without the attribute, rendering is unchanged."
+          }
+        ],
+        "methods": [
+          {
+            "name": "show({ focus })",
+            "description": "Opens; focus = \"first\" | \"last\" | \"panel\"."
+          },
+          {
+            "name": "hide({ focus })",
+            "description": "Closes every level; focus=true returns focus to the trigger."
+          }
+        ],
+        "properties": [
+          {
+            "name": "isOpen",
+            "type": "boolean",
+            "description": "Read-only."
+          },
+          {
+            "name": "menu",
+            "type": "MenuPanel",
+            "description": "Reusable engine (class exported by menu.js, used by Context Menu)."
+          }
+        ],
+        "events": [
+          {
+            "name": "mv-select",
+            "description": "Cancelable (preventDefault keeps the menu open). detail: { value, label, item, checked?, group? }."
+          },
+          {
+            "name": "mv-open",
+            "description": "After opening."
+          },
+          {
+            "name": "mv-close",
+            "description": "After closing."
+          }
+        ],
+        "slots": [
+          {
+            "name": "first child",
+            "description": "Trigger: aria-haspopup=menu, aria-expanded and aria-controls are set automatically."
+          },
+          {
+            "name": "[data-content]",
+            "description": "Menu panel (role=menu)."
+          },
+          {
+            "name": "<button role=menuitem>",
+            "description": "Action item; value (or data-value) → detail.value; disabled or aria-disabled; data-variant=\"destructive\"."
+          },
+          {
+            "name": "role=menuitemcheckbox / menuitemradio",
+            "description": "Checkable items (aria-checked). Radios are exclusive within their [role=group] (data-name → detail.group)."
+          },
+          {
+            "name": "[data-keep-open]",
+            "description": "On an item: keeps the menu open after selection."
+          },
+          {
+            "name": "[data-submenu]",
+            "description": "Wraps a menuitem trigger + a nested [data-content]: submenu (hover, → / ←). Items, groups, separators and submenus added later (async lists) are enhanced automatically."
+          },
+          {
+            "name": "<hr>",
+            "description": "Separator."
+          }
+        ],
+        "classes": [
+          {
+            "name": "mv-menu-label",
+            "description": "Group label; data-inset aligns it with checkable items."
+          },
+          {
+            "name": "mv-menu-shortcut",
+            "description": "Right-aligned shortcut hint (ignored by typeahead)."
+          },
+          {
+            "name": "mv-menu-header",
+            "description": "Free-form header block (avatar + name…)."
+          },
+          {
+            "name": "mv-menu-pill",
+            "description": "Highlight pill created by the engine in glide mode (aria-hidden); tinted red on a destructive item. Uses --mv-menu-highlight."
+          }
+        ],
+        "cssVars": [
+          {
+            "name": "--mv-menu-width",
+            "default": "auto",
+            "description": "Fixed panel width."
+          },
+          {
+            "name": "--mv-menu-min-width",
+            "default": "11rem",
+            "description": "Minimum width."
+          },
+          {
+            "name": "--mv-menu-item-height",
+            "default": "2rem",
+            "description": "Minimum item height."
+          },
+          {
+            "name": "--mv-menu-highlight",
+            "description": "Active item background."
+          },
+          {
+            "name": "--mv-menu-bg",
+            "description": "Panel background."
+          },
+          {
+            "name": "--mv-menu-radius",
+            "description": "Panel corner radius."
+          }
+        ]
+      },
+      "a11y": "APG “Menu Button” and “Menu” patterns: Enter/Space/↓ open on the first item, ↑ on the last; ↑↓ Home/End navigate (roving focus, wrapping), letters trigger typeahead (accent-insensitive), → opens a submenu and ← closes it, Escape closes and returns focus to the trigger, Tab closes and continues tabbing. aria-checked on checkable items, aria-expanded on submenu triggers. Hover moves focus (like Radix).",
+      "inspiredBy": [],
+      "culture": null,
+      "kit": null,
+      "featured": false,
+      "labs": false,
+      "quickstart": null,
+      "demo": {
+        "file": "components/menu/demo.html",
+        "layout": "center",
+        "height": 420,
+        "theme": null,
+        "requires": [
+          "button"
+        ]
+      },
+      "files": [
+        "components/menu/menu.js",
+        "components/menu/menu.css"
+      ],
+      "core": [
+        "core/dismiss.js",
+        "core/dom.js",
+        "core/element.js",
+        "core/focus.js",
+        "core/i18n.js",
+        "core/motion.js",
+        "core/position.js",
+        "core/svg.js"
+      ],
+      "shaders": [],
+      "dependencies": [
+        "popover"
+      ],
+      "npm": [],
+      "status": "stable",
+      "added": "2026-09-22T21:53:38.000Z"
+    },
+    {
+      "name": "Popover",
+      "slug": "popover",
+      "tag": "mv-popover",
+      "kind": "element",
+      "category": "overlay",
+      "wave": 1,
+      "description": "Non-modal floating panel in the top layer (Popover API): auto placement with flip, optional arrow, closes on outside click/Escape with managed focus; data-open=\"liquid\" option where the panel stretches out of the trigger through a liquid “neck”, then pinches back into it on close.",
+      "useWhen": [
+        "A small form, filter or settings panel must open next to its trigger without blocking the page",
+        "Interactive content like links or buttons must be reachable on touch and keyboard, unlike a tooltip",
+        "A liquid opening that stretches the panel out of its trigger fits the product's tone"
+      ],
+      "avoidWhen": [
+        {
+          "when": "The content is a list of actions that needs menu keyboard navigation",
+          "instead": "menu"
+        },
+        {
+          "when": "The user must confirm or complete a task before continuing",
+          "instead": "dialog"
+        },
+        {
+          "when": "The content is only a short label shown on hover or focus",
+          "instead": "tooltip"
+        }
+      ],
+      "tags": [
+        "popover",
+        "floating",
+        "dropdown",
+        "panel",
+        "top-layer",
+        "gooey",
+        "liquid",
+        "morph"
+      ],
+      "usage": null,
+      "api": {
+        "attributes": [
+          {
+            "name": "placement",
+            "type": "top | bottom | left | right[-start|-end]",
+            "default": "bottom",
+            "description": "Preferred side and alignment, flipped when space runs out."
+          },
+          {
+            "name": "offset",
+            "type": "number",
+            "default": "8",
+            "description": "Distance from the trigger (px)."
+          },
+          {
+            "name": "arrow",
+            "type": "boolean",
+            "description": "Shows an arrow pointing at the trigger."
+          },
+          {
+            "name": "open",
+            "type": "boolean",
+            "description": "Opens/closes programmatically (reflects the state)."
+          },
+          {
+            "name": "data-open",
+            "type": "\"liquid\"",
+            "description": "Opt-in: a “goo” layer (SVG blur filter + alpha threshold) pulls the panel out of the trigger’s edge with a liquid neck that thins and snaps, then the content appears; closing replays a pinch back into the trigger. Ignored with reduced motion (standard animation)."
+          }
+        ],
+        "methods": [
+          {
+            "name": "show()",
+            "description": "Opens the panel."
+          },
+          {
+            "name": "hide()",
+            "description": "Closes the panel."
+          },
+          {
+            "name": "toggle()",
+            "description": "Toggles the state."
+          },
+          {
+            "name": "liquidMorph(panel, anchor, \"open\" | \"close\", done)",
+            "description": "popover.js export: plays the liquid morph on any already-positioned panel (returns { layer, cancel() })."
+          }
+        ],
+        "properties": [
+          {
+            "name": "isOpen",
+            "type": "boolean",
+            "description": "Read-only: the panel is shown."
+          }
+        ],
+        "events": [
+          {
+            "name": "mv-open",
+            "description": "After opening."
+          },
+          {
+            "name": "mv-close",
+            "description": "After closing (whatever the cause)."
+          }
+        ],
+        "slots": [
+          {
+            "name": "first child",
+            "description": "Trigger (button): receives aria-haspopup, aria-expanded and aria-controls."
+          },
+          {
+            "name": "[data-content]",
+            "description": "Panel; an [autofocus] element inside receives focus on open, otherwise the first focusable one."
+          },
+          {
+            "name": "[data-mv-close]",
+            "description": "Any element in the panel that closes the popover on click."
+          }
+        ],
+        "classes": [
+          {
+            "name": "mv-popover-header / -title / -description / -footer",
+            "description": "Content layout; the title and description are wired via aria-labelledby / aria-describedby."
+          }
+        ],
+        "cssVars": [
+          {
+            "name": "--mv-popover-width",
+            "default": "18rem",
+            "description": "Panel width."
+          },
+          {
+            "name": "--mv-popover-padding",
+            "default": "1rem",
+            "description": "Inner padding."
+          },
+          {
+            "name": "--mv-popover-radius",
+            "description": "Corner radius."
+          },
+          {
+            "name": "--mv-popover-bg",
+            "description": "Panel background (and arrow)."
+          }
+        ]
+      },
+      "a11y": "APG “Dialog (non-modal)” pattern: role=dialog named by .mv-popover-title, trigger with aria-expanded/aria-controls. Enter/Space open it, focus moves into the panel and returns to the trigger on close (Escape or button), unless the user clicked elsewhere. The panel is inert during the exit animation.",
+      "inspiredBy": [],
+      "culture": null,
+      "kit": null,
+      "featured": false,
+      "labs": false,
+      "quickstart": null,
+      "demo": {
+        "file": "components/popover/demo.html",
+        "layout": "center",
+        "height": 380,
+        "theme": null,
+        "requires": [
+          "button",
+          "input"
+        ]
+      },
+      "files": [
+        "components/popover/popover.js",
+        "components/popover/popover.css"
+      ],
+      "core": [
+        "core/dom.js",
+        "core/element.js",
+        "core/focus.js",
+        "core/i18n.js",
+        "core/motion.js",
+        "core/position.js",
+        "core/svg.js"
+      ],
+      "shaders": [],
+      "dependencies": [],
+      "npm": [],
+      "status": "stable",
+      "added": "2026-09-22T21:53:38.000Z"
+    },
+    {
+      "name": "Toast",
+      "slug": "toast",
+      "tag": "mv-toaster",
+      "kind": "element",
+      "category": "overlay",
+      "wave": 1,
+      "description": "Sonner-style stacked notifications: a compact stack that expands on hover, paused timers, swipe to dismiss, promises and in-place updates by id, through an imperative toast() API.",
+      "useWhen": [
+        "Brief feedback must confirm an action, such as Saved or Link copied, without interrupting",
+        "An async operation should show loading, then success or error, in the same notification",
+        "A notification needs an action such as Undo available for a few seconds after a change"
+      ],
+      "avoidWhen": [
+        {
+          "when": "The user must make a decision before continuing",
+          "instead": "dialog"
+        }
+      ],
+      "tags": [
+        "toast",
+        "sonner",
+        "notification",
+        "snackbar",
+        "swipe",
+        "promise",
+        "live-region"
+      ],
+      "usage": null,
+      "api": {
+        "attributes": [
+          {
+            "name": "position",
+            "type": "top-left | top-center | top-right | bottom-left | bottom-center | bottom-right",
+            "default": "bottom-right",
+            "description": "Anchor corner; the stack and swipe direction adapt."
+          },
+          {
+            "name": "max",
+            "type": "number",
+            "default": "3",
+            "description": "Number of visible toasts (the rest wait, hidden)."
+          },
+          {
+            "name": "duration",
+            "type": "number",
+            "default": "4000",
+            "description": "Default duration (ms)."
+          },
+          {
+            "name": "gap",
+            "type": "number",
+            "default": "14",
+            "description": "Gap between cards when expanded (px)."
+          },
+          {
+            "name": "expand",
+            "type": "boolean",
+            "description": "Always expanded."
+          },
+          {
+            "name": "rich-colors",
+            "type": "boolean",
+            "description": "Tints cards by type."
+          },
+          {
+            "name": "close-button",
+            "type": "boolean",
+            "description": "Close button on hover / focus (always visible on touch)."
+          },
+          {
+            "name": "label",
+            "type": "string",
+            "default": "Notifications",
+            "description": "Accessible name of the region."
+          }
+        ],
+        "methods": [
+          {
+            "name": "toast(message, options) → id",
+            "description": "Exported from toast.js (also MvToaster.toast). options: description, type (success | error | warning | info | loading), action { label, onClick(e, toast) }, cancel { label, onClick }, duration (ms or Infinity), id (same id = in-place update with a small bounce), icon (Node or null), closeButton, dismissible, important, toaster (selector), onDismiss, onAutoClose. Creates an <mv-toaster> when needed. SSR (Next, Nuxt, SvelteKit, Astro): import toast.js from a client component and render <mv-toaster> on the server as usual; the element adds nothing inside itself until the first toast, so importing it before hydration does not cause a mismatch."
+          },
+          {
+            "name": "toast.success / .error / .warning / .info / .loading(message, options)",
+            "description": "Typed shortcuts."
+          },
+          {
+            "name": "toast.promise(promise, { loading, success, error }, options)",
+            "description": "Loading, then success/error in the same card; success/error accept a string, a function of the result or an object { message, description, … }. Returns the promise (with .id). On the very first toast of a page, a promise that settles within 100 ms shows its result directly."
+          },
+          {
+            "name": "toast.dismiss(id?)",
+            "description": "Dismisses one toast, or all of them."
+          },
+          {
+            "name": "element.add(options) / element.dismiss(id?)",
+            "description": "Same operations on a specific toaster."
+          }
+        ],
+        "properties": [
+          {
+            "name": "toasts",
+            "type": "object[]",
+            "description": "Read-only: displayed toasts."
+          },
+          {
+            "name": "region",
+            "type": "HTMLElement | null",
+            "description": "Read-only: the generated <section class=\"mv-toaster\"> live region, null until the first toast."
+          },
+          {
+            "name": "strings",
+            "type": "Partial<Record<string, string>>",
+            "description": "Overrides for the default text (en-US): regionLabel (accessible name of the region, {label} placeholder for the label attribute), close (close button label when a toast has no closeLabel), loading (toast.promise message when no loading text is given; toast.promise reads it from the target toaster). App-wide translations: setStrings() from core/i18n.js, under the key \"toaster\". Can be set before the element is defined."
+          }
+        ],
+        "events": [
+          {
+            "name": "mv-toast",
+            "description": "New toast. detail: { id, type }."
+          },
+          {
+            "name": "mv-dismiss",
+            "description": "detail: { id, reason } (timeout, swipe, close, escape, action, cancel, dismiss)."
+          }
+        ],
+        "classes": [
+          {
+            "name": "mv-toast / -icon / -content / -title / -description / -action / -cancel / -close",
+            "description": "Generated, stylable parts; data-type on .mv-toast."
+          }
+        ],
+        "cssVars": [
+          {
+            "name": "--mv-toast-width",
+            "default": "22.25rem",
+            "description": "Card width (full width below 600 px)."
+          },
+          {
+            "name": "--mv-toaster-offset",
+            "default": "1.5rem",
+            "description": "Distance from the screen edges."
+          },
+          {
+            "name": "--mv-toast-peek",
+            "default": "12px",
+            "description": "How much each card peeks out in the compact stack."
+          },
+          {
+            "name": "--mv-toast-bg",
+            "description": "Card background."
+          },
+          {
+            "name": "--mv-toast-radius",
+            "description": "Card radius."
+          }
+        ]
+      },
+      "a11y": "Section region (implicit role) named “Notifications (Alt+T)”, aria-live=polite (additions and text updates are announced); important:true switches the card to role=alert. The region is created on the first toast (so a server-rendered toaster hydrates cleanly and no empty landmark is listed), and that first toast is inserted 100 ms later, once the screen reader knows the live region; later toasts appear at once. Alt+T moves focus to the latest toast; each card is focusable, Escape dismisses it and focus moves to the next one, then back to the original element. Timers pause on hover, on focus and while the tab is hidden. Animations are reduced automatically (prefers-reduced-motion). Modal dialogs: a modal <dialog> makes the rest of the page inert, top layer included, so while one is open the region moves into the topmost modal <dialog> (opened with showModal(), mv-dialog and its sheets included) and comes back when it closes; toasts stay visible, clickable, swipeable and reachable with Alt+T, after the dialog content in Tab order. Cards already on screen lose role=alert when the region moves, so they are not spoken twice, and the next toast waits 100 ms, as the first one does. Known limits: a dialog inside a shadow root, or a modal built without <dialog> (aria-modal and a focus trap), is not followed; there, put an mv-toaster inside the modal and target it with the toaster option (toast(\"Saved\", { toaster: \"#dialog-toaster\" })).",
+      "inspiredBy": [],
+      "culture": null,
+      "kit": null,
+      "featured": false,
+      "labs": false,
+      "quickstart": null,
+      "demo": {
+        "file": "components/toast/demo.html",
+        "layout": "center",
+        "height": 320,
+        "theme": null,
+        "requires": [
+          "button"
+        ]
+      },
+      "files": [
+        "components/toast/toast.js",
+        "components/toast/toast.css",
+        "components/toast/toast.d.ts"
+      ],
+      "core": [
+        "core/element.js",
+        "core/i18n.js",
+        "core/motion.js"
+      ],
+      "shaders": [],
+      "dependencies": [],
+      "npm": [],
+      "status": "stable",
+      "added": "2026-09-22T21:53:38.000Z"
+    },
+    {
+      "name": "Tooltip",
+      "slug": "tooltip",
+      "tag": "mv-tooltip",
+      "kind": "element",
+      "category": "overlay",
+      "wave": 1,
+      "description": "Tooltip in the top layer (Popover API), automatic placement with flip, arrow, grouped delay. For a toolbar, Tooltip Group shares a single surface that slides from one button to the next.",
+      "useWhen": [
+        "An icon-only button needs its label shown on hover and keyboard focus",
+        "A short supplementary hint clarifies a control without cluttering the layout"
+      ],
+      "avoidWhen": [
+        {
+          "when": "The content is interactive or must be reachable on touch devices",
+          "instead": "popover"
+        }
+      ],
+      "tags": [
+        "tooltip",
+        "hint",
+        "popover",
+        "morphic-tooltip"
+      ],
+      "usage": null,
+      "api": {
+        "attributes": [
+          {
+            "name": "text",
+            "type": "string",
+            "description": "Plain text (otherwise a [data-content] child)."
+          },
+          {
+            "name": "placement",
+            "type": "top | bottom | left | right[-start|-end]",
+            "default": "top",
+            "description": "Preferred side, flipped when there’s no room."
+          },
+          {
+            "name": "delay",
+            "type": "number",
+            "default": "500",
+            "description": "Show delay (ms). Skipped if another tooltip just closed."
+          },
+          {
+            "name": "offset",
+            "type": "number",
+            "default": "8",
+            "description": "Distance from the trigger (px)."
+          },
+          {
+            "name": "open",
+            "type": "boolean",
+            "description": "Opens/closes programmatically."
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "description": "Disables the tooltip."
+          }
+        ],
+        "slots": [
+          {
+            "name": "first child",
+            "description": "Trigger (button, link, focusable icon)."
+          },
+          {
+            "name": "[data-content]",
+            "description": "Optional rich content."
+          }
+        ],
+        "events": [
+          {
+            "name": "mv-open",
+            "description": "After opening."
+          },
+          {
+            "name": "mv-close",
+            "description": "After closing."
+          }
+        ],
+        "cssVars": [
+          {
+            "name": "--mv-tooltip-bg",
+            "description": "Background."
+          },
+          {
+            "name": "--mv-tooltip-fg",
+            "description": "Text."
+          }
+        ]
+      },
+      "a11y": "role=tooltip + aria-describedby on the trigger; opens on keyboard focus, closes on Escape. Doesn’t open on touch (use a Popover).",
+      "inspiredBy": [],
+      "culture": null,
+      "kit": null,
+      "featured": false,
+      "labs": false,
+      "quickstart": null,
+      "demo": {
+        "file": "components/tooltip/demo.html",
+        "layout": "center",
+        "height": null,
+        "theme": null,
+        "requires": [
+          "button"
+        ]
+      },
+      "files": [
+        "components/tooltip/tooltip.js",
+        "components/tooltip/tooltip.css"
+      ],
+      "core": [
+        "core/dom.js",
+        "core/element.js",
+        "core/i18n.js",
+        "core/position.js"
+      ],
+      "shaders": [],
+      "dependencies": [],
+      "npm": [],
+      "status": "stable",
+      "added": "2026-09-22T21:09:35.000Z"
+    },
+    {
+      "name": "Tabs",
+      "slug": "tabs",
+      "tag": "mv-tabs",
+      "kind": "element",
+      "category": "navigation",
+      "wave": 1,
+      "description": "Accessible tabs with a sliding indicator (underline, pill or segmented), horizontal or vertical, automatic or manual activation, and crossfading panels.",
+      "useWhen": [
+        "Related content must be split into panels on one page, such as Overview, Specs and Reviews",
+        "A settings or profile view groups sections behind a horizontal or vertical tab list"
+      ],
+      "avoidWhen": [
+        {
+          "when": "Users need to read several sections at once, or many sections must fit a narrow screen",
+          "instead": "accordion"
+        }
+      ],
+      "tags": [
+        "tabs",
+        "onglets",
+        "segmented-control",
+        "underline",
+        "pill",
+        "vertical",
+        "indicator"
+      ],
+      "usage": null,
+      "api": {
+        "attributes": [
+          {
+            "name": "value",
+            "type": "string",
+            "description": "Value of the active tab (the tab’s data-value, otherwise its index). Reflected on every change."
+          },
+          {
+            "name": "activation",
+            "type": "automatic | manual",
+            "default": "automatic",
+            "description": "automatic: arrows activate the tab; manual: arrows move focus, Enter/Space activates."
+          },
+          {
+            "name": "orientation",
+            "type": "horizontal | vertical",
+            "default": "horizontal",
+            "description": "List above or to the left of the panels; also changes the arrow keys."
+          },
+          {
+            "name": "data-variant",
+            "type": "segmented | pill | underline",
+            "default": "segmented",
+            "description": "segmented: gray track with a raised pill; pill: accent pill with no track; underline: sliding accent bar."
+          },
+          {
+            "name": "data-size",
+            "type": "sm | lg",
+            "default": "(md)",
+            "description": "Tab height."
+          },
+          {
+            "name": "data-stretch",
+            "type": "boolean",
+            "description": "Tabs share the full width."
+          }
+        ],
+        "properties": [
+          {
+            "name": "selectedTab",
+            "type": "HTMLElement | null",
+            "description": "Currently selected tab (read-only)."
+          }
+        ],
+        "methods": [
+          {
+            "name": "select(value)",
+            "description": "Activates the tab with that value and emits mv-change."
+          }
+        ],
+        "events": [
+          {
+            "name": "mv-change",
+            "description": "User-initiated change. detail: { value, previous, tab, panel }."
+          }
+        ],
+        "slots": [
+          {
+            "name": "[role=tablist]",
+            "description": "The first tablist under the host; contains the <button role=\"tab\"> elements (optional data-value, can be disabled). Wrappers are allowed in between, such as <li role=\"presentation\"> items in a <ul role=\"tablist\">."
+          },
+          {
+            "name": "[role=tabpanel]",
+            "description": "Panels anywhere under <mv-tabs>, wrappers allowed, matched by data-value or by order. A tablist or panel inside a panel, or inside a nested <mv-tabs>, belongs to that one."
+          }
+        ],
+        "classes": [
+          {
+            "name": "mv-tabs-indicator",
+            "description": "Sliding indicator, created automatically inside the list."
+          },
+          {
+            "name": "mv-tabs-count",
+            "description": "Count badge inside a tab (gets accented when the tab is active)."
+          }
+        ],
+        "cssVars": [
+          {
+            "name": "--mv-tabs-indicator",
+            "description": "Indicator color (pill background or bar)."
+          },
+          {
+            "name": "--mv-tabs-radius",
+            "default": "var(--mv-radius-md)",
+            "description": "Radius of the segmented track."
+          },
+          {
+            "name": "--mv-tabs-x / -y / -w / -h",
+            "description": "Indicator position and size, written by the JS (read-only)."
+          }
+        ]
+      },
+      "a11y": "ARIA Tabs pattern: tablist/tab/tabpanel roles, aria-selected, aria-controls and aria-labelledby wired automatically, aria-orientation. Roving tabindex: a single Tab stop to enter the list, arrows (left/right or up/down depending on orientation), Home/End; disabled tabs are skipped. Panels get tabindex=0 and inactive panels are hidden. Reduced motion: instant indicator and fade. Wrapper elements may sit between the host, the tablist, the tabs and the panels (a framework component that renders its own root); a nested mv-tabs, and anything inside a panel, keeps its own tabs. Known limits: panels inside a wrapper are not stacked in one grid cell, so the outgoing panel leaves at once instead of crossfading. Styling wrapped markup relies on CSS @scope (all current engines); without it, only the direct markup (tablist and panels as children of mv-tabs, tabs as children of the tablist) is styled, while wrapped tabs keep working unstyled.",
+      "inspiredBy": [],
+      "culture": null,
+      "kit": null,
+      "featured": false,
+      "labs": false,
+      "quickstart": null,
+      "demo": {
+        "file": "components/tabs/demo.html",
+        "layout": "wide",
+        "height": 680,
+        "theme": null,
+        "requires": []
+      },
+      "files": [
+        "components/tabs/tabs.js",
+        "components/tabs/tabs.css"
+      ],
+      "core": [
+        "core/dom.js",
+        "core/element.js",
+        "core/focus.js",
+        "core/i18n.js"
+      ],
+      "shaders": [],
+      "dependencies": [],
+      "npm": [],
+      "status": "stable",
+      "added": "2026-09-22T21:53:38.000Z"
+    },
+    {
+      "name": "Accordion",
+      "slug": "accordion",
+      "tag": "mv-accordion",
+      "kind": "element",
+      "category": "data-display",
+      "wave": 1,
+      "description": "CSS accordion on native <details>: animated height (::details-content + interpolate-size), chevron or plus/minus, bordered, separated and card variants; optional <mv-accordion type=\"single\">. Also covers Collapsible.",
+      "useWhen": [
+        "Secondary content must be tucked away so users can expand only the sections they care about",
+        "Several collapsible sections should allow only one open at a time, like a settings group or help panel",
+        "A single show-more toggle is needed around extra details, using the standalone collapsible",
+        "Hidden text must stay findable with in-page search and readable by crawlers"
+      ],
+      "avoidWhen": [
+        {
+          "when": "Users switch between parallel views of equal importance rather than expanding sections",
+          "instead": "tabs"
+        },
+        {
+          "when": "The content is critical and must be seen by everyone; hiding it behind a toggle reduces its visibility"
+        }
+      ],
+      "tags": [
+        "accordion",
+        "accordéon",
+        "collapsible",
+        "details",
+        "faq",
+        "disclosure",
+        "expand"
+      ],
+      "usage": {
+        "class": "mv-accordion"
+      },
+      "api": {
+        "attributes": [
+          {
+            "name": "type",
+            "type": "single | multiple",
+            "default": "multiple",
+            "description": "On <mv-accordion>: single allows only one open item (native name attribute set automatically, JS fallback)."
+          },
+          {
+            "name": "data-variant",
+            "type": "bordered | separated | card",
+            "default": "(simple dividers)",
+            "description": "On .mv-accordion: a single outlined box, separate boxes, or filled tiles where the open item lifts."
+          },
+          {
+            "name": "data-icon",
+            "type": "chevron | plus | start | none",
+            "default": "chevron",
+            "description": "On .mv-accordion or an item: chevron on the right, plus that turns into minus, chevron before the label, or no indicator."
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "description": "Native on <details>: same name = exclusive group, no JS."
+          },
+          {
+            "name": "open",
+            "type": "boolean",
+            "description": "Native on <details>: open on load."
+          },
+          {
+            "name": "data-value",
+            "type": "string",
+            "description": "On an item: value reported in mv-change (its index otherwise)."
+          }
+        ],
+        "properties": [
+          {
+            "name": "value",
+            "type": "string[]",
+            "description": "Values of the open items; assign it to open/close items programmatically."
+          }
+        ],
+        "events": [
+          {
+            "name": "mv-change",
+            "description": "An item opened or closed. detail: { value: string[], item, open }."
+          }
+        ],
+        "slots": [
+          {
+            "name": "details.mv-accordion-item > summary",
+            "description": "Trigger; optional leading <svg> icon, .mv-accordion-heading + .mv-accordion-subtitle for a two-line header."
+          },
+          {
+            "name": ".mv-accordion-content",
+            "description": "Panel content (fade + blur on open)."
+          }
+        ],
+        "classes": [
+          {
+            "name": "mv-accordion",
+            "description": "Items container."
+          },
+          {
+            "name": "mv-accordion-item",
+            "description": "On <details>: one accordion item."
+          },
+          {
+            "name": "mv-accordion-content",
+            "description": "Content panel."
+          },
+          {
+            "name": "mv-accordion-heading / -subtitle",
+            "description": "Title and subtitle inside the <summary>."
+          },
+          {
+            "name": "mv-collapsible",
+            "description": "Collapsible: a standalone <details class=\"mv-collapsible\">, same height animation, free-form <summary> (style it yourself, e.g. mv-button)."
+          },
+          {
+            "name": "mv-accordion-chevron",
+            "description": "On an <svg> inside a <summary>: rotates 180° on open."
+          }
+        ],
+        "cssVars": []
+      },
+      "a11y": "Built on native <details>/<summary>: button role, expanded state announced, Enter/Space. <mv-accordion> adds Up/Down/Home/End between triggers. Closed content is out of the accessibility tree and still findable with Ctrl+F (opens automatically). Reduced motion: instant open. Browsers without ::details-content: instant open.",
+      "inspiredBy": [],
+      "culture": null,
+      "kit": null,
+      "featured": false,
+      "labs": false,
+      "quickstart": null,
+      "demo": {
+        "file": "components/accordion/demo.html",
+        "layout": "wide",
+        "height": 560,
+        "theme": null,
+        "requires": []
+      },
+      "files": [
+        "components/accordion/accordion.css",
+        "components/accordion/accordion.js"
+      ],
+      "core": [
+        "core/dom.js",
+        "core/element.js",
+        "core/i18n.js"
+      ],
+      "shaders": [],
+      "dependencies": [],
+      "npm": [],
+      "status": "stable",
+      "added": "2026-09-22T21:53:38.000Z"
+    },
+    {
+      "name": "Card",
+      "slug": "card",
+      "tag": null,
+      "kind": "css",
+      "category": "data-display",
+      "wave": 1,
+      "description": "Composable card (media, header, action, content, footer): outline, elevated, ghost and muted variants, plus a fully clickable card.",
+      "useWhen": [
+        "Related content must be grouped in a bordered or elevated surface with header, body and footer",
+        "A grid of articles, projects or resources where each whole card links to a detail page",
+        "A dashboard tile shows one key figure with its trend next to a label"
+      ],
+      "avoidWhen": [],
+      "tags": [
+        "card",
+        "stat",
+        "media",
+        "interactive"
+      ],
+      "usage": {
+        "class": "mv-card"
+      },
+      "api": {
+        "classes": [
+          {
+            "name": "mv-card",
+            "description": "Container."
+          },
+          {
+            "name": "mv-card-media",
+            "description": "Leading image/video <figure> (ratio via --mv-card-media-ratio)."
+          },
+          {
+            "name": "mv-card-header / -title / -description / -action",
+            "description": "Header; -action sits at the top right."
+          },
+          {
+            "name": "mv-card-content",
+            "description": "Body."
+          },
+          {
+            "name": "mv-card-footer",
+            "description": "Footer; data-bordered for a separated, tinted footer."
+          },
+          {
+            "name": "mv-card-link",
+            "description": "Link stretched over the whole card (with data-interactive)."
+          },
+          {
+            "name": "mv-card-stat / mv-card-trend",
+            "description": "Key figure and trend (data-direction=\"down\")."
+          }
+        ],
+        "attributes": [
+          {
+            "name": "data-variant",
+            "type": "elevated | ghost | muted",
+            "description": "Style (default: outline)."
+          },
+          {
+            "name": "data-size",
+            "type": "sm",
+            "description": "Reduced padding."
+          },
+          {
+            "name": "data-interactive",
+            "type": "boolean",
+            "description": "Lift on hover, media zoom, focus ring."
+          }
+        ],
+        "cssVars": [
+          {
+            "name": "--mv-card-padding",
+            "default": "var(--mv-space-6)",
+            "description": "Inner padding."
+          },
+          {
+            "name": "--mv-card-radius",
+            "default": "var(--mv-radius-xl)",
+            "description": "Radius."
+          },
+          {
+            "name": "--mv-card-media-ratio",
+            "default": "16 / 9",
+            "description": "Media aspect ratio."
+          }
+        ]
+      },
+      "a11y": "Clickable card: a single link (.mv-card-link) in the title; other controls stay reachable on top (z-index).",
+      "inspiredBy": [],
+      "culture": null,
+      "kit": null,
+      "featured": false,
+      "labs": false,
+      "quickstart": null,
+      "demo": {
+        "file": "components/card/demo.html",
+        "layout": "padded",
+        "height": null,
+        "theme": null,
+        "requires": [
+          "button"
+        ]
+      },
+      "files": [
+        "components/card/card.css"
+      ],
+      "core": [],
+      "shaders": [],
+      "dependencies": [],
+      "npm": [],
+      "status": "stable",
+      "added": "2026-09-22T21:53:38.000Z"
+    },
+    {
+      "name": "Skeleton",
+      "slug": "skeleton",
+      "tag": null,
+      "kind": "css",
+      "category": "feedback",
+      "wave": 1,
+      "description": "Loading placeholders with a shimmer synced across the whole page (or a pulse), text, heading, avatar, media and button shapes, and a blurred cross-fade reveal into the loaded content driven by aria-busy.",
+      "useWhen": [
+        "Content is loading and its layout is known, so placeholders can prevent layout shift",
+        "Lists, cards or profiles are fetched asynchronously and should reveal with a cross-fade once ready",
+        "Many placeholders appear at once and need one synchronized shimmer instead of competing waves"
+      ],
+      "avoidWhen": [],
+      "tags": [
+        "skeleton",
+        "placeholder",
+        "loading",
+        "shimmer",
+        "pulse",
+        "chargement",
+        "reveal"
+      ],
+      "usage": {
+        "class": "mv-skeleton"
+      },
+      "api": {
+        "classes": [
+          {
+            "name": "mv-skeleton",
+            "description": "Loading block (any width/height, 1rem tall by default)."
+          },
+          {
+            "name": "mv-skeleton-text",
+            "description": "Stack of .mv-skeleton lines; the last one is shorter."
+          },
+          {
+            "name": "mv-skeleton-reveal",
+            "description": "Stacks [data-skeleton] and [data-content]; aria-busy=\"true\" shows the skeleton, \"false\" reveals the content with a fade + blur."
+          }
+        ],
+        "attributes": [
+          {
+            "name": "data-shape",
+            "type": "text | heading | circle | square | button | media",
+            "description": "Ready-made shapes (circle/square use --mv-skeleton-size)."
+          },
+          {
+            "name": "data-variant",
+            "type": "pulse | static",
+            "default": "(shimmer)",
+            "description": "Opacity pulse, or no motion."
+          },
+          {
+            "name": "data-skeleton=\"pulse\"",
+            "type": "on a container",
+            "description": "Switches every descendant skeleton to pulse."
+          },
+          {
+            "name": "aria-busy",
+            "type": "true | false",
+            "description": "On .mv-skeleton-reveal: loading state."
+          }
+        ],
+        "cssVars": [
+          {
+            "name": "--mv-skeleton-base",
+            "description": "Block color (default: text at 8%, adapts to the background)."
+          },
+          {
+            "name": "--mv-skeleton-shine",
+            "description": "Shimmer color."
+          },
+          {
+            "name": "--mv-skeleton-duration",
+            "default": "2s",
+            "description": "Duration of one cycle."
+          },
+          {
+            "name": "--mv-skeleton-size",
+            "default": "2.5rem",
+            "description": "Size of the circle / square shapes."
+          }
+        ]
+      },
+      "a11y": "Skeletons are decorative: set aria-hidden=\"true\" on their container, and aria-busy=\"true\" (+ aria-live=\"polite\") on the loading region. The shimmer is synced (background-attachment: fixed) to avoid the flicker of multiple waves. Reduced motion: shimmer and pulse stop, the reveal is instant.",
+      "inspiredBy": [],
+      "culture": null,
+      "kit": null,
+      "featured": false,
+      "labs": false,
+      "quickstart": null,
+      "demo": {
+        "file": "components/skeleton/demo.html",
+        "layout": "padded",
+        "height": 400,
+        "theme": null,
+        "requires": [
+          "button"
+        ]
+      },
+      "files": [
+        "components/skeleton/skeleton.css"
+      ],
+      "core": [],
+      "shaders": [],
+      "dependencies": [],
+      "npm": [],
+      "status": "stable",
+      "added": "2026-09-22T21:53:38.000Z"
+    },
+    {
+      "name": "Typography",
+      "slug": "typography",
+      "tag": null,
+      "kind": "css",
+      "category": "text",
+      "wave": 10,
+      "description": "Long-form text styles on one class: headings, lists, quotes, inline and block code, keys, tables, figures, definition lists and disclosures get a steady vertical rhythm and a capped reading measure, in 3 sizes. Components placed inside keep their own look, and mv-not-prose opts any subtree out.",
+      "useWhen": [
+        "Rendered Markdown or CMS HTML (blog posts, docs, changelogs) must read well without adding a class to every element",
+        "Legal pages, help articles or release notes need consistent headings, lists and tables at a comfortable line length",
+        "A sidebar or help panel shows rich text in a smaller size with the same rhythm as the main article"
+      ],
+      "avoidWhen": [
+        {
+          "when": "The text is a UI label, card body or short marketing line rather than a flowing document"
+        }
+      ],
+      "tags": [
+        "typography",
+        "prose",
+        "article",
+        "long-form",
+        "markdown",
+        "blog",
+        "docs",
+        "rich-text",
+        "lead"
+      ],
+      "usage": {
+        "class": "mv-prose"
+      },
+      "api": {
+        "classes": [
+          {
+            "name": "mv-prose",
+            "description": "Container, on <article>, <main> or <div>. Styles its native descendants: h1 to h6, p, a, strong, em, small, mark, abbr, del, ins, sub, sup, ul/ol (nested), blockquote, cite, code, samp, pre, kbd, hr, table, figure, img, video, iframe, dl, details."
+          },
+          {
+            "name": "mv-prose-lead",
+            "description": "Lead paragraph (standfirst) under the title: larger and muted."
+          },
+          {
+            "name": "mv-not-prose",
+            "description": "Escape hatch: the element and its whole subtree keep the host styles, untouched by mv-prose."
+          }
+        ],
+        "attributes": [
+          {
+            "name": "data-size",
+            "type": "sm | lg",
+            "default": "(base)",
+            "description": "On .mv-prose: 14 / 16 / 18 px body text. Every margin is in em, so the rhythm scales with it."
+          },
+          {
+            "name": "data-align",
+            "type": "end | center",
+            "description": "On th or td: cell alignment (numbers)."
+          }
+        ],
+        "cssVars": [
+          {
+            "name": "--mv-prose-measure",
+            "default": "68ch",
+            "description": "Maximum line length of the container. Use none to fill the parent."
+          },
+          {
+            "name": "--mv-prose-body",
+            "description": "Body text color."
+          },
+          {
+            "name": "--mv-prose-headings",
+            "default": "var(--mv-fg)",
+            "description": "Headings, strong text, table headers and code color."
+          },
+          {
+            "name": "--mv-prose-links",
+            "default": "var(--mv-accent-fg)",
+            "description": "Link color."
+          },
+          {
+            "name": "--mv-prose-muted",
+            "default": "var(--mv-fg-subtle)",
+            "description": "List markers, captions and figure captions."
+          },
+          {
+            "name": "--mv-prose-rule",
+            "default": "var(--mv-border)",
+            "description": "Rules, h2 underline, table rows, pre and details borders."
+          },
+          {
+            "name": "--mv-prose-quote-border",
+            "default": "var(--mv-accent)",
+            "description": "Blockquote side border."
+          },
+          {
+            "name": "--mv-prose-code-bg",
+            "default": "var(--mv-bg-muted)",
+            "description": "Inline code background."
+          },
+          {
+            "name": "--mv-prose-pre-bg",
+            "default": "var(--mv-bg-subtle)",
+            "description": "Code block background."
+          },
+          {
+            "name": "--mv-prose-radius",
+            "default": "var(--mv-radius-lg)",
+            "description": "Radius of pre, images, videos and details."
+          },
+          {
+            "name": "--mv-prose-font",
+            "default": "var(--mv-font-sans)",
+            "description": "Body font family."
+          },
+          {
+            "name": "--mv-prose-heading-font",
+            "default": "var(--mv-font-display)",
+            "description": "Headings font family."
+          },
+          {
+            "name": "--mv-prose-scroll-margin",
+            "default": "5rem",
+            "description": "Space kept above a heading reached by an anchor link (sticky headers)."
+          }
+        ]
+      },
+      "a11y": "Pure CSS on native elements: the document outline, lists, tables and disclosures keep their semantics. Colors come from the tokens (body text and captions at 4.5:1 or more in both themes), links stay underlined, and links, summary, a focusable pre and a focusable table wrapper get a visible focus ring. Give a long <pre> tabindex=\"0\", and wrap a wide table in a plain <div role=\"region\" aria-label=\"…\" tabindex=\"0\"> so keyboard users can scroll it sideways. In forced colors, inline code keeps an outline, keys keep their border and <mark> uses the system Mark colors. No animation. The scoping relies on CSS @scope (all current engines); older browsers show the plain host styles.",
+      "inspiredBy": [],
+      "culture": null,
+      "kit": null,
+      "featured": false,
+      "labs": false,
+      "quickstart": "<article class=\"mv-prose\">\n  <h1>Release notes</h1>\n  <p class=\"mv-prose-lead\">What changed in version 4.2.</p>\n  <p>Plain HTML from your CMS or Markdown renderer, styled as it is.</p>\n</article>",
+      "demo": {
+        "file": "components/typography/demo.html",
+        "layout": "padded",
+        "height": 900,
+        "theme": null,
+        "requires": [
+          "button",
+          "card"
+        ]
+      },
+      "files": [
+        "components/typography/typography.css"
+      ],
+      "core": [],
+      "shaders": [],
+      "dependencies": [],
+      "npm": [],
+      "status": "stable",
+      "added": "2026-09-25T18:40:11.000Z"
+    }
+  ]
+}

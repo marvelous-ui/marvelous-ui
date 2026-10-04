@@ -1,0 +1,60 @@
+<div style="display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center;align-items:center">
+  <mv-popover placement="bottom-start">
+    <button class="mv-button" data-variant="outline">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 3H3v18h18z" opacity=".35"/><path d="M8 3v18M3 8h18"/></svg>
+      Dimensions
+    </button>
+    <div data-content style="--mv-popover-width:19rem">
+      <div class="mv-popover-header">
+        <h3 class="mv-popover-title">Dimensions</h3>
+        <p class="mv-popover-description">Set the size of the selected layer.</p>
+      </div>
+      <form style="display:grid;gap:.5rem" onsubmit="event.preventDefault()">
+        <label style="display:grid;grid-template-columns:5.5rem 1fr;align-items:center;gap:.75rem;font-size:.8125rem;color:var(--mv-fg-muted)">Width
+          <input value="100%" class="mv-input" data-size="sm">
+        </label>
+        <label style="display:grid;grid-template-columns:5.5rem 1fr;align-items:center;gap:.75rem;font-size:.8125rem;color:var(--mv-fg-muted)">Max. width
+          <input value="1,280px" class="mv-input" data-size="sm">
+        </label>
+        <label style="display:grid;grid-template-columns:5.5rem 1fr;align-items:center;gap:.75rem;font-size:.8125rem;color:var(--mv-fg-muted)">Height
+          <input value="auto" class="mv-input" data-size="sm">
+        </label>
+      </form>
+    </div>
+  </mv-popover>
+
+  <mv-popover placement="top" arrow>
+    <button class="mv-button" data-variant="secondary">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 2.5 12 7l4.5 2.5L12 12l-2.5 4.5L7 12 2.5 9.5 7 7z"/><path d="M18 14v6M15 17h6"/></svg>
+      What’s new
+    </button>
+    <div data-content style="--mv-popover-width:17rem">
+      <div class="mv-popover-header" style="margin-bottom:0">
+        <p style="margin:0 0 .25rem;font-size:.6875rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--mv-accent-fg)">Step 1 of 3</p>
+        <h3 class="mv-popover-title">Keyboard shortcuts</h3>
+        <p class="mv-popover-description">Press <strong style="color:var(--mv-fg)">?</strong> at any time to see the full list of shortcuts.</p>
+      </div>
+      <div class="mv-popover-footer">
+        <button class="mv-button" data-variant="ghost" data-size="sm" data-mv-close>Skip</button>
+        <button class="mv-button" data-size="sm" data-mv-close>Next</button>
+      </div>
+    </div>
+  </mv-popover>
+
+  <mv-popover placement="bottom" data-open="liquid">
+    <button class="mv-button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>
+      Share (liquid)
+    </button>
+    <div data-content style="--mv-popover-width:17.5rem">
+      <div class="mv-popover-header" style="margin-bottom:.75rem">
+        <h3 class="mv-popover-title">Share board</h3>
+        <p class="mv-popover-description">Anyone with the link can view.</p>
+      </div>
+      <div style="display:flex;gap:.5rem">
+        <input class="mv-input" data-size="sm" value="kanope.app/t/roadmap-q3" readonly aria-label="Share link">
+        <button class="mv-button" data-size="sm" data-variant="secondary" data-mv-close>Copy</button>
+      </div>
+    </div>
+  </mv-popover>
+</div>

@@ -1,0 +1,233 @@
+@layer mv.components {
+  /* ── Input ──────────────────────────────────────────────────────────
+     Shared private knobs (also consumed by .mv-input-group):
+       --_h   control height      --_px  inline padding
+       --_fs  font size           --_bd  border color
+       --_rc  focus ring color */
+  :where(.mv-input, .mv-input-group) {
+    --_h: var(--mv-control-md);
+    --_px: var(--mv-space-3);
+    --_fs: var(--mv-text-sm);
+    --_bd: var(--mv-input);
+    --_bd-hover: color-mix(in oklch, var(--mv-input), var(--mv-fg) 18%);
+    --_bd-focus: var(--mv-accent);
+    --_rc: color-mix(in oklch, var(--mv-accent) 22%, transparent);
+    --_radius: var(--mv-input-radius, var(--mv-radius-md));
+    --_bg: var(--mv-input-bg, light-dark(var(--mv-bg), color-mix(in oklch, var(--mv-bg-muted) 55%, transparent)));
+  }
+
+  :where(.mv-input) {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    min-width: 0;
+    height: var(--_h);
+    margin: 0;
+    padding: 0 var(--_px);
+    border: 1px solid var(--_bd);
+    border-radius: var(--_radius);
+    background: var(--_bg);
+    color: var(--mv-fg);
+    font: var(--mv-weight-normal) var(--_fs) / 1.25 var(--mv-font-sans);
+    box-shadow: var(--mv-shadow-xs);
+    outline: none;
+    transition:
+      border-color var(--mv-duration-fast) var(--mv-ease-out),
+      box-shadow var(--mv-duration-fast) var(--mv-ease-out),
+      background-color var(--mv-duration-fast) var(--mv-ease-out);
+  }
+  :where(.mv-input)::placeholder { color: var(--mv-fg-subtle); opacity: 1; }
+  :where(.mv-input):hover:not(:disabled, :focus-visible) { border-color: var(--_bd-hover); }
+  :where(.mv-input):focus-visible {
+    outline: none;
+    border-color: var(--_bd-focus);
+    box-shadow: var(--mv-shadow-xs), 0 0 0 3px var(--_rc);
+  }
+
+  /* Invalid: explicit aria-invalid, or native validation after user interaction */
+  :where(.mv-input[aria-invalid="true"], .mv-input:user-invalid) {
+    --_bd: var(--mv-danger);
+    --_bd-hover: var(--mv-danger);
+    --_bd-focus: var(--mv-danger);
+    --_rc: color-mix(in oklch, var(--mv-danger) 20%, transparent);
+  }
+
+  :where(.mv-input):disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    box-shadow: none;
+    background: var(--mv-bg-muted);
+  }
+  :where(.mv-input[readonly]) {
+    --_bd-focus: var(--mv-border-strong);
+    --_rc: color-mix(in oklch, var(--mv-fg) 8%, transparent);
+    background: var(--mv-bg-subtle);
+    box-shadow: none;
+  }
+
+  /* Sizes */
+  :where(.mv-input[data-size="sm"], .mv-input-group[data-size="sm"]) {
+    --_h: var(--mv-control-sm);
+    --_px: 0.625rem;
+  }
+  :where(.mv-input[data-size="lg"], .mv-input-group[data-size="lg"]) {
+    --_h: var(--mv-control-lg);
+    --_px: var(--mv-space-4);
+    --_fs: var(--mv-text-base);
+  }
+
+  /* Native search: restyle the WebKit clear button (zero-JS clear) */
+  :where(.mv-input[type="search"])::-webkit-search-decoration { appearance: none; }
+  :where(.mv-input[type="search"])::-webkit-search-cancel-button {
+    appearance: none;
+    width: 1rem;
+    height: 1rem;
+    margin-inline-start: var(--mv-space-2);
+    background: var(--mv-fg-subtle);
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm3.7 12.3a1 1 0 0 1-1.4 1.4L12 13.4l-2.3 2.3a1 1 0 0 1-1.4-1.4l2.3-2.3-2.3-2.3a1 1 0 0 1 1.4-1.4l2.3 2.3 2.3-2.3a1 1 0 0 1 1.4 1.4L13.4 12Z'/%3E%3C/svg%3E") center / contain no-repeat;
+    cursor: pointer;
+    transition: background-color var(--mv-duration-fast) var(--mv-ease-out);
+  }
+  :where(.mv-input[type="search"])::-webkit-search-cancel-button:hover { background: var(--mv-fg-muted); }
+
+  /* File input: the selector button becomes a flush, muted segment */
+  :where(.mv-input[type="file"]) {
+    padding: 0 var(--_px) 0 0;
+    color: var(--mv-fg-muted);
+    line-height: calc(var(--_h) - 2px);
+    cursor: pointer;
+  }
+  :where(.mv-input[type="file"])::file-selector-button {
+    height: 100%;
+    margin: 0 var(--_px) 0 0;
+    padding: 0 var(--_px);
+    border: 0;
+    border-inline-end: 1px solid var(--_bd);
+    background: var(--mv-bg-muted);
+    color: var(--mv-fg);
+    font: var(--mv-weight-medium) var(--_fs) / 1 var(--mv-font-sans);
+    cursor: pointer;
+    transition: background-color var(--mv-duration-fast) var(--mv-ease-out);
+  }
+  :where(.mv-input[type="file"]):hover::file-selector-button { background: var(--mv-bg-emphasis); }
+  :where(.mv-input[type="file"]):disabled::file-selector-button { cursor: not-allowed; }
+
+  /* ── Input group ─────────────────────────────────────────────────────
+     The wrapper owns border, background and focus ring; the inner
+     .mv-input becomes borderless and flexes. Addons sit before/after. */
+  :where(.mv-input-group) {
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-width: 0;
+    height: var(--_h);
+    border: 1px solid var(--_bd);
+    border-radius: var(--_radius);
+    background: var(--_bg);
+    color: var(--mv-fg);
+    font-size: var(--_fs);
+    box-shadow: var(--mv-shadow-xs);
+    overflow: hidden;
+    cursor: text;
+    transition:
+      border-color var(--mv-duration-fast) var(--mv-ease-out),
+      box-shadow var(--mv-duration-fast) var(--mv-ease-out);
+  }
+  :where(.mv-input-group:hover:not(:has(.mv-input:disabled, .mv-input:focus-visible))) { border-color: var(--_bd-hover); }
+  :where(.mv-input-group:has(.mv-input:focus-visible)) {
+    border-color: var(--_bd-focus);
+    box-shadow: var(--mv-shadow-xs), 0 0 0 3px var(--_rc);
+  }
+  :where(.mv-input-group:has(.mv-input[aria-invalid="true"], .mv-input:user-invalid)) {
+    --_bd: var(--mv-danger);
+    --_bd-hover: var(--mv-danger);
+    --_bd-focus: var(--mv-danger);
+    --_rc: color-mix(in oklch, var(--mv-danger) 20%, transparent);
+  }
+  :where(.mv-input-group:has(.mv-input:disabled)) { opacity: 0.5; cursor: not-allowed; background: var(--mv-bg-muted); box-shadow: none; }
+
+  :where(.mv-input-group) > :where(.mv-input) {
+    flex: 1;
+    height: 100%;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+  :where(.mv-input-group) > :where(.mv-input):focus-visible { box-shadow: none; }
+  :where(.mv-input-group) > :where(.mv-input):disabled { background: transparent; }
+
+  /* Addon: icon, text prefix/suffix, kbd hint, spinner… Use <label for> to focus the input on click. */
+  :where(.mv-input-group-addon) {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--mv-space-1-5);
+    flex-shrink: 0;
+    height: 100%;
+    padding-inline: var(--_px);
+    color: var(--mv-fg-muted);
+    font: var(--mv-weight-normal) var(--_fs) / 1 var(--mv-font-sans);
+    white-space: nowrap;
+    user-select: none;
+    cursor: inherit;
+  }
+  :where(.mv-input-group-addon) :where(svg) { width: 1rem; height: 1rem; flex-shrink: 0; }
+  :where(.mv-input-group[data-size="sm"]) :where(.mv-input-group-addon svg) { width: 0.875rem; height: 0.875rem; }
+  :where(.mv-input-group-addon:first-child) { padding-inline-end: var(--mv-space-2); }
+  :where(.mv-input-group-addon:last-child) { padding-inline-start: var(--mv-space-2); }
+  :where(.mv-input-group-addon:not([data-variant="filled"])) + :where(.mv-input) { padding-inline-start: 0; }
+  :where(.mv-input:has(+ .mv-input-group-addon:not([data-variant="filled"]))) { padding-inline-end: 0; }
+
+  /* Filled addon: separated segment with muted background ("https://", ".com", "USD") */
+  :where(.mv-input-group-addon[data-variant="filled"]) {
+    padding-inline: var(--_px);
+    background: var(--mv-bg-muted);
+    color: var(--mv-fg-muted);
+  }
+  :where(.mv-input-group-addon[data-variant="filled"]:first-child) { border-inline-end: 1px solid var(--_bd); }
+  :where(.mv-input-group-addon[data-variant="filled"]:last-child) { border-inline-start: 1px solid var(--_bd); }
+
+  /* Inline buttons (mv-button or plain <button>) sit inset inside the group */
+  :where(.mv-input-group) > :where(button, .mv-button) {
+    flex-shrink: 0;
+    height: calc(var(--_h) - 0.5rem);
+    margin-inline: 0.1875rem;
+    border-radius: calc(var(--_radius) - 0.1875rem);
+  }
+  :where(.mv-input-group) > :where(.mv-button[data-size="icon"]) { width: calc(var(--_h) - 0.5rem); }
+  :where(.mv-input-group) > :where(.mv-button):focus-visible { box-shadow: 0 0 0 2px var(--mv-ring); }
+  :where(.mv-input-group) > :where(.mv-input:has(+ button, + .mv-button)) { padding-inline-end: var(--mv-space-1); }
+
+  /* Clear button: hidden while the input is empty (needs a placeholder, even " ") */
+  :where(.mv-input-clear) {
+    display: inline-grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: 0 var(--mv-space-1-5) 0 var(--mv-space-1);
+    padding: 0;
+    border: 0;
+    border-radius: var(--mv-radius-sm);
+    background: none;
+    color: var(--mv-fg-subtle);
+    cursor: pointer;
+    transition:
+      color var(--mv-duration-fast) var(--mv-ease-out),
+      background-color var(--mv-duration-fast) var(--mv-ease-out),
+      opacity var(--mv-duration-fast) var(--mv-ease-out),
+      scale var(--mv-duration-fast) var(--mv-ease-out),
+      visibility var(--mv-duration-fast) allow-discrete;
+  }
+  :where(.mv-input-clear) :where(svg) { width: 0.875rem; height: 0.875rem; }
+  :where(.mv-input-clear):hover { color: var(--mv-fg); background: var(--mv-bg-muted); }
+  :where(.mv-input-clear):focus-visible { outline: none; color: var(--mv-fg); box-shadow: 0 0 0 2px var(--mv-ring); }
+  :where(.mv-input-group:has(.mv-input:placeholder-shown)) :where(.mv-input-clear) {
+    visibility: hidden;
+    opacity: 0;
+    scale: 0.6;
+  }
+  :where(.mv-input-group) > :where(.mv-input-clear) { height: 1.5rem; margin-inline: var(--mv-space-1) var(--mv-space-1-5); }
+}

@@ -1,0 +1,96 @@
+{
+  "name": "Separator",
+  "slug": "separator",
+  "kind": "css",
+  "category": "primitive",
+  "wave": 1,
+  "description": "Pure-CSS horizontal or vertical separator: solid, dashed, dotted or faded, with a centered (“or”) or aligned label, on <hr> or <div>.",
+  "useWhen": [
+    "Two groups of content or controls need a quiet visual split, horizontal or vertical",
+    "Alternative paths need a labeled divider, such as “or” between social login and email",
+    "A feed or timeline needs inline labels like Today between groups of items"
+  ],
+  "avoidWhen": [
+    {
+      "when": "Spacing alone already separates the groups clearly and extra lines would add clutter"
+    },
+    {
+      "when": "Sections need collapsible headings rather than a static line",
+      "instead": "accordion"
+    }
+  ],
+  "files": [
+    "separator.css"
+  ],
+  "usage": {
+    "class": "mv-separator"
+  },
+  "tags": [
+    "separator",
+    "divider",
+    "hr",
+    "rule",
+    "or"
+  ],
+  "demo": {
+    "layout": "center",
+    "height": 380,
+    "requires": [
+      "button"
+    ]
+  },
+  "preview": {
+    "viewport": {
+      "width": 840,
+      "height": 370
+    },
+    "static": true
+  },
+  "api": {
+    "classes": [
+      {
+        "name": "mv-separator",
+        "description": "On <hr> (horizontal) or <div>. If the element contains text or an icon, it becomes a labeled divider (line, label, line). Without a label, it must be strictly empty (no whitespace)."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "data-orientation",
+        "type": "vertical",
+        "default": "(horizontal)",
+        "description": "Vertical line; stretches to the height of the flex parent (min. 1em)."
+      },
+      {
+        "name": "data-variant",
+        "type": "dashed | dotted | fade",
+        "description": "Line style; fade tapers off at the ends."
+      },
+      {
+        "name": "data-align",
+        "type": "start | end",
+        "default": "(centered)",
+        "description": "Label position."
+      }
+    ],
+    "cssVars": [
+      {
+        "name": "--mv-separator-color",
+        "default": "var(--mv-border)",
+        "description": "Line color."
+      },
+      {
+        "name": "--mv-separator-thickness",
+        "default": "1px",
+        "description": "Thickness (dotted: 2px)."
+      },
+      {
+        "name": "--mv-separator-spacing",
+        "default": "0",
+        "description": "Spacing on either side of the line."
+      }
+    ]
+  },
+  "a11y": "<hr> already has role=separator. For a semantic <div>: role=\"separator\" + aria-orientation=\"vertical\" when vertical. Purely decorative: role=\"none\" (or aria-hidden=\"true\"). With a label (“or”, “Today”), don’t set role=separator (its children would become presentational): keep a plain <div> so the text is read.",
+  "inspiredBy": [],
+  "status": "stable"
+}

@@ -1,0 +1,187 @@
+{
+  "name": "Checkbox",
+  "slug": "checkbox",
+  "kind": "css",
+  "category": "primitive",
+  "wave": 1,
+  "description": "Native pure-CSS checkbox: a self-drawing (reversible) check mark, indeterminate state, sizes, invalid; also provides the shared .mv-choice and .mv-choice-card layouts (option cards highlighted via :has(:checked)).",
+  "useWhen": [
+    "Users pick any number of options from a list, or give a single opt-in such as accepting terms",
+    "A select-all control needs an indeterminate state above a nested list of options",
+    "Options need richer presentation as clickable cards with a title, description and icon"
+  ],
+  "avoidWhen": [
+    {
+      "when": "The setting takes effect immediately, like turning a feature on or off",
+      "instead": "switch"
+    },
+    {
+      "when": "Only one option in the set may be chosen",
+      "instead": "radio"
+    },
+    {
+      "when": "The list of options is long and needs searching or filtering",
+      "instead": "combobox"
+    }
+  ],
+  "files": [
+    "checkbox.css"
+  ],
+  "dependencies": [],
+  "usage": {
+    "class": "mv-checkbox"
+  },
+  "tags": [
+    "checkbox",
+    "form",
+    "indeterminate",
+    "choice-card",
+    "check",
+    "select-all"
+  ],
+  "demo": {
+    "layout": "center",
+    "height": 420
+  },
+  "preview": {
+    "viewport": {
+      "width": 720,
+      "height": 424
+    },
+    "steps": [
+      [
+        "wait",
+        600
+      ],
+      [
+        "click",
+        "#cb-demo-tree [data-all]"
+      ],
+      [
+        "wait",
+        900
+      ],
+      [
+        "click",
+        "#cb-demo-tree .mv-choice-group-nested label:nth-child(2) input"
+      ],
+      [
+        "wait",
+        800
+      ],
+      [
+        "click",
+        ".mv-choice-card[data-control='end']"
+      ],
+      [
+        "wait",
+        700
+      ],
+      [
+        "click",
+        ".mv-choice-card[data-control='end']"
+      ],
+      [
+        "wait",
+        400
+      ],
+      [
+        "leave"
+      ],
+      [
+        "wait",
+        700
+      ]
+    ]
+  },
+  "api": {
+    "classes": [
+      {
+        "name": "mv-checkbox",
+        "description": "On <input type=\"checkbox\">. Set the indeterminate state in JS: input.indeterminate = true."
+      },
+      {
+        "name": "mv-choice",
+        "description": "Shared (radio, switch): a <label> row with control + label, the control centered on the first line."
+      },
+      {
+        "name": "mv-choice-card",
+        "description": "Shared: a clickable card <label> containing the input; highlighted when checked, ring on keyboard focus."
+      },
+      {
+        "name": "mv-choice-text / -title / -description",
+        "description": "Text block: title + muted description."
+      },
+      {
+        "name": "mv-choice-icon",
+        "description": "Optional icon tile inside a card (tinted when checked)."
+      },
+      {
+        "name": "mv-choice-group",
+        "description": "List of options (ideally <fieldset> + <legend>)."
+      },
+      {
+        "name": "mv-choice-group-nested",
+        "description": "Indented sub-list (“select all” tree)."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "data-size",
+        "type": "sm | lg",
+        "default": "(md)",
+        "description": "Box size (14 / 16 / 20 px)."
+      },
+      {
+        "name": "data-shape",
+        "type": "round",
+        "description": "Round box."
+      },
+      {
+        "name": "aria-invalid",
+        "type": "true",
+        "description": "Error border and halo."
+      },
+      {
+        "name": "data-control",
+        "type": "end",
+        "description": "On .mv-choice / .mv-choice-card: puts the control at the end of the row."
+      },
+      {
+        "name": "data-orientation",
+        "type": "horizontal",
+        "description": "On .mv-choice-group: options in a row."
+      },
+      {
+        "name": "data-layout",
+        "type": "grid",
+        "description": "On .mv-choice-group: auto-fit grid of cards (min width --mv-choice-min)."
+      }
+    ],
+    "cssVars": [
+      {
+        "name": "--mv-checkbox-size",
+        "default": "1rem",
+        "description": "Box size."
+      },
+      {
+        "name": "--mv-checkbox-radius",
+        "default": "28% of the size",
+        "description": "Corner radius."
+      },
+      {
+        "name": "--mv-choice-card-radius",
+        "default": "var(--mv-radius-lg)",
+        "description": "Option card radius."
+      },
+      {
+        "name": "--mv-choice-min",
+        "default": "11rem",
+        "description": "Minimum card width with data-layout=\"grid\"."
+      }
+    ]
+  },
+  "a11y": "Native input: role, checked/mixed state (aria-checked=mixed for indeterminate), Space and form submission handled by the browser. The wrapping <label> provides the accessible name; link the description with aria-describedby. Focus ring visible for keyboard only; animations disabled with reduced motion.",
+  "inspiredBy": [],
+  "status": "stable"
+}

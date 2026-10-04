@@ -1,0 +1,146 @@
+{
+  "name": "Radio",
+  "slug": "radio",
+  "kind": "css",
+  "category": "primitive",
+  "wave": 1,
+  "description": "Pure-CSS native radio button: an inner dot that springs in, sizes, an outline variant, inline or stacked groups, and option cards (plan lists, tiles with a badge).",
+  "useWhen": [
+    "Users must choose exactly one option from a small set and benefit from seeing every choice at once",
+    "Plans or shipping methods must be compared as option cards with a price, description or badge"
+  ],
+  "avoidWhen": [
+    {
+      "when": "There are many options and vertical space is limited",
+      "instead": "select"
+    },
+    {
+      "when": "The choice is a compact view or mode switch in a toolbar or inspector",
+      "instead": "segmented"
+    },
+    {
+      "when": "Several options can be selected at the same time",
+      "instead": "checkbox"
+    }
+  ],
+  "files": [
+    "radio.css"
+  ],
+  "dependencies": [
+    "checkbox"
+  ],
+  "usage": {
+    "class": "mv-radio"
+  },
+  "tags": [
+    "radio",
+    "radio-group",
+    "form",
+    "choice-card",
+    "plan-selector"
+  ],
+  "demo": {
+    "layout": "center",
+    "height": 520
+  },
+  "preview": {
+    "viewport": {
+      "width": 760,
+      "height": 560
+    },
+    "steps": [
+      [
+        "wait",
+        600
+      ],
+      [
+        "click",
+        "label:has(input[value='enterprise'])"
+      ],
+      [
+        "wait",
+        700
+      ],
+      [
+        "click",
+        "label:has(input[value='transfer'])"
+      ],
+      [
+        "wait",
+        800
+      ],
+      [
+        "click",
+        "label:has(input[value='card'])"
+      ],
+      [
+        "wait",
+        500
+      ],
+      [
+        "click",
+        "label:has(input[value='pro'])"
+      ],
+      [
+        "wait",
+        500
+      ],
+      [
+        "leave"
+      ],
+      [
+        "wait",
+        700
+      ]
+    ]
+  },
+  "api": {
+    "classes": [
+      {
+        "name": "mv-radio",
+        "description": "On <input type=\"radio\">."
+      },
+      {
+        "name": "mv-choice / mv-choice-card / mv-choice-group",
+        "description": "Shared layouts, provided by the checkbox component (dependency)."
+      },
+      {
+        "name": "mv-radio-meta",
+        "description": "Price or info aligned at the end of the card (<small> for the unit)."
+      }
+    ],
+    "attributes": [
+      {
+        "name": "data-size",
+        "type": "sm | lg",
+        "default": "(md)",
+        "description": "Size (14 / 16 / 20 px)."
+      },
+      {
+        "name": "data-variant",
+        "type": "outline",
+        "description": "On the input: neutral ring, only the dot takes the accent."
+      },
+      {
+        "name": "aria-invalid",
+        "type": "true",
+        "description": "Error border and halo."
+      },
+      {
+        "name": "data-variant=\"badge\"",
+        "type": "on .mv-choice-card",
+        "description": "Vertical tile; the radio becomes a corner badge, visible once checked or on focus."
+      }
+    ],
+    "cssVars": [
+      {
+        "name": "--mv-radio-size",
+        "default": "1rem",
+        "description": "Control size."
+      }
+    ]
+  },
+  "a11y": "Native radios grouped by name: arrows change the option, Tab enters/leaves the group, all handled by the browser. Wrap them in <fieldset> + <legend> (or role=\"radiogroup\" + aria-label). In the badge variant, the radio stays present and focusable (only visually hidden until checked).",
+  "inspiredBy": [],
+  "status": "stable"
+}

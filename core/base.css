@@ -1,0 +1,45 @@
+/*
+ * Marvelous UI: base layer (opt-in, light reset + shared helpers).
+ * Requires tokens/tokens.css.
+ */
+@layer mv.reset {
+  *, *::before, *::after { box-sizing: border-box; }
+  :where(html) { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  :where(body) { margin: 0; }
+  :where(img, svg, video, canvas) { display: block; max-width: 100%; }
+  :where(button, input, select, textarea) { font: inherit; color: inherit; }
+}
+
+@layer mv.base {
+  :where(html) {
+    font-family: var(--mv-font-sans);
+    line-height: var(--mv-leading-normal);
+    color: var(--mv-fg);
+    background: var(--mv-bg);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  ::selection { background: var(--mv-selection); }
+
+  /* Custom elements are inline by default: make the undefined state inert-ish. */
+  :where(:not(:defined)[data-mv-cloak]) { visibility: hidden; }
+
+}
+
+@layer mv.utilities {
+  /* The UA's [hidden] rule loses to any display a component sets on the same element (zero specificity both, the later
+     wins): checkout showed its payment panels and thank-you block on load. Restore it, as Tailwind's preflight does.
+     It sits in the last layer so that a component keeping a hidden element's space on purpose (tone-dial's reset,
+     display: grid !important) still wins: for !important, the earlier layer wins. hidden="until-found" keeps its own
+     handling (code-block folds). */
+  :where([hidden]:not([hidden="until-found"])) { display: none !important; }
+
+  .mv-sr-only {
+    position: absolute !important;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0 0 0 0);
+    white-space: nowrap; border: 0;
+  }
+  .mv-focus-ring:focus-visible { outline: none; box-shadow: var(--mv-focus-ring); }
+}

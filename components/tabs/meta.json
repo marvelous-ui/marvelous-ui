@@ -1,0 +1,199 @@
+{
+  "name": "Tabs",
+  "slug": "tabs",
+  "tag": "mv-tabs",
+  "kind": "element",
+  "category": "navigation",
+  "wave": 1,
+  "description": "Accessible tabs with a sliding indicator (underline, pill or segmented), horizontal or vertical, automatic or manual activation, and crossfading panels.",
+  "useWhen": [
+    "Related content must be split into panels on one page, such as Overview, Specs and Reviews",
+    "A settings or profile view groups sections behind a horizontal or vertical tab list"
+  ],
+  "avoidWhen": [
+    {
+      "when": "Users need to read several sections at once, or many sections must fit a narrow screen",
+      "instead": "accordion"
+    },
+    {
+      "when": "The control switches a value or mode rather than showing a content panel",
+      "instead": "segmented"
+    },
+    {
+      "when": "The sections form an ordered process with completed and upcoming steps",
+      "instead": "stepper"
+    }
+  ],
+  "files": [
+    "tabs.js",
+    "tabs.css"
+  ],
+  "dependencies": [],
+  "tags": [
+    "tabs",
+    "onglets",
+    "segmented-control",
+    "underline",
+    "pill",
+    "vertical",
+    "indicator"
+  ],
+  "demo": {
+    "layout": "wide",
+    "height": 680
+  },
+  "preview": {
+    "viewport": {
+      "width": 960,
+      "height": 310
+    },
+    "steps": [
+      [
+        "wait",
+        400
+      ],
+      [
+        "click",
+        "[role='tab'][data-value='activite']"
+      ],
+      [
+        "wait",
+        350
+      ],
+      [
+        "click",
+        "[role='tab'][data-value='mensuel']"
+      ],
+      [
+        "wait",
+        350
+      ],
+      [
+        "click",
+        "mv-tabs[data-variant='pill'] button[role='tab']:nth-of-type(3)"
+      ],
+      [
+        "wait",
+        500
+      ],
+      [
+        "click",
+        "mv-tabs[data-variant='pill'] button[role='tab']:nth-of-type(1)"
+      ],
+      [
+        "click",
+        "[role='tab'][data-value='annuel']"
+      ],
+      [
+        "click",
+        "[role='tab'][data-value='apercu']"
+      ],
+      [
+        "wait",
+        300
+      ],
+      [
+        "leave"
+      ],
+      [
+        "wait",
+        600
+      ]
+    ]
+  },
+  "api": {
+    "attributes": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": "Value of the active tab (the tab’s data-value, otherwise its index). Reflected on every change."
+      },
+      {
+        "name": "activation",
+        "type": "automatic | manual",
+        "default": "automatic",
+        "description": "automatic: arrows activate the tab; manual: arrows move focus, Enter/Space activates."
+      },
+      {
+        "name": "orientation",
+        "type": "horizontal | vertical",
+        "default": "horizontal",
+        "description": "List above or to the left of the panels; also changes the arrow keys."
+      },
+      {
+        "name": "data-variant",
+        "type": "segmented | pill | underline",
+        "default": "segmented",
+        "description": "segmented: gray track with a raised pill; pill: accent pill with no track; underline: sliding accent bar."
+      },
+      {
+        "name": "data-size",
+        "type": "sm | lg",
+        "default": "(md)",
+        "description": "Tab height."
+      },
+      {
+        "name": "data-stretch",
+        "type": "boolean",
+        "description": "Tabs share the full width."
+      }
+    ],
+    "properties": [
+      {
+        "name": "selectedTab",
+        "type": "HTMLElement | null",
+        "description": "Currently selected tab (read-only)."
+      }
+    ],
+    "methods": [
+      {
+        "name": "select(value)",
+        "description": "Activates the tab with that value and emits mv-change."
+      }
+    ],
+    "events": [
+      {
+        "name": "mv-change",
+        "description": "User-initiated change. detail: { value, previous, tab, panel }."
+      }
+    ],
+    "slots": [
+      {
+        "name": "[role=tablist]",
+        "description": "The first tablist under the host; contains the <button role=\"tab\"> elements (optional data-value, can be disabled). Wrappers are allowed in between, such as <li role=\"presentation\"> items in a <ul role=\"tablist\">."
+      },
+      {
+        "name": "[role=tabpanel]",
+        "description": "Panels anywhere under <mv-tabs>, wrappers allowed, matched by data-value or by order. A tablist or panel inside a panel, or inside a nested <mv-tabs>, belongs to that one."
+      }
+    ],
+    "classes": [
+      {
+        "name": "mv-tabs-indicator",
+        "description": "Sliding indicator, created automatically inside the list."
+      },
+      {
+        "name": "mv-tabs-count",
+        "description": "Count badge inside a tab (gets accented when the tab is active)."
+      }
+    ],
+    "cssVars": [
+      {
+        "name": "--mv-tabs-indicator",
+        "description": "Indicator color (pill background or bar)."
+      },
+      {
+        "name": "--mv-tabs-radius",
+        "default": "var(--mv-radius-md)",
+        "description": "Radius of the segmented track."
+      },
+      {
+        "name": "--mv-tabs-x / -y / -w / -h",
+        "description": "Indicator position and size, written by the JS (read-only)."
+      }
+    ]
+  },
+  "a11y": "ARIA Tabs pattern: tablist/tab/tabpanel roles, aria-selected, aria-controls and aria-labelledby wired automatically, aria-orientation. Roving tabindex: a single Tab stop to enter the list, arrows (left/right or up/down depending on orientation), Home/End; disabled tabs are skipped. Panels get tabindex=0 and inactive panels are hidden. Reduced motion: instant indicator and fade. Wrapper elements may sit between the host, the tablist, the tabs and the panels (a framework component that renders its own root); a nested mv-tabs, and anything inside a panel, keeps its own tabs. Known limits: panels inside a wrapper are not stacked in one grid cell, so the outgoing panel leaves at once instead of crossfading. Styling wrapped markup relies on CSS @scope (all current engines); without it, only the direct markup (tablist and panels as children of mv-tabs, tabs as children of the tablist) is styled, while wrapped tabs keep working unstyled.",
+  "inspiredBy": [],
+  "status": "stable"
+}
