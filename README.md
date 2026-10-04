@@ -61,7 +61,7 @@ cd marvelous-ui
 node scripts/add.mjs dialog tabs toast --out ../my-app/src/marvelous
 ```
 
-`scripts/add.mjs` copies each component with everything it needs (tokens, core helpers, other components) and prints the imports. For other agents (Codex, Cursor, VS Code, Devin and any MCP client), run `npm ci` in the clone, then `node scripts/init-agent.mjs /path/to/your-app` or `node scripts/init-agent.mjs --plugin`: see [docs/MCP.md](docs/MCP.md).
+`scripts/add.mjs` copies each component with everything it needs (tokens, core helpers, other components) and prints the imports. For Codex or another MCP client, run `npm ci` in the clone, then `node scripts/init-agent.mjs /path/to/your-app` or `node scripts/init-agent.mjs --plugin`: see [docs/MCP.md](docs/MCP.md).
 
 The npm CLI `npx marvelous-ui-library@latest init` installs the same Free pack in a project and connects the detected agents.
 
