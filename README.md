@@ -71,7 +71,7 @@ Marvelous UI also has a paid edition, the Pro pack, sold at https://marvelous-ui
 
 ## Versions
 
-This repository is generated from the Marvelous UI release pipeline at each release; it is not edited by hand. Version 1.4.3, see [CHANGELOG.md](CHANGELOG.md). Pull requests cannot be merged as such: open an issue or write to hello@marvelous-ui.com.
+This repository is generated from the Marvelous UI release pipeline at each release; it is not edited by hand. Version 1.4.4, see [CHANGELOG.md](CHANGELOG.md). Pull requests cannot be merged as such: open an issue or write to hello@marvelous-ui.com.
 
 ## License
 

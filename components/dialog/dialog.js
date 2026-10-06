@@ -12,9 +12,11 @@ import { reducedMotion } from "../../core/motion.js";
  *
  * Variants on the <dialog>: data-variant="sheet" + data-side="right|left|top|bottom".
  * Triggers outside the element: <button data-mv-open="#my-dialog">.
+ * `modeless`: opens without a backdrop and leaves the page usable (a side panel next to a board);
+ * Escape inside it still closes it and focus goes back to the trigger.
  */
 export class MvDialog extends MvElement {
-  static props = { open: Boolean, persistent: Boolean, swipe: Boolean };
+  static props = { open: Boolean, persistent: Boolean, swipe: Boolean, modeless: Boolean };
 
   // Frameworks (Angular, a late v-if, a re-render) may add or swap the <dialog> after the host connects,
   // so the child is looked up whenever it is needed and its listeners follow it.
@@ -22,6 +24,7 @@ export class MvDialog extends MvElement {
   #bindCtl = null;
   #mo = null;
   #roled = new WeakSet(); // <dialog>s that received role=alertdialog from `persistent`
+  #returnFocus = null; // modeless only: the native dialog restores focus after showModal()
 
   /** The child <dialog>, or null while it has not been rendered yet. */
   get dialog() {
@@ -66,7 +69,11 @@ export class MvDialog extends MvElement {
     if (!this.emit("before-open", null, { cancelable: true })) return;
     d.returnValue = "";
     d.style.removeProperty("translate");
-    d.showModal();
+    d.toggleAttribute("data-modeless", this.modeless);
+    if (this.modeless) {
+      this.#returnFocus = document.activeElement;
+      d.show();
+    } else d.showModal();
     if (!this.open) this.open = true;
     this.emit("open");
   }
@@ -132,7 +139,17 @@ export class MvDialog extends MvElement {
       if (e.target === d && outside(d, e)) this.close("dismiss");
     }, { signal });
     d.addEventListener("cancel", (e) => { if (this.persistent) e.preventDefault(); }, { signal });
+    // A modeless <dialog> gets no native cancel: Escape from inside it closes it.
+    d.addEventListener("keydown", (e) => {
+      if (e.key !== "Escape" || !d.hasAttribute("data-modeless") || this.persistent || e.defaultPrevented) return;
+      e.preventDefault();
+      this.close("dismiss");
+    }, { signal });
     d.addEventListener("close", () => {
+      const back = this.#returnFocus;
+      this.#returnFocus = null;
+      const active = document.activeElement;
+      if (back?.isConnected && (!active || active === document.body || d.contains(active))) back.focus({ preventScroll: true });
       if (this.open) this.open = false;
       this.emit("close", { returnValue: d.returnValue });
     }, { signal });

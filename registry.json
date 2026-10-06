@@ -1,6 +1,6 @@
 {
   "name": "marvelous-ui",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "base": [
     "tokens/tokens.css",
     "core/base.css"
@@ -1665,6 +1665,7 @@
         "A blocking confirmation is needed before a destructive or irreversible action",
         "A short form or detail view must stay in context without leaving the page",
         "A side sheet must slide in from an edge for settings, filters or a cart",
+        "A detail panel must stay open beside a board or list that remains usable (modeless)",
         "On mobile, a bottom drawer the user can swipe away fits better than a centered modal"
       ],
       "avoidWhen": [
@@ -1708,12 +1709,17 @@
             "name": "swipe",
             "type": "boolean",
             "description": "Swipe to close (sheets / drawers); can be turned on or off at any time."
+          },
+          {
+            "name": "modeless",
+            "type": "boolean",
+            "description": "Non-modal: no backdrop, no scroll lock, the page stays usable (a side panel next to a board or a list). Escape from inside closes it (unless persistent) and focus returns to the trigger. Applies at the next opening."
           }
         ],
         "methods": [
           {
             "name": "show()",
-            "description": "Opens as a modal."
+            "description": "Opens as a modal (or non-modal with modeless)."
           },
           {
             "name": "close(returnValue?)",
@@ -1768,10 +1774,15 @@
             "name": "--mv-dialog-backdrop-blur",
             "default": "3px",
             "description": "Backdrop blur."
+          },
+          {
+            "name": "--mv-dialog-z",
+            "default": "50",
+            "description": "Stacking of a modeless dialog (a modal one sits in the top layer)."
           }
         ]
       },
-      "a11y": "Focus trapped and restored by the native <dialog>, inert page, Escape. aria-labelledby/-describedby wired automatically from .mv-dialog-title / .mv-dialog-description, checked again at each opening so a title rendered late by a framework is still used.",
+      "a11y": "Focus trapped and restored by the native <dialog>, inert page, Escape. With modeless, the page is not inert and focus is not trapped (Tab can leave the panel, as for any non-modal dialog); Escape inside it closes it and focus returns to the trigger. aria-labelledby/-describedby wired automatically from .mv-dialog-title / .mv-dialog-description, checked again at each opening so a title rendered late by a framework is still used.",
       "inspiredBy": [],
       "culture": null,
       "kit": null,

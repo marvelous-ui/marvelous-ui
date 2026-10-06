@@ -2,7 +2,12 @@
 
 Generated from the Free pack releases. Each entry lists what changed in the files of this repository.
 
-## 1.4.3 (2026-10-06)
+## 1.4.4 (2026-10-06)
+
+- Updated components: dialog.
+- Updated: agent plugin (manifests, skill, hook), documentation and catalog.
+
+## 1.4.3
 
 - Updated: agent plugin (manifests, skill, hook), documentation and catalog.
 

@@ -2,7 +2,10 @@
   :where(mv-dialog) { display: contents; }
 
   /* Lock page scroll while a modal is open */
-  :where(html:has(dialog.mv-dialog[open])) { overflow: hidden; scrollbar-gutter: stable; }
+  :where(html:has(dialog.mv-dialog[open]:not([data-modeless]))) { overflow: hidden; scrollbar-gutter: stable; }
+  /* Modeless: not in the top layer, so it is fixed and stacked by hand; the page stays usable. */
+  :where(dialog.mv-dialog[data-modeless]) { position: fixed; z-index: var(--mv-dialog-z, 50); }
+  :where(dialog.mv-dialog[data-modeless]:not([data-variant="sheet"])) { inset: 0; margin: auto; height: fit-content; }
 
   :where(dialog.mv-dialog) {
     --_dur: var(--mv-duration-normal);

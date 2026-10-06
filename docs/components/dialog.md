@@ -14,6 +14,7 @@
 - A blocking confirmation is needed before a destructive or irreversible action
 - A short form or detail view must stay in context without leaving the page
 - A side sheet must slide in from an edge for settings, filters or a cart
+- A detail panel must stay open beside a board or list that remains usable (modeless)
 - On mobile, a bottom drawer the user can swipe away fits better than a centered modal
 
 **Avoid when**
@@ -105,12 +106,13 @@ Canonical markup, to start from and customize with attributes, `data-*` and CSS 
 | `open` | boolean | Opens/closes the modal. |
 | `persistent` | boolean | Alert mode: no closing via Escape or outside click, role=alertdialog (follows later changes). |
 | `swipe` | boolean | Swipe to close (sheets / drawers); can be turned on or off at any time. |
+| `modeless` | boolean | Non-modal: no backdrop, no scroll lock, the page stays usable (a side panel next to a board or a list). Escape from inside closes it (unless persistent) and focus returns to the trigger. Applies at the next opening. |
 
 ### Methods
 
 | Name | Description |
 |---|---|
-| `show()` | Opens as a modal. |
+| `show()` | Opens as a modal (or non-modal with modeless). |
 | `close(returnValue?)` | Closes with a return value. |
 
 ### Events
@@ -142,7 +144,8 @@ Canonical markup, to start from and customize with attributes, `data-*` and CSS 
 | `--mv-dialog-width` | `30rem` | Width (sheet: 24rem). |
 | `--mv-dialog-radius` |  | Radius. |
 | `--mv-dialog-backdrop-blur` | `3px` | Backdrop blur. |
+| `--mv-dialog-z` | `50` | Stacking of a modeless dialog (a modal one sits in the top layer). |
 
 ## Accessibility
 
-Focus trapped and restored by the native `<dialog>`, inert page, Escape. aria-labelledby/-describedby wired automatically from .mv-dialog-title / .mv-dialog-description, checked again at each opening so a title rendered late by a framework is still used.
+Focus trapped and restored by the native `<dialog>`, inert page, Escape. With modeless, the page is not inert and focus is not trapped (Tab can leave the panel, as for any non-modal dialog); Escape inside it closes it and focus returns to the trigger. aria-labelledby/-describedby wired automatically from .mv-dialog-title / .mv-dialog-description, checked again at each opening so a title rendered late by a framework is still used.
