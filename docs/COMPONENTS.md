@@ -1,6 +1,6 @@
 # Component catalog
 
-Marvelous UI v1.4.0: 21 framework-agnostic components (native Web Components + layered CSS, zero runtime dependencies).
+Marvelous UI v1.4.3: 21 framework-agnostic components (native Web Components + layered CSS, zero runtime dependencies).
 
 **How to pick:** find the part of the interface you need below, open its page ("When to use" tells you if it fits or which component fits better, then the full API and the canonical markup), then install it with `node scripts/add.mjs <slug> --out <dir>` (dependencies are copied automatically). AI agents: see [MCP.md](MCP.md).
 
@@ -47,7 +47,7 @@ Legend: `<mv-…>` is a Web Component tag, `.mv-…` a CSS class to put on nativ
 
 | Component | Use | What it does |
 |---|---|---|
-| [Accordion](components/accordion.md) | `<mv-accordion>` | CSS accordion on native `<details>`: animated height (::details-content + interpolate-size), chevron or plus/minus, bordered, separated and card variants; optional `<mv-accordion type="single">`. Also covers Collapsible. |
+| [Accordion](components/accordion.md) | `<mv-accordion>` | CSS accordion on native `<details>`: animated height (::details-content + interpolate-size), chevron or plus/minus, bordered, separated and card variants; optional `<mv-accordion type="single">`. Also covers Collapsible. A native disclosure group (WAI-ARIA Disclosure pattern), with optional headings in the triggers. |
 | [Card](components/card.md) | `.mv-card` | Composable card (media, header, action, content, footer): outline, elevated, ghost and muted variants, plus a fully clickable card. |
 
 ## Feedback (1)

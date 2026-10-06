@@ -1,6 +1,6 @@
 {
   "name": "marvelous-ui",
-  "version": "1.4.0",
+  "version": "1.4.3",
   "base": [
     "tokens/tokens.css",
     "core/base.css"
@@ -120,6 +120,53 @@
       "featured": false,
       "labs": false,
       "quickstart": null,
+      "builder": {
+        "summary": "Small status labels, dots and counters",
+        "settings": {
+          "data-variant": {
+            "label": "Style",
+            "help": "Look of the badge; colored styles carry a meaning",
+            "options": {
+              "secondary": "Subtle",
+              "outline": "Outline",
+              "success": "Success",
+              "warning": "Warning",
+              "danger": "Error",
+              "info": "Info"
+            }
+          },
+          "data-appearance": {
+            "label": "Solid fill",
+            "help": "Type solid for a strong filled color"
+          },
+          "data-shape": {
+            "label": "Shape",
+            "help": "Fully rounded or square corners",
+            "options": {
+              "pill": "Pill",
+              "square": "Square"
+            }
+          },
+          "data-size": {
+            "label": "Size",
+            "help": "Smaller or larger badge",
+            "options": {
+              "sm": "Small",
+              "lg": "Large"
+            }
+          },
+          "data-position": {
+            "label": "Corner",
+            "help": "Pins the badge to a corner of the icon or picture it sits on",
+            "options": {
+              "top-right": "Top right",
+              "top-left": "Top left",
+              "bottom-right": "Bottom right",
+              "bottom-left": "Bottom left"
+            }
+          }
+        }
+      },
       "demo": {
         "file": "components/badge/demo.html",
         "layout": "center",
@@ -213,6 +260,45 @@
       "featured": false,
       "labs": false,
       "quickstart": null,
+      "builder": {
+        "summary": "Six styles, four sizes, loading state, groups",
+        "settings": {
+          "data-variant": {
+            "label": "Style",
+            "help": "Look of the button",
+            "options": {
+              "secondary": "Secondary",
+              "outline": "Outline",
+              "ghost": "Ghost",
+              "destructive": "Danger",
+              "link": "Link"
+            }
+          },
+          "data-size": {
+            "label": "Size",
+            "help": "Smaller, larger, or a square icon button",
+            "options": {
+              "sm": "Small",
+              "lg": "Large",
+              "icon": "Icon",
+              "icon-sm": "Small icon",
+              "icon-xs": "Tiny icon"
+            }
+          },
+          "data-shape": {
+            "label": "Shape",
+            "help": "Fully rounded corners",
+            "options": {
+              "pill": "Pill",
+              "round": "Round"
+            }
+          },
+          "aria-busy": {
+            "label": "Loading",
+            "help": "Type true to show a spinner and block clicks"
+          }
+        }
+      },
       "demo": {
         "file": "components/button/demo.html",
         "layout": "center",
@@ -358,6 +444,39 @@
       "featured": false,
       "labs": false,
       "quickstart": null,
+      "builder": {
+        "summary": "Animated check mark, mixed state, option cards",
+        "settings": {
+          "data-size": {
+            "label": "Size",
+            "help": "Smaller or larger boxes",
+            "options": {
+              "sm": "Small",
+              "lg": "Large"
+            }
+          },
+          "data-shape": {
+            "label": "Shape",
+            "help": "Type round for a round box instead of a square"
+          },
+          "aria-invalid": {
+            "label": "Error state",
+            "help": "Type true to show a red error border"
+          },
+          "data-control": {
+            "label": "Box position",
+            "help": "Type end to put the box after its label"
+          },
+          "data-orientation": {
+            "label": "Direction",
+            "help": "Type horizontal to line the options up in a row"
+          },
+          "data-layout": {
+            "label": "Card grid",
+            "help": "Type grid to lay option cards out in a grid that fits the width"
+          }
+        }
+      },
       "demo": {
         "file": "components/checkbox/demo.html",
         "layout": "center",
@@ -468,6 +587,23 @@
       "featured": false,
       "labs": false,
       "quickstart": null,
+      "builder": {
+        "summary": "Text field with icons, prefixes, clear button",
+        "settings": {
+          "data-size": {
+            "label": "Size",
+            "help": "Smaller or larger field",
+            "options": {
+              "sm": "Small",
+              "lg": "Large"
+            }
+          },
+          "aria-invalid": {
+            "label": "Error state",
+            "help": "Type true to show the field in red, for example after a server check"
+          }
+        }
+      },
       "demo": {
         "file": "components/input/demo.html",
         "layout": "wide",
@@ -575,6 +711,23 @@
       "featured": false,
       "labs": false,
       "quickstart": null,
+      "builder": {
+        "summary": "Keyboard shortcuts shown as keycaps",
+        "settings": {
+          "data-size": {
+            "label": "Size",
+            "help": "Smaller or larger keys",
+            "options": {
+              "sm": "Small",
+              "lg": "Large"
+            }
+          },
+          "data-variant": {
+            "label": "Style",
+            "help": "Type flat for a tinted key without relief"
+          }
+        }
+      },
       "demo": {
         "file": "components/kbd/demo.html",
         "layout": "center",
@@ -679,6 +832,23 @@
       "featured": false,
       "labs": false,
       "quickstart": null,
+      "builder": {
+        "summary": "Pick one option, as dots or cards",
+        "settings": {
+          "data-size": {
+            "label": "Size",
+            "help": "Smaller or larger buttons",
+            "options": {
+              "sm": "Small",
+              "lg": "Large"
+            }
+          },
+          "aria-invalid": {
+            "label": "Error state",
+            "help": "Shows a red border to flag a wrong or missing choice"
+          }
+        }
+      },
       "demo": {
         "file": "components/radio/demo.html",
         "layout": "center",
@@ -814,6 +984,31 @@
       "featured": false,
       "labs": false,
       "quickstart": null,
+      "builder": {
+        "summary": "Styled drop-down list with icons and descriptions",
+        "settings": {
+          "data-size": {
+            "label": "Size",
+            "help": "Shorter or taller field",
+            "options": {
+              "sm": "Small",
+              "lg": "Large"
+            }
+          },
+          "data-native": {
+            "label": "Plain style",
+            "help": "Keeps the browser's standard list"
+          },
+          "aria-invalid": {
+            "label": "Error state",
+            "help": "Shows a red border to flag a wrong or missing choice"
+          },
+          "data-open": {
+            "label": "Liquid opening",
+            "help": "The list flows out of the field like a drop"
+          }
+        }
+      },
       "demo": {
         "file": "components/select/demo.html",
         "layout": "wide",
@@ -914,6 +1109,32 @@
       "featured": false,
       "labs": false,
       "quickstart": null,
+      "builder": {
+        "summary": "Divider line, plain, dashed or with a label",
+        "settings": {
+          "data-orientation": {
+            "label": "Vertical",
+            "help": "Draws the line upright between items placed side by side"
+          },
+          "data-variant": {
+            "label": "Line style",
+            "help": "Dashed, dotted, or fading out at both ends",
+            "options": {
+              "dashed": "Dashed",
+              "dotted": "Dotted",
+              "fade": "Faded ends"
+            }
+          },
+          "data-align": {
+            "label": "Label position",
+            "help": "Puts the label at the start or the end instead of the middle",
+            "options": {
+              "start": "Start",
+              "end": "End"
+            }
+          }
+        }
+      },
       "demo": {
         "file": "components/separator/demo.html",
         "layout": "center",
@@ -1031,6 +1252,31 @@
       "featured": false,
       "labs": false,
       "quickstart": null,
+      "builder": {
+        "summary": "On/off control for settings, with icons",
+        "settings": {
+          "data-size": {
+            "label": "Size",
+            "help": "Smaller or larger switch",
+            "options": {
+              "sm": "Small",
+              "lg": "Large"
+            }
+          },
+          "data-shape": {
+            "label": "Square shape",
+            "help": "Slightly rounded corners instead of a pill"
+          },
+          "data-icons": {
+            "label": "Icons",
+            "help": "Shows a cross or a check inside the knob"
+          },
+          "aria-invalid": {
+            "label": "Error",
+            "help": "Shows it in the error state"
+          }
+        }
+      },
       "demo": {
         "file": "components/switch/demo.html",
         "layout": "center",
@@ -1194,6 +1440,35 @@
       "featured": false,
       "labs": false,
       "quickstart": null,
+      "builder": {
+        "summary": "Multi-line field that grows as you type",
+        "settings": {
+          "data-size": {
+            "label": "Size",
+            "help": "Smaller or larger field",
+            "options": {
+              "sm": "Small",
+              "lg": "Large"
+            }
+          },
+          "data-resize": {
+            "label": "Resize handle",
+            "help": "Lets visitors drag to resize the field",
+            "options": {
+              "vertical": "Height only",
+              "both": "Height and width"
+            }
+          },
+          "data-autosize": {
+            "label": "No auto grow",
+            "help": "Keeps a fixed height instead of growing while typing"
+          },
+          "aria-invalid": {
+            "label": "Error",
+            "help": "Shows it in the error state"
+          }
+        }
+      },
       "demo": {
         "file": "components/textarea/demo.html",
         "layout": "wide",
@@ -1342,6 +1617,20 @@
       "featured": false,
       "labs": false,
       "quickstart": null,
+      "builder": {
+        "summary": "Label, help text and automatic error message",
+        "settings": {
+          "data-orientation": {
+            "label": "Label position",
+            "help": "Label above, beside, or next to a checkbox",
+            "options": {
+              "horizontal": "Beside",
+              "responsive": "Beside when wide",
+              "inline": "After the checkbox"
+            }
+          }
+        }
+      },
       "demo": {
         "file": "components/field/demo.html",
         "layout": "wide",
@@ -1489,6 +1778,23 @@
       "featured": false,
       "labs": false,
       "quickstart": null,
+      "builder": {
+        "summary": "Modal, side sheet or swipeable mobile drawer",
+        "settings": {
+          "open": {
+            "label": "Open",
+            "help": "Shows the window"
+          },
+          "persistent": {
+            "label": "Must answer",
+            "help": "Cannot be closed with Escape or a click outside"
+          },
+          "swipe": {
+            "label": "Swipe to close",
+            "help": "Lets people close the panel with a swipe"
+          }
+        }
+      },
       "demo": {
         "file": "components/dialog/demo.html",
         "layout": "center",
@@ -1697,6 +2003,27 @@
       "featured": false,
       "labs": false,
       "quickstart": null,
+      "builder": {
+        "summary": "Dropdown of actions, checkboxes, submenus",
+        "settings": {
+          "placement": {
+            "label": "Position",
+            "help": "Side where the menu opens, it moves to stay on screen"
+          },
+          "offset": {
+            "label": "Gap",
+            "help": "Space between the button and the menu, in pixels"
+          },
+          "open": {
+            "label": "Open",
+            "help": "Shows the menu open"
+          },
+          "data-motion": {
+            "label": "Motion",
+            "help": "Type glide for a smooth highlight that slides between items"
+          }
+        }
+      },
       "demo": {
         "file": "components/menu/demo.html",
         "layout": "center",
@@ -1879,6 +2206,31 @@
       "featured": false,
       "labs": false,
       "quickstart": null,
+      "builder": {
+        "summary": "Floating panel next to its button",
+        "settings": {
+          "placement": {
+            "label": "Position",
+            "help": "Preferred side, such as bottom or top-start"
+          },
+          "offset": {
+            "label": "Distance",
+            "help": "Space between the button and the panel, in pixels"
+          },
+          "arrow": {
+            "label": "Arrow",
+            "help": "Shows an arrow pointing at the button"
+          },
+          "open": {
+            "label": "Open",
+            "help": "Shows the panel open"
+          },
+          "data-open": {
+            "label": "Opening effect",
+            "help": "Type liquid for a panel that stretches out of the button"
+          }
+        }
+      },
       "demo": {
         "file": "components/popover/demo.html",
         "layout": "center",
@@ -2066,13 +2418,58 @@
           }
         ]
       },
-      "a11y": "Section region (implicit role) named “Notifications (Alt+T)”, aria-live=polite (additions and text updates are announced); important:true switches the card to role=alert. The region is created on the first toast (so a server-rendered toaster hydrates cleanly and no empty landmark is listed), and that first toast is inserted 100 ms later, once the screen reader knows the live region; later toasts appear at once. Alt+T moves focus to the latest toast; each card is focusable, Escape dismisses it and focus moves to the next one, then back to the original element. Timers pause on hover, on focus and while the tab is hidden. Animations are reduced automatically (prefers-reduced-motion). Modal dialogs: a modal <dialog> makes the rest of the page inert, top layer included, so while one is open the region moves into the topmost modal <dialog> (opened with showModal(), mv-dialog and its sheets included) and comes back when it closes; toasts stay visible, clickable, swipeable and reachable with Alt+T, after the dialog content in Tab order. Cards already on screen lose role=alert when the region moves, so they are not spoken twice, and the next toast waits 100 ms, as the first one does. Known limits: a dialog inside a shadow root, or a modal built without <dialog> (aria-modal and a focus trap), is not followed; there, put an mv-toaster inside the modal and target it with the toaster option (toast(\"Saved\", { toaster: \"#dialog-toaster\" })).",
+      "a11y": "Section region (implicit role) named “Notifications (Alt+T)”, aria-live=polite (additions and text updates are announced); important:true switches the card to role=alert. The region is created on the first toast (so a server-rendered toaster hydrates cleanly and no empty landmark is listed), and that first toast is inserted 100 ms later, once the screen reader knows the live region; later toasts appear at once. Alt+T moves focus to the latest toast; each card is focusable, Escape dismisses it and focus moves to the next one, then back to the original element. Timers pause on hover, on focus and while the tab is hidden. Animations are reduced automatically (prefers-reduced-motion). Modal dialogs: a modal <dialog> makes the rest of the page inert, top layer included, so while one is open the region moves into the topmost modal <dialog> (opened with showModal(), mv-dialog and its sheets included) and comes back when it closes; toasts stay visible, clickable, swipeable and reachable with Alt+T, after the dialog content in Tab order. Whenever the region moves (into or out of a modal, or with the element moved in the DOM), cards already on screen lose role=alert, so they are not spoken twice; a card shown in the same task as the move (toast() then showModal()) was never announced, so it is rendered again once the region is known; the next toast waits 100 ms, as the first one does. Known limits: a dialog inside a shadow root, or a modal built without <dialog> (aria-modal and a focus trap), is not followed; there, put an mv-toaster inside the modal and target it with the toaster option (toast(\"Saved\", { toaster: \"#dialog-toaster\" })).",
       "inspiredBy": [],
       "culture": null,
       "kit": null,
       "featured": false,
       "labs": false,
       "quickstart": null,
+      "builder": {
+        "summary": "Stacked pop-up notifications, swipe to dismiss",
+        "settings": {
+          "position": {
+            "label": "Position",
+            "help": "Corner of the screen where notifications appear",
+            "options": {
+              "top-left": "Top left",
+              "top-center": "Top center",
+              "top-right": "Top right",
+              "bottom-left": "Bottom left",
+              "bottom-center": "Bottom center",
+              "bottom-right": "Bottom right"
+            }
+          },
+          "max": {
+            "label": "Visible at once",
+            "help": "How many notifications show at the same time, the others wait"
+          },
+          "duration": {
+            "label": "Display time",
+            "help": "How long each notification stays, in milliseconds"
+          },
+          "gap": {
+            "label": "Spacing",
+            "help": "Space between notifications when spread out, in pixels"
+          },
+          "expand": {
+            "label": "Always spread out",
+            "help": "Notifications stay spread out instead of stacked"
+          },
+          "rich-colors": {
+            "label": "Colored by type",
+            "help": "Success, error and warning notifications get their own color"
+          },
+          "close-button": {
+            "label": "Close button",
+            "help": "Shows a button to close each notification"
+          },
+          "label": {
+            "label": "Name for screen readers",
+            "help": "Read aloud by screen readers to name the notifications area"
+          }
+        }
+      },
       "demo": {
         "file": "components/toast/demo.html",
         "layout": "center",
@@ -2197,6 +2594,35 @@
       "featured": false,
       "labs": false,
       "quickstart": null,
+      "builder": {
+        "summary": "Label bubble on hover and keyboard focus",
+        "settings": {
+          "text": {
+            "label": "Text",
+            "help": "Words shown in the tooltip"
+          },
+          "placement": {
+            "label": "Side",
+            "help": "Preferred side of the tooltip, flipped when there is no room"
+          },
+          "delay": {
+            "label": "Delay",
+            "help": "Wait before the tooltip shows, in milliseconds"
+          },
+          "offset": {
+            "label": "Distance",
+            "help": "Space between the tooltip and what it points to, in pixels"
+          },
+          "open": {
+            "label": "Open",
+            "help": "Shows the tooltip right away"
+          },
+          "disabled": {
+            "label": "Disabled",
+            "help": "The tooltip never shows"
+          }
+        }
+      },
       "demo": {
         "file": "components/tooltip/demo.html",
         "layout": "center",
@@ -2349,6 +2775,52 @@
       "featured": false,
       "labs": false,
       "quickstart": null,
+      "builder": {
+        "summary": "Panels behind a sliding tab list",
+        "settings": {
+          "value": {
+            "label": "Open tab",
+            "help": "The tab shown first, by its value"
+          },
+          "activation": {
+            "label": "Switch tabs",
+            "help": "With the arrow keys alone, or only after Enter or Space",
+            "options": {
+              "automatic": "On arrow keys",
+              "manual": "On Enter or Space"
+            }
+          },
+          "orientation": {
+            "label": "Direction",
+            "help": "Tabs in a row above, or in a column beside the panels",
+            "options": {
+              "horizontal": "Row",
+              "vertical": "Column"
+            }
+          },
+          "data-variant": {
+            "label": "Style",
+            "help": "How the tab list and its indicator look",
+            "options": {
+              "segmented": "Segmented",
+              "pill": "Pill",
+              "underline": "Underline"
+            }
+          },
+          "data-size": {
+            "label": "Size",
+            "help": "Smaller or larger tabs",
+            "options": {
+              "sm": "Small",
+              "lg": "Large"
+            }
+          },
+          "data-stretch": {
+            "label": "Full width",
+            "help": "The tabs share the whole width"
+          }
+        }
+      },
       "demo": {
         "file": "components/tabs/demo.html",
         "layout": "wide",
@@ -2379,7 +2851,7 @@
       "kind": "element",
       "category": "data-display",
       "wave": 1,
-      "description": "CSS accordion on native <details>: animated height (::details-content + interpolate-size), chevron or plus/minus, bordered, separated and card variants; optional <mv-accordion type=\"single\">. Also covers Collapsible.",
+      "description": "CSS accordion on native <details>: animated height (::details-content + interpolate-size), chevron or plus/minus, bordered, separated and card variants; optional <mv-accordion type=\"single\">. Also covers Collapsible. A native disclosure group (WAI-ARIA Disclosure pattern), with optional headings in the triggers.",
       "useWhen": [
         "Secondary content must be tucked away so users can expand only the sections they care about",
         "Several collapsible sections should allow only one open at a time, like a settings group or help panel",
@@ -2393,6 +2865,9 @@
         },
         {
           "when": "The content is critical and must be seen by everyone; hiding it behind a toggle reduces its visibility"
+        },
+        {
+          "when": "An audit requires the strict WAI-ARIA Accordion pattern (heading wrapping a button with aria-controls); this component is a native disclosure group"
         }
       ],
       "tags": [
@@ -2453,13 +2928,13 @@
         "events": [
           {
             "name": "mv-change",
-            "description": "An item opened or closed. detail: { value: string[], item, open }."
+            "description": "An item opened or closed. detail: { value: string[], item, open }. With type=\"single\", opening an item also closes the open one: two events, one per item."
           }
         ],
         "slots": [
           {
             "name": "details.mv-accordion-item > summary",
-            "description": "Trigger; optional leading <svg> icon, .mv-accordion-heading + .mv-accordion-subtitle for a two-line header."
+            "description": "Trigger; optional leading <svg> icon. Wrap the label in a heading (<h3 class=\"mv-accordion-heading\">, any level) for headings navigation; .mv-accordion-subtitle inside it gives a two-line header."
           },
           {
             "name": ".mv-accordion-content",
@@ -2481,7 +2956,7 @@
           },
           {
             "name": "mv-accordion-heading / -subtitle",
-            "description": "Title and subtitle inside the <summary>."
+            "description": "Title (a heading element, or a span) and subtitle inside the <summary>; a heading takes the trigger styles."
           },
           {
             "name": "mv-collapsible",
@@ -2494,13 +2969,53 @@
         ],
         "cssVars": []
       },
-      "a11y": "Built on native <details>/<summary>: button role, expanded state announced, Enter/Space. <mv-accordion> adds Up/Down/Home/End between triggers. Closed content is out of the accessibility tree and still findable with Ctrl+F (opens automatically). Reduced motion: instant open. Browsers without ::details-content: instant open.",
+      "a11y": "A group of native <details>/<summary> disclosures (WAI-ARIA Disclosure pattern, the one the APG uses for FAQs), not the stricter APG Accordion pattern (heading wrapping a button, aria-controls). The browser exposes each <summary> as a toggle with its expanded state, kept in sync with open, name and in-page search; Enter and Space toggle, Tab moves between triggers. No arrow keys: they would stop the page from scrolling (removed from the APG accordion pattern in 2026). Put a heading in the trigger (<summary><h3 class=\"mv-accordion-heading\">…</h3></summary>, level chosen for the page) so headings navigation finds each section: NVDA and VoiceOver list it; JAWS and TalkBack may not (2018-2021 tests). Do not add role, aria-expanded or aria-controls to <summary>, nor a role to <details>: the native semantics already carry them, and role=\"button\" hides the heading and the state in Safari. Known limit: with the native marker hidden, some screen readers do not always announce the state change. Closed content is out of the accessibility tree and still findable with Ctrl+F (opens automatically). Reduced motion or no ::details-content: instant open.",
       "inspiredBy": [],
       "culture": null,
       "kit": null,
       "featured": false,
       "labs": false,
       "quickstart": null,
+      "builder": {
+        "summary": "Expandable sections, one or several open",
+        "settings": {
+          "type": {
+            "label": "Open at once",
+            "help": "Several sections open together, or only one at a time",
+            "options": {
+              "single": "One at a time",
+              "multiple": "Several"
+            }
+          },
+          "data-variant": {
+            "label": "Style",
+            "help": "One outlined box, separate boxes, or filled tiles",
+            "options": {
+              "bordered": "Bordered",
+              "separated": "Separated",
+              "card": "Cards"
+            }
+          },
+          "data-icon": {
+            "label": "Indicator",
+            "help": "The sign that shows a section opens: arrow, plus, or none",
+            "options": {
+              "chevron": "Arrow on the right",
+              "plus": "Plus and minus",
+              "start": "Arrow before the title",
+              "none": "None"
+            }
+          },
+          "name": {
+            "label": "Group name",
+            "help": "Sections sharing this name close each other, one open at a time"
+          },
+          "open": {
+            "label": "Open on load",
+            "help": "The section starts open"
+          }
+        }
+      },
       "demo": {
         "file": "components/accordion/demo.html",
         "layout": "wide",
@@ -2619,6 +3134,28 @@
       "featured": false,
       "labs": false,
       "quickstart": null,
+      "builder": {
+        "summary": "Content box with image, header, body, footer",
+        "settings": {
+          "data-variant": {
+            "label": "Style",
+            "help": "Look of the card; outlined by default",
+            "options": {
+              "elevated": "Raised",
+              "ghost": "Ghost",
+              "muted": "Muted"
+            }
+          },
+          "data-size": {
+            "label": "Size",
+            "help": "Type sm for tighter spacing"
+          },
+          "data-interactive": {
+            "label": "Clickable",
+            "help": "Lifts on hover, zooms the image, shows a focus ring"
+          }
+        }
+      },
       "demo": {
         "file": "components/card/demo.html",
         "layout": "padded",
@@ -2730,6 +3267,39 @@
       "featured": false,
       "labs": false,
       "quickstart": null,
+      "builder": {
+        "summary": "Shimmering placeholders while content loads",
+        "settings": {
+          "data-shape": {
+            "label": "Shape",
+            "help": "The kind of content the placeholder stands for",
+            "options": {
+              "text": "Text line",
+              "heading": "Heading",
+              "circle": "Circle",
+              "square": "Square",
+              "button": "Button",
+              "media": "Image"
+            }
+          },
+          "data-variant": {
+            "label": "Motion",
+            "help": "A gentle pulse, or no motion at all",
+            "options": {
+              "pulse": "Pulse",
+              "static": "Still"
+            }
+          },
+          "aria-busy": {
+            "label": "Loading",
+            "help": "Yes shows the placeholders, No shows the real content",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            }
+          }
+        }
+      },
       "demo": {
         "file": "components/skeleton/demo.html",
         "layout": "padded",
@@ -2883,6 +3453,19 @@
       "featured": false,
       "labs": false,
       "quickstart": "<article class=\"mv-prose\">\n  <h1>Release notes</h1>\n  <p class=\"mv-prose-lead\">What changed in version 4.2.</p>\n  <p>Plain HTML from your CMS or Markdown renderer, styled as it is.</p>\n</article>",
+      "builder": {
+        "summary": "Clean styling for articles, docs and blog posts",
+        "settings": {
+          "data-size": {
+            "label": "Size",
+            "help": "Smaller or larger body text",
+            "options": {
+              "sm": "Small",
+              "lg": "Large"
+            }
+          }
+        }
+      },
       "demo": {
         "file": "components/typography/demo.html",
         "layout": "padded",

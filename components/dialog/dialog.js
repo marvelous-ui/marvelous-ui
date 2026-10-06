@@ -38,7 +38,8 @@ export class MvDialog extends MvElement {
         return;
       }
       const closer = e.target.closest("[data-mv-close]");
-      if (closer && d.contains(closer)) this.close(closer.value || closer.dataset.mvClose || "");
+      // Its own closers only: a closer of a nested mv-dialog closes that one, not every dialog around it.
+      if (closer && d.contains(closer) && closer.closest("mv-dialog") === this) this.close(closer.value || closer.dataset.mvClose || "");
     }, { signal });
 
     this.#mo = new MutationObserver(() => this.#attach());

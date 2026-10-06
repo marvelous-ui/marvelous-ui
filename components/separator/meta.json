@@ -5,6 +5,32 @@
   "category": "primitive",
   "wave": 1,
   "description": "Pure-CSS horizontal or vertical separator: solid, dashed, dotted or faded, with a centered (“or”) or aligned label, on <hr> or <div>.",
+  "builder": {
+    "summary": "Divider line, plain, dashed or with a label",
+    "settings": {
+      "data-orientation": {
+        "label": "Vertical",
+        "help": "Draws the line upright between items placed side by side"
+      },
+      "data-variant": {
+        "label": "Line style",
+        "help": "Dashed, dotted, or fading out at both ends",
+        "options": {
+          "dashed": "Dashed",
+          "dotted": "Dotted",
+          "fade": "Faded ends"
+        }
+      },
+      "data-align": {
+        "label": "Label position",
+        "help": "Puts the label at the start or the end instead of the middle",
+        "options": {
+          "start": "Start",
+          "end": "End"
+        }
+      }
+    }
+  },
   "useWhen": [
     "Two groups of content or controls need a quiet visual split, horizontal or vertical",
     "Alternative paths need a labeled divider, such as “or” between social login and email",

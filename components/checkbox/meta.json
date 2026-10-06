@@ -5,6 +5,39 @@
   "category": "primitive",
   "wave": 1,
   "description": "Native pure-CSS checkbox: a self-drawing (reversible) check mark, indeterminate state, sizes, invalid; also provides the shared .mv-choice and .mv-choice-card layouts (option cards highlighted via :has(:checked)).",
+  "builder": {
+    "summary": "Animated check mark, mixed state, option cards",
+    "settings": {
+      "data-size": {
+        "label": "Size",
+        "help": "Smaller or larger boxes",
+        "options": {
+          "sm": "Small",
+          "lg": "Large"
+        }
+      },
+      "data-shape": {
+        "label": "Shape",
+        "help": "Type round for a round box instead of a square"
+      },
+      "aria-invalid": {
+        "label": "Error state",
+        "help": "Type true to show a red error border"
+      },
+      "data-control": {
+        "label": "Box position",
+        "help": "Type end to put the box after its label"
+      },
+      "data-orientation": {
+        "label": "Direction",
+        "help": "Type horizontal to line the options up in a row"
+      },
+      "data-layout": {
+        "label": "Card grid",
+        "help": "Type grid to lay option cards out in a grid that fits the width"
+      }
+    }
+  },
   "useWhen": [
     "Users pick any number of options from a list, or give a single opt-in such as accepting terms",
     "A select-all control needs an indeterminate state above a nested list of options",

@@ -5,6 +5,20 @@
   "category": "form",
   "wave": 1,
   "description": "Pure-CSS field layout: label (required / optional), help text, an error message that shows up on its own when the control is invalid, vertical, horizontal, responsive and inline orientations, choice cards and fieldset.",
+  "builder": {
+    "summary": "Label, help text and automatic error message",
+    "settings": {
+      "data-orientation": {
+        "label": "Label position",
+        "help": "Label above, beside, or next to a checkbox",
+        "options": {
+          "horizontal": "Beside",
+          "responsive": "Beside when wide",
+          "inline": "After the checkbox"
+        }
+      }
+    }
+  },
   "preview": {
     "viewport": {
       "width": 1000,

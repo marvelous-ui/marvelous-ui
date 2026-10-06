@@ -5,6 +5,23 @@
   "category": "primitive",
   "wave": 1,
   "description": "Subtly raised keyboard keys on <kbd>: nested combinations, 3 sizes, a flat variant, adapts inside buttons and tooltips.",
+  "builder": {
+    "summary": "Keyboard shortcuts shown as keycaps",
+    "settings": {
+      "data-size": {
+        "label": "Size",
+        "help": "Smaller or larger keys",
+        "options": {
+          "sm": "Small",
+          "lg": "Large"
+        }
+      },
+      "data-variant": {
+        "label": "Style",
+        "help": "Type flat for a tinted key without relief"
+      }
+    }
+  },
   "useWhen": [
     "Keyboard shortcuts must be displayed in docs, menus, tooltips or a command palette",
     "A key combination such as Ctrl+K needs to read as a group of keycaps"

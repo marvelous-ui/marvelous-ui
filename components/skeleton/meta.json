@@ -5,6 +5,39 @@
   "category": "feedback",
   "wave": 1,
   "description": "Loading placeholders with a shimmer synced across the whole page (or a pulse), text, heading, avatar, media and button shapes, and a blurred cross-fade reveal into the loaded content driven by aria-busy.",
+  "builder": {
+    "summary": "Shimmering placeholders while content loads",
+    "settings": {
+      "data-shape": {
+        "label": "Shape",
+        "help": "The kind of content the placeholder stands for",
+        "options": {
+          "text": "Text line",
+          "heading": "Heading",
+          "circle": "Circle",
+          "square": "Square",
+          "button": "Button",
+          "media": "Image"
+        }
+      },
+      "data-variant": {
+        "label": "Motion",
+        "help": "A gentle pulse, or no motion at all",
+        "options": {
+          "pulse": "Pulse",
+          "static": "Still"
+        }
+      },
+      "aria-busy": {
+        "label": "Loading",
+        "help": "Yes shows the placeholders, No shows the real content",
+        "options": {
+          "true": "Yes",
+          "false": "No"
+        }
+      }
+    }
+  },
   "useWhen": [
     "Content is loading and its layout is known, so placeholders can prevent layout shift",
     "Lists, cards or profiles are fetched asynchronously and should reveal with a cross-fade once ready",

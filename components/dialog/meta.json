@@ -6,6 +6,23 @@
   "category": "overlay",
   "wave": 1,
   "description": "Animated native <dialog> modal; also covers Alert Dialog (persistent), Sheet (4 sides) and a mobile Drawer with swipe to close.",
+  "builder": {
+    "summary": "Modal, side sheet or swipeable mobile drawer",
+    "settings": {
+      "open": {
+        "label": "Open",
+        "help": "Shows the window"
+      },
+      "persistent": {
+        "label": "Must answer",
+        "help": "Cannot be closed with Escape or a click outside"
+      },
+      "swipe": {
+        "label": "Swipe to close",
+        "help": "Lets people close the panel with a swipe"
+      }
+    }
+  },
   "useWhen": [
     "A blocking confirmation is needed before a destructive or irreversible action",
     "A short form or detail view must stay in context without leaving the page",

@@ -6,6 +6,27 @@
   "category": "overlay",
   "wave": 1,
   "description": "Full-featured dropdown menu: checkboxes, radio items, submenus with a safe-triangle, shortcuts, typeahead and APG keyboard navigation; opt-in data-motion=\"glide\" (opens from the trigger’s corner, a single highlight that glides between items, submenus that slide in).",
+  "builder": {
+    "summary": "Dropdown of actions, checkboxes, submenus",
+    "settings": {
+      "placement": {
+        "label": "Position",
+        "help": "Side where the menu opens, it moves to stay on screen"
+      },
+      "offset": {
+        "label": "Gap",
+        "help": "Space between the button and the menu, in pixels"
+      },
+      "open": {
+        "label": "Open",
+        "help": "Shows the menu open"
+      },
+      "data-motion": {
+        "label": "Motion",
+        "help": "Type glide for a smooth highlight that slides between items"
+      }
+    }
+  },
   "useWhen": [
     "A button opens a list of actions, such as a row's Edit, Duplicate and Delete",
     "Actions need checkable items, radio groups, shortcuts or nested submenus",

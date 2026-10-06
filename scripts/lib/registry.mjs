@@ -61,12 +61,41 @@ export function apiNameErrors(jsFiles) {
 // Optional builder hints for the Playground site builder (landing/tools/runtime.mjs, ADR 0012): what the automatic
 // reading of api.attributes and demo.html gets wrong. docs/CONVENTIONS.md §5.
 const BUILDER_PROP_TYPES = ["text", "number", "boolean", "enum"];
+// builder.summary: the note under the component's name in the panel, in the style of the blocks' hints (blocks.js),
+// translated like the Playground's other texts (Customer text). A fragment, not a sentence: no final period.
+export const SUMMARY_MAX = 60;
+// builder.settings: per prop of the inspector, its words (Quentin's answer Q1 of the UX audit): a label, one line of
+// help, and the words of an enum's values. Customer text, translated like the summary.
+export const SETTING_LABEL_MAX = 28;
+export const SETTING_HELP_MAX = 100;
+const plainText = (s, min, max) => typeof s === "string" && s.trim() === s && s.length >= min && s.length <= max && !/[<>{}]/.test(s) && !/\.$/.test(s);
 export function builderErrors(b) {
   if (!b || typeof b !== "object" || Array.isArray(b)) return ["builder must be an object"];
   const errors = [];
-  for (const k of Object.keys(b)) if (!["insert", "props", "hidden", "container"].includes(k)) errors.push(`builder: unknown field ${k}`);
+  for (const k of Object.keys(b)) if (!["summary", "settings", "insert", "props", "hidden", "container"].includes(k)) errors.push(`builder: unknown field ${k}`);
   if (b.insert !== undefined && (typeof b.insert !== "string" || !b.insert.trim() || /<script\b|\son[a-z]+\s*=/i.test(b.insert))) errors.push("builder.insert must be non-empty markup without <script> or on* handlers");
   for (const k of ["hidden", "container"]) if (b[k] !== undefined && typeof b[k] !== "boolean") errors.push(`builder.${k} must be a boolean`);
+  if (b.summary !== undefined) {
+    const s = b.summary;
+    if (typeof s !== "string" || s.trim() !== s || s.length < 8 || s.length > SUMMARY_MAX) errors.push(`builder.summary must be a trimmed string of 8 to ${SUMMARY_MAX} characters`);
+    else if (/[<>{}]/.test(s) || /\.$/.test(s)) errors.push("builder.summary: plain text, no final period");
+  }
+  if (b.settings !== undefined) {
+    if (!b.settings || typeof b.settings !== "object" || Array.isArray(b.settings)) errors.push("builder.settings must be an object { prop: { label, help, options? } }");
+    else for (const [name, s] of Object.entries(b.settings)) {
+      const at = `builder.settings.${name}`;
+      if (!/^[a-z][a-z0-9-]*$/.test(name)) errors.push(`${at}: not an attribute name`);
+      if (!s || typeof s !== "object" || Array.isArray(s)) { errors.push(`${at} must be an object`); continue; }
+      for (const k of Object.keys(s)) if (!["label", "help", "options", "hidden"].includes(k)) errors.push(`${at}: unknown field ${k}`);
+      if (s.hidden !== undefined && typeof s.hidden !== "boolean") errors.push(`${at}.hidden must be a boolean`);
+      if (!plainText(s.label, 2, SETTING_LABEL_MAX)) errors.push(`${at}.label: plain text of 2 to ${SETTING_LABEL_MAX} characters, no final period`);
+      if (!plainText(s.help, 8, SETTING_HELP_MAX)) errors.push(`${at}.help: plain text of 8 to ${SETTING_HELP_MAX} characters, no final period`);
+      if (s.options !== undefined) {
+        if (!s.options || typeof s.options !== "object" || Array.isArray(s.options)) errors.push(`${at}.options must be an object { value: label }`);
+        else for (const [v, l] of Object.entries(s.options)) if (!plainText(l, 1, SETTING_LABEL_MAX)) errors.push(`${at}.options.${v}: plain text of 1 to ${SETTING_LABEL_MAX} characters`);
+      }
+    }
+  }
   if (b.props !== undefined) {
     if (!Array.isArray(b.props)) errors.push("builder.props must be an array");
     else b.props.forEach((p, i) => {

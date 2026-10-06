@@ -2,6 +2,19 @@
 
 Generated from the Free pack releases. Each entry lists what changed in the files of this repository.
 
+## 1.4.3 (2026-10-06)
+
+- Updated: agent plugin (manifests, skill, hook), documentation and catalog.
+
+## 1.4.2 (2026-10-06)
+
+- Updated: agent plugin (manifests, skill, hook), documentation and catalog.
+
+## 1.4.1 (2026-10-05)
+
+- Updated components: accordion, badge, button, card, checkbox, dialog, field, input, kbd, menu, popover, radio, select, separator, skeleton, switch, tabs, textarea, toast, tooltip, typography.
+- Updated: agent plugin (manifests, skill, hook), documentation and catalog, install scripts.
+
 ## 1.4.0 (2026-10-03)
 
 - Updated: agent plugin (manifests, skill, hook), documentation and catalog.

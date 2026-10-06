@@ -1,10 +1,10 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "marvelous-ui",
-  "version": "1.4.0",
+  "version": "1.4.3",
   "description": "Framework-agnostic UI components for AI coding agents: search, install and use the 21 free mv-* components (MIT) through a local MCP server.",
   "author": {
-    "name": "Quentin Fankrache EI",
+    "name": "Bootleg Bureau",
     "email": "hello@marvelous-ui.com",
     "url": "https://marvelous-ui.com"
   },
@@ -27,7 +27,7 @@
       "interface": {
         "displayName": "Marvelous UI",
         "shortDescription": "Search, install and use the 21 free mv-* components",
-        "developerName": "Quentin Fankrache EI",
+        "developerName": "Bootleg Bureau",
         "websiteURL": "https://marvelous-ui.com",
         "logo": "./brand/png/mark-256.png",
         "composerIcon": "./brand/png/mark-64.png",

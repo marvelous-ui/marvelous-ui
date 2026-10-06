@@ -6,6 +6,35 @@
   "category": "overlay",
   "wave": 1,
   "description": "Tooltip in the top layer (Popover API), automatic placement with flip, arrow, grouped delay. For a toolbar, Tooltip Group shares a single surface that slides from one button to the next.",
+  "builder": {
+    "summary": "Label bubble on hover and keyboard focus",
+    "settings": {
+      "text": {
+        "label": "Text",
+        "help": "Words shown in the tooltip"
+      },
+      "placement": {
+        "label": "Side",
+        "help": "Preferred side of the tooltip, flipped when there is no room"
+      },
+      "delay": {
+        "label": "Delay",
+        "help": "Wait before the tooltip shows, in milliseconds"
+      },
+      "offset": {
+        "label": "Distance",
+        "help": "Space between the tooltip and what it points to, in pixels"
+      },
+      "open": {
+        "label": "Open",
+        "help": "Shows the tooltip right away"
+      },
+      "disabled": {
+        "label": "Disabled",
+        "help": "The tooltip never shows"
+      }
+    }
+  },
   "useWhen": [
     "An icon-only button needs its label shown on hover and keyboard focus",
     "A short supplementary hint clarifies a control without cluttering the layout"

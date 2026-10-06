@@ -5,6 +5,31 @@
   "category": "primitive",
   "wave": 1,
   "description": "Pure-CSS switch on <input type=\"checkbox\" role=\"switch\">: thumb that slides on a spring and stretches when pressed, icons in the thumb (customizable), sizes, label on the left or right, option card.",
+  "builder": {
+    "summary": "On/off control for settings, with icons",
+    "settings": {
+      "data-size": {
+        "label": "Size",
+        "help": "Smaller or larger switch",
+        "options": {
+          "sm": "Small",
+          "lg": "Large"
+        }
+      },
+      "data-shape": {
+        "label": "Square shape",
+        "help": "Slightly rounded corners instead of a pill"
+      },
+      "data-icons": {
+        "label": "Icons",
+        "help": "Shows a cross or a check inside the knob"
+      },
+      "aria-invalid": {
+        "label": "Error",
+        "help": "Shows it in the error state"
+      }
+    }
+  },
   "useWhen": [
     "A setting turns on or off and takes effect immediately, as in a preferences panel",
     "A list of settings needs on/off rows or option cards with descriptions"

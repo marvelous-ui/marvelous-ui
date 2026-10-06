@@ -5,6 +5,45 @@
   "category": "primitive",
   "wave": 1,
   "description": "Pure-CSS button on <button> or <a>: 6 variants, 4 sizes, loading state, group.",
+  "builder": {
+    "summary": "Six styles, four sizes, loading state, groups",
+    "settings": {
+      "data-variant": {
+        "label": "Style",
+        "help": "Look of the button",
+        "options": {
+          "secondary": "Secondary",
+          "outline": "Outline",
+          "ghost": "Ghost",
+          "destructive": "Danger",
+          "link": "Link"
+        }
+      },
+      "data-size": {
+        "label": "Size",
+        "help": "Smaller, larger, or a square icon button",
+        "options": {
+          "sm": "Small",
+          "lg": "Large",
+          "icon": "Icon",
+          "icon-sm": "Small icon",
+          "icon-xs": "Tiny icon"
+        }
+      },
+      "data-shape": {
+        "label": "Shape",
+        "help": "Fully rounded corners",
+        "options": {
+          "pill": "Pill",
+          "round": "Round"
+        }
+      },
+      "aria-busy": {
+        "label": "Loading",
+        "help": "Type true to show a spinner and block clicks"
+      }
+    }
+  },
   "useWhen": [
     "A form submission or in-page action needs a clear, consistently styled trigger",
     "Actions must be ranked by importance with primary, secondary, outline, ghost, destructive or link styles",

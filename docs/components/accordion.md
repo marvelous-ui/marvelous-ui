@@ -1,6 +1,6 @@
 # Accordion `<mv-accordion>`
 
-> CSS accordion on native `<details>`: animated height (::details-content + interpolate-size), chevron or plus/minus, bordered, separated and card variants; optional `<mv-accordion type="single">`. Also covers Collapsible.
+> CSS accordion on native `<details>`: animated height (::details-content + interpolate-size), chevron or plus/minus, bordered, separated and card variants; optional `<mv-accordion type="single">`. Also covers Collapsible. A native disclosure group (WAI-ARIA Disclosure pattern), with optional headings in the triggers.
 
 | | |
 |---|---|
@@ -20,6 +20,7 @@
 
 - Users switch between parallel views of equal importance rather than expanding sections → use [Tabs](tabs.md) instead
 - The content is critical and must be seen by everyone; hiding it behind a toggle reduces its visibility
+- An audit requires the strict WAI-ARIA Accordion pattern (heading wrapping a button with aria-controls); this component is a native disclosure group
 
 ## Install
 
@@ -38,29 +39,29 @@ Canonical markup, to start from and customize with attributes, `data-*` and CSS 
 ```html
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,20rem),1fr));gap:2.5rem;width:100%;align-items:start">
 
-  <!-- Default + single (native name group) -->
+  <!-- Default + single (native name group), a heading in each trigger -->
   <mv-accordion type="single">
     <div class="mv-accordion">
       <details class="mv-accordion-item" data-value="shipping" open>
-        <summary>How long does shipping take?</summary>
+        <summary><h3 class="mv-accordion-heading">How long does shipping take?</h3></summary>
         <div class="mv-accordion-content">
           <p>Orders placed before 2 p.m. ship the same day. Allow 1-2 business days within the continental US and 3-5 business days for Canada and Mexico.</p>
         </div>
       </details>
       <details class="mv-accordion-item" data-value="returns">
-        <summary>Can I return an item?</summary>
+        <summary><h3 class="mv-accordion-heading">Can I return an item?</h3></summary>
         <div class="mv-accordion-content">
           <p>Yes, you have 30 days from delivery. The return label is available in your account, and refunds are issued within 5 days.</p>
         </div>
       </details>
       <details class="mv-accordion-item" data-value="payment">
-        <summary>Which payment methods do you accept?</summary>
+        <summary><h3 class="mv-accordion-heading">Which payment methods do you accept?</h3></summary>
         <div class="mv-accordion-content">
           <p>Credit cards (Visa, Mastercard, American Express), Apple Pay, PayPal and ACH transfer for business accounts.</p>
         </div>
       </details>
       <details class="mv-accordion-item" data-value="invoice">
-        <summary>How do I get an invoice?</summary>
+        <summary><h3 class="mv-accordion-heading">How do I get an invoice?</h3></summary>
         <div class="mv-accordion-content">
           <p>Every invoice is emailed when your order ships and can be downloaded as a PDF from the “Orders” tab.</p>
         </div>
@@ -73,7 +74,7 @@ Canonical markup, to start from and customize with attributes, `data-*` and CSS 
     <details class="mv-accordion-item" open>
       <summary>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
-        <span class="mv-accordion-heading">Account security<span class="mv-accordion-subtitle">Password, two-factor authentication</span></span>
+        <h3 class="mv-accordion-heading">Account security<span class="mv-accordion-subtitle">Password, two-factor authentication</span></h3>
       </summary>
       <div class="mv-accordion-content">
         <p>Turn on two-factor authentication to protect your account: you’ll be asked for a one-time code every time you sign in on a new device.</p>
@@ -82,7 +83,7 @@ Canonical markup, to start from and customize with attributes, `data-*` and CSS 
     <details class="mv-accordion-item">
       <summary>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
-        <span class="mv-accordion-heading">Notifications<span class="mv-accordion-subtitle">Email, mobile, weekly digest</span></span>
+        <h3 class="mv-accordion-heading">Notifications<span class="mv-accordion-subtitle">Email, mobile, weekly digest</span></h3>
       </summary>
       <div class="mv-accordion-content">
         <p>Choose the events you care about: new mentions, comments on your documents or due-date reminders.</p>
@@ -91,7 +92,7 @@ Canonical markup, to start from and customize with attributes, `data-*` and CSS 
     <details class="mv-accordion-item">
       <summary>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
-        <span class="mv-accordion-heading">Billing<span class="mv-accordion-subtitle">Team plan · $228/year</span></span>
+        <h3 class="mv-accordion-heading">Billing<span class="mv-accordion-subtitle">Team plan · $228/year</span></h3>
       </summary>
       <div class="mv-accordion-content">
         <p>Next charge on Nov 1, 2026 to the card ending in 4242. Invoices remain available for 10 years.</p>
@@ -168,13 +169,13 @@ Canonical markup, to start from and customize with attributes, `data-*` and CSS 
 
 | Name | Description |
 |---|---|
-| `mv-change` | An item opened or closed. detail: { value: string[], item, open }. |
+| `mv-change` | An item opened or closed. detail: { value: string[], item, open }. With type="single", opening an item also closes the open one: two events, one per item. |
 
 ### Content structure
 
 | Name | Description |
 |---|---|
-| `details.mv-accordion-item > summary` | Trigger; optional leading `<svg>` icon, .mv-accordion-heading + .mv-accordion-subtitle for a two-line header. |
+| `details.mv-accordion-item > summary` | Trigger; optional leading `<svg>` icon. Wrap the label in a heading (`<h3 class="mv-accordion-heading">`, any level) for headings navigation; .mv-accordion-subtitle inside it gives a two-line header. |
 | `.mv-accordion-content` | Panel content (fade + blur on open). |
 
 ### CSS classes
@@ -184,10 +185,10 @@ Canonical markup, to start from and customize with attributes, `data-*` and CSS 
 | `mv-accordion` | Items container. |
 | `mv-accordion-item` | On `<details>`: one accordion item. |
 | `mv-accordion-content` | Content panel. |
-| `mv-accordion-heading / -subtitle` | Title and subtitle inside the `<summary>`. |
+| `mv-accordion-heading / -subtitle` | Title (a heading element, or a span) and subtitle inside the `<summary>`; a heading takes the trigger styles. |
 | `mv-collapsible` | Collapsible: a standalone `<details class="mv-collapsible">`, same height animation, free-form `<summary>` (style it yourself, e.g. mv-button). |
 | `mv-accordion-chevron` | On an `<svg>` inside a `<summary>`: rotates 180° on open. |
 
 ## Accessibility
 
-Built on native `<details>`/`<summary>`: button role, expanded state announced, Enter/Space. `<mv-accordion>` adds Up/Down/Home/End between triggers. Closed content is out of the accessibility tree and still findable with Ctrl+F (opens automatically). Reduced motion: instant open. Browsers without ::details-content: instant open.
+A group of native `<details>`/`<summary>` disclosures (WAI-ARIA Disclosure pattern, the one the APG uses for FAQs), not the stricter APG Accordion pattern (heading wrapping a button, aria-controls). The browser exposes each `<summary>` as a toggle with its expanded state, kept in sync with open, name and in-page search; Enter and Space toggle, Tab moves between triggers. No arrow keys: they would stop the page from scrolling (removed from the APG accordion pattern in 2026). Put a heading in the trigger (`<summary>``<h3 class="mv-accordion-heading">`…`</h3>``</summary>`, level chosen for the page) so headings navigation finds each section: NVDA and VoiceOver list it; JAWS and TalkBack may not (2018-2021 tests). Do not add role, aria-expanded or aria-controls to `<summary>`, nor a role to `<details>`: the native semantics already carry them, and role="button" hides the heading and the state in Safari. Known limit: with the native marker hidden, some screen readers do not always announce the state change. Closed content is out of the accessibility tree and still findable with Ctrl+F (opens automatically). Reduced motion or no ::details-content: instant open.

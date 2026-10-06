@@ -5,6 +5,23 @@
   "category": "primitive",
   "wave": 1,
   "description": "Pure-CSS text field: 3 sizes, invalid (aria-invalid / :user-invalid), read-only and file states, plus a group with icons, prefixes/suffixes, inline buttons and a clear button.",
+  "builder": {
+    "summary": "Text field with icons, prefixes, clear button",
+    "settings": {
+      "data-size": {
+        "label": "Size",
+        "help": "Smaller or larger field",
+        "options": {
+          "sm": "Small",
+          "lg": "Large"
+        }
+      },
+      "aria-invalid": {
+        "label": "Error state",
+        "help": "Type true to show the field in red, for example after a server check"
+      }
+    }
+  },
   "useWhen": [
     "A single-line value is needed, such as a name, email, password, URL or search query",
     "The field needs a prefix, suffix, icon, inline button or clear button inside one bordered group",

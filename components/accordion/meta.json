@@ -5,7 +5,47 @@
   "kind": "element",
   "category": "data-display",
   "wave": 1,
-  "description": "CSS accordion on native <details>: animated height (::details-content + interpolate-size), chevron or plus/minus, bordered, separated and card variants; optional <mv-accordion type=\"single\">. Also covers Collapsible.",
+  "description": "CSS accordion on native <details>: animated height (::details-content + interpolate-size), chevron or plus/minus, bordered, separated and card variants; optional <mv-accordion type=\"single\">. Also covers Collapsible. A native disclosure group (WAI-ARIA Disclosure pattern), with optional headings in the triggers.",
+  "builder": {
+    "summary": "Expandable sections, one or several open",
+    "settings": {
+      "type": {
+        "label": "Open at once",
+        "help": "Several sections open together, or only one at a time",
+        "options": {
+          "single": "One at a time",
+          "multiple": "Several"
+        }
+      },
+      "data-variant": {
+        "label": "Style",
+        "help": "One outlined box, separate boxes, or filled tiles",
+        "options": {
+          "bordered": "Bordered",
+          "separated": "Separated",
+          "card": "Cards"
+        }
+      },
+      "data-icon": {
+        "label": "Indicator",
+        "help": "The sign that shows a section opens: arrow, plus, or none",
+        "options": {
+          "chevron": "Arrow on the right",
+          "plus": "Plus and minus",
+          "start": "Arrow before the title",
+          "none": "None"
+        }
+      },
+      "name": {
+        "label": "Group name",
+        "help": "Sections sharing this name close each other, one open at a time"
+      },
+      "open": {
+        "label": "Open on load",
+        "help": "The section starts open"
+      }
+    }
+  },
   "useWhen": [
     "Secondary content must be tucked away so users can expand only the sections they care about",
     "Several collapsible sections should allow only one open at a time, like a settings group or help panel",
@@ -23,6 +63,9 @@
     },
     {
       "when": "The content is critical and must be seen by everyone; hiding it behind a toggle reduces its visibility"
+    },
+    {
+      "when": "An audit requires the strict WAI-ARIA Accordion pattern (heading wrapping a button with aria-controls); this component is a native disclosure group"
     }
   ],
   "files": [
@@ -147,13 +190,13 @@
     "events": [
       {
         "name": "mv-change",
-        "description": "An item opened or closed. detail: { value: string[], item, open }."
+        "description": "An item opened or closed. detail: { value: string[], item, open }. With type=\"single\", opening an item also closes the open one: two events, one per item."
       }
     ],
     "slots": [
       {
         "name": "details.mv-accordion-item > summary",
-        "description": "Trigger; optional leading <svg> icon, .mv-accordion-heading + .mv-accordion-subtitle for a two-line header."
+        "description": "Trigger; optional leading <svg> icon. Wrap the label in a heading (<h3 class=\"mv-accordion-heading\">, any level) for headings navigation; .mv-accordion-subtitle inside it gives a two-line header."
       },
       {
         "name": ".mv-accordion-content",
@@ -175,7 +218,7 @@
       },
       {
         "name": "mv-accordion-heading / -subtitle",
-        "description": "Title and subtitle inside the <summary>."
+        "description": "Title (a heading element, or a span) and subtitle inside the <summary>; a heading takes the trigger styles."
       },
       {
         "name": "mv-collapsible",
@@ -188,7 +231,7 @@
     ],
     "cssVars": []
   },
-  "a11y": "Built on native <details>/<summary>: button role, expanded state announced, Enter/Space. <mv-accordion> adds Up/Down/Home/End between triggers. Closed content is out of the accessibility tree and still findable with Ctrl+F (opens automatically). Reduced motion: instant open. Browsers without ::details-content: instant open.",
+  "a11y": "A group of native <details>/<summary> disclosures (WAI-ARIA Disclosure pattern, the one the APG uses for FAQs), not the stricter APG Accordion pattern (heading wrapping a button, aria-controls). The browser exposes each <summary> as a toggle with its expanded state, kept in sync with open, name and in-page search; Enter and Space toggle, Tab moves between triggers. No arrow keys: they would stop the page from scrolling (removed from the APG accordion pattern in 2026). Put a heading in the trigger (<summary><h3 class=\"mv-accordion-heading\">…</h3></summary>, level chosen for the page) so headings navigation finds each section: NVDA and VoiceOver list it; JAWS and TalkBack may not (2018-2021 tests). Do not add role, aria-expanded or aria-controls to <summary>, nor a role to <details>: the native semantics already carry them, and role=\"button\" hides the heading and the state in Safari. Known limit: with the native marker hidden, some screen readers do not always announce the state change. Closed content is out of the accessibility tree and still findable with Ctrl+F (opens automatically). Reduced motion or no ::details-content: instant open.",
   "inspiredBy": [],
   "status": "stable"
 }

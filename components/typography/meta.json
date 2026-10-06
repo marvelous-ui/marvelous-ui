@@ -5,6 +5,19 @@
   "category": "text",
   "wave": 10,
   "description": "Long-form text styles on one class: headings, lists, quotes, inline and block code, keys, tables, figures, definition lists and disclosures get a steady vertical rhythm and a capped reading measure, in 3 sizes. Components placed inside keep their own look, and mv-not-prose opts any subtree out.",
+  "builder": {
+    "summary": "Clean styling for articles, docs and blog posts",
+    "settings": {
+      "data-size": {
+        "label": "Size",
+        "help": "Smaller or larger body text",
+        "options": {
+          "sm": "Small",
+          "lg": "Large"
+        }
+      }
+    }
+  },
   "quickstart": "<article class=\"mv-prose\">\n  <h1>Release notes</h1>\n  <p class=\"mv-prose-lead\">What changed in version 4.2.</p>\n  <p>Plain HTML from your CMS or Markdown renderer, styled as it is.</p>\n</article>",
   "useWhen": [
     "Rendered Markdown or CMS HTML (blog posts, docs, changelogs) must read well without adding a class to every element",

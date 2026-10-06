@@ -5,6 +5,28 @@
   "category": "data-display",
   "wave": 1,
   "description": "Composable card (media, header, action, content, footer): outline, elevated, ghost and muted variants, plus a fully clickable card.",
+  "builder": {
+    "summary": "Content box with image, header, body, footer",
+    "settings": {
+      "data-variant": {
+        "label": "Style",
+        "help": "Look of the card; outlined by default",
+        "options": {
+          "elevated": "Raised",
+          "ghost": "Ghost",
+          "muted": "Muted"
+        }
+      },
+      "data-size": {
+        "label": "Size",
+        "help": "Type sm for tighter spacing"
+      },
+      "data-interactive": {
+        "label": "Clickable",
+        "help": "Lifts on hover, zooms the image, shows a focus ring"
+      }
+    }
+  },
   "useWhen": [
     "Related content must be grouped in a bordered or elevated surface with header, body and footer",
     "A grid of articles, projects or resources where each whole card links to a detail page",

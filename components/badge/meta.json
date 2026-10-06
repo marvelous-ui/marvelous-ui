@@ -5,6 +5,53 @@
   "category": "primitive",
   "wave": 1,
   "description": "Pure-CSS badge: 7 variants (soft or solid tints), animatable status dot, icon, remove button, pill/square, 3 sizes, and a counter positioned on the corner of an avatar or icon.",
+  "builder": {
+    "summary": "Small status labels, dots and counters",
+    "settings": {
+      "data-variant": {
+        "label": "Style",
+        "help": "Look of the badge; colored styles carry a meaning",
+        "options": {
+          "secondary": "Subtle",
+          "outline": "Outline",
+          "success": "Success",
+          "warning": "Warning",
+          "danger": "Error",
+          "info": "Info"
+        }
+      },
+      "data-appearance": {
+        "label": "Solid fill",
+        "help": "Type solid for a strong filled color"
+      },
+      "data-shape": {
+        "label": "Shape",
+        "help": "Fully rounded or square corners",
+        "options": {
+          "pill": "Pill",
+          "square": "Square"
+        }
+      },
+      "data-size": {
+        "label": "Size",
+        "help": "Smaller or larger badge",
+        "options": {
+          "sm": "Small",
+          "lg": "Large"
+        }
+      },
+      "data-position": {
+        "label": "Corner",
+        "help": "Pins the badge to a corner of the icon or picture it sits on",
+        "options": {
+          "top-right": "Top right",
+          "top-left": "Top left",
+          "bottom-right": "Bottom right",
+          "bottom-left": "Bottom left"
+        }
+      }
+    }
+  },
   "useWhen": [
     "A short status label must sit next to an item, such as Paid, Failed or Beta",
     "An unread count or presence dot must be pinned to the corner of an icon or avatar",

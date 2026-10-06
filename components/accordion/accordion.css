@@ -44,7 +44,13 @@
   :where(.mv-accordion-item, .mv-collapsible) > :where(summary):focus-visible { outline: none; box-shadow: var(--mv-focus-ring); z-index: 1; }
   :where(.mv-accordion-item) > :where(summary) > :where(svg:not(.mv-accordion-chevron)) { width: 1rem; height: 1rem; flex-shrink: 0; color: var(--mv-fg-muted); }
 
-  /* Optional two-line header */
+  /* Optional heading in the trigger (<summary><h3 class="mv-accordion-heading">), found by heading
+     navigation: it takes the trigger's type, not the browser's heading styles. Also the two-line header. */
+  :where(.mv-accordion-item, .mv-collapsible) > :where(summary) > :where(h1, h2, h3, h4, h5, h6) {
+    margin: 0;
+    font: inherit;
+    color: inherit;
+  }
   :where(.mv-accordion-heading) { display: grid; gap: 2px; flex: 1; min-width: 0; }
   :where(.mv-accordion-subtitle) { color: var(--mv-fg-muted); font-weight: var(--mv-weight-normal); font-size: var(--mv-text-xs); }
 

@@ -6,6 +6,31 @@
   "category": "overlay",
   "wave": 1,
   "description": "Non-modal floating panel in the top layer (Popover API): auto placement with flip, optional arrow, closes on outside click/Escape with managed focus; data-open=\"liquid\" option where the panel stretches out of the trigger through a liquid “neck”, then pinches back into it on close.",
+  "builder": {
+    "summary": "Floating panel next to its button",
+    "settings": {
+      "placement": {
+        "label": "Position",
+        "help": "Preferred side, such as bottom or top-start"
+      },
+      "offset": {
+        "label": "Distance",
+        "help": "Space between the button and the panel, in pixels"
+      },
+      "arrow": {
+        "label": "Arrow",
+        "help": "Shows an arrow pointing at the button"
+      },
+      "open": {
+        "label": "Open",
+        "help": "Shows the panel open"
+      },
+      "data-open": {
+        "label": "Opening effect",
+        "help": "Type liquid for a panel that stretches out of the button"
+      }
+    }
+  },
   "useWhen": [
     "A small form, filter or settings panel must open next to its trigger without blocking the page",
     "Interactive content like links or buttons must be reachable on touch and keyboard, unlike a tooltip",

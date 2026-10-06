@@ -6,6 +6,52 @@
   "category": "navigation",
   "wave": 1,
   "description": "Accessible tabs with a sliding indicator (underline, pill or segmented), horizontal or vertical, automatic or manual activation, and crossfading panels.",
+  "builder": {
+    "summary": "Panels behind a sliding tab list",
+    "settings": {
+      "value": {
+        "label": "Open tab",
+        "help": "The tab shown first, by its value"
+      },
+      "activation": {
+        "label": "Switch tabs",
+        "help": "With the arrow keys alone, or only after Enter or Space",
+        "options": {
+          "automatic": "On arrow keys",
+          "manual": "On Enter or Space"
+        }
+      },
+      "orientation": {
+        "label": "Direction",
+        "help": "Tabs in a row above, or in a column beside the panels",
+        "options": {
+          "horizontal": "Row",
+          "vertical": "Column"
+        }
+      },
+      "data-variant": {
+        "label": "Style",
+        "help": "How the tab list and its indicator look",
+        "options": {
+          "segmented": "Segmented",
+          "pill": "Pill",
+          "underline": "Underline"
+        }
+      },
+      "data-size": {
+        "label": "Size",
+        "help": "Smaller or larger tabs",
+        "options": {
+          "sm": "Small",
+          "lg": "Large"
+        }
+      },
+      "data-stretch": {
+        "label": "Full width",
+        "help": "The tabs share the whole width"
+      }
+    }
+  },
   "useWhen": [
     "Related content must be split into panels on one page, such as Overview, Specs and Reviews",
     "A settings or profile view groups sections behind a horizontal or vertical tab list"

@@ -11,7 +11,8 @@ import { uid } from "../../core/dom.js";
  * </mv-accordion>
  *
  * - type="single": only one item open (native <details name> + JS fallback).
- * - Arrow Up/Down, Home, End move focus between triggers.
+ * - Keyboard: native Tab, Enter and Space only. No arrow keys: they would stop the page
+ *   from scrolling (removed from the WAI-ARIA APG accordion pattern in 2026).
  * - Emits mv-change with the list of open values.
  */
 export class MvAccordion extends MvElement {
@@ -52,17 +53,6 @@ export class MvAccordion extends MvElement {
       }
       this.emit("change", { value: this.value, item: d, open: d.open });
     }, { capture: true, signal });
-
-    this.addEventListener("keydown", (e) => {
-      if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(e.key)) return;
-      const triggers = this.items.map((d) => d.querySelector(":scope > summary")).filter(Boolean);
-      const i = triggers.indexOf(document.activeElement);
-      if (i === -1) return;
-      e.preventDefault();
-      const n = triggers.length;
-      const next = e.key === "Home" ? 0 : e.key === "End" ? n - 1 : (i + (e.key === "ArrowDown" ? 1 : -1) + n) % n;
-      triggers[next].focus();
-    }, { signal });
   }
 
   update(name) {

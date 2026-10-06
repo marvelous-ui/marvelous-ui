@@ -76,6 +76,7 @@ export class MvToaster extends MvElement {
   #opened = new WeakMap(); // modal dialog -> when it opened, to find the topmost one
   #openings = 0;
   #away = false; // the region currently lives in a modal dialog, outside this element
+  #unspoken = new Set(); // cards shown in the same task as a move of the region: never announced yet
 
   /** The generated <section class="mv-toaster">, or null until the first toast. */
   region = null;
@@ -135,8 +136,9 @@ export class MvToaster extends MvElement {
     });
 
     // Moved in the DOM: the region already exists, show it again (inside a modal if one is open).
-    if (this.region) { this.#bindRegion(signal); this.#rehome(); }
-    this.#flush();
+    // It was reinserted either way, so its queued and next toasts wait, as after a move into a modal.
+    if (this.region) { this.#bindRegion(signal); if (!this.#rehome()) this.#reinserted(); }
+    else this.#flush();
   }
 
   // Built lazily, on the first toast. Returns true when it was just created.
@@ -209,17 +211,36 @@ export class MvToaster extends MvElement {
     if (!r || !this.isConnected) return false;
     const host = this.#host();
     if (r.parentNode === host) return false;
-    // Cards already on screen were announced; a reinserted role=alert would be spoken a second time.
-    for (const t of this.#live()) t.el.removeAttribute("role");
     host.append(r); // removal hides the popover; showing it again puts it above the dialog
     try { r.showPopover(); } catch {}
     this.#setAway(host !== this);
+    this.#reinserted();
+    return true;
+  }
+
+  // After the region was removed and inserted again (into a modal, back, or with this element).
+  #reinserted() {
+    // Cards already on screen were announced; a reinserted role=alert would be spoken a second time.
+    // A card shown in this very task (toast() then showModal()) was not: it is rendered again below.
+    for (const t of this.#live()) {
+      if (t.fresh) this.#unspoken.add(t);
+      t.el.removeAttribute("role");
+    }
     this.#hovering = this.#focusWithin = false;
     this.#sync();
     // Screen readers rediscover a moved live region: the next toast waits, as for the first one.
     clearTimeout(this.#warmup);
-    this.#warmup = setTimeout(() => this.#flush(), ANNOUNCE_DELAY);
-    return true;
+    this.#warmup = setTimeout(() => {
+      for (const t of this.#unspoken) if (!t.removed) this.#render(t);
+      this.#unspoken.clear();
+      this.#flush();
+    }, ANNOUNCE_DELAY);
+  }
+
+  // Rendered in the current task: if the region moves before the task ends, nothing was announced.
+  #fresh(t) {
+    t.fresh = true;
+    setTimeout(() => { t.fresh = false; });
   }
 
   #bindRegion(signal) {
@@ -301,6 +322,7 @@ export class MvToaster extends MvElement {
     t.el.className = "mv-toast";
     t.el.tabIndex = 0;
     this.#render(t);
+    this.#fresh(t);
     this.#bindSwipe(t);
     this.#toasts.unshift(t);
     this.list.prepend(t.el);
@@ -395,6 +417,7 @@ export class MvToaster extends MvElement {
     if (!Object.hasOwn(options, AUTO)) delete t.opts[AUTO];
     const prev = t.height;
     this.#render(t);
+    this.#fresh(t);
     this.#measure(t);
     this.#layout();
     this.#resetTimer(t);

@@ -5,6 +5,35 @@
   "category": "primitive",
   "wave": 1,
   "description": "Textarea that grows on its own (field-sizing: content) between a minimum and maximum number of rows, with an optional resize handle, a group with a toolbar and an <mv-char-count> character counter.",
+  "builder": {
+    "summary": "Multi-line field that grows as you type",
+    "settings": {
+      "data-size": {
+        "label": "Size",
+        "help": "Smaller or larger field",
+        "options": {
+          "sm": "Small",
+          "lg": "Large"
+        }
+      },
+      "data-resize": {
+        "label": "Resize handle",
+        "help": "Lets visitors drag to resize the field",
+        "options": {
+          "vertical": "Height only",
+          "both": "Height and width"
+        }
+      },
+      "data-autosize": {
+        "label": "No auto grow",
+        "help": "Keeps a fixed height instead of growing while typing"
+      },
+      "aria-invalid": {
+        "label": "Error",
+        "help": "Shows it in the error state"
+      }
+    }
+  },
   "useWhen": [
     "Users write multi-line text such as a comment, message, bio or description",
     "The field should grow with its content between a minimum and a maximum number of rows",

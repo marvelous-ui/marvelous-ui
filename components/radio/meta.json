@@ -5,6 +5,23 @@
   "category": "primitive",
   "wave": 1,
   "description": "Pure-CSS native radio button: an inner dot that springs in, sizes, an outline variant, inline or stacked groups, and option cards (plan lists, tiles with a badge).",
+  "builder": {
+    "summary": "Pick one option, as dots or cards",
+    "settings": {
+      "data-size": {
+        "label": "Size",
+        "help": "Smaller or larger buttons",
+        "options": {
+          "sm": "Small",
+          "lg": "Large"
+        }
+      },
+      "aria-invalid": {
+        "label": "Error state",
+        "help": "Shows a red border to flag a wrong or missing choice"
+      }
+    }
+  },
   "useWhen": [
     "Users must choose exactly one option from a small set and benefit from seeing every choice at once",
     "Plans or shipping methods must be compared as option cards with a price, description or badge"

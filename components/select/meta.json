@@ -5,6 +5,31 @@
   "category": "primitive",
   "wave": 1,
   "description": "Styled native <select> (token-colored chevron), progressively enhanced into a customizable select (appearance: base-select): animated list, status dots, icons, descriptions and checkmark, optional “liquid” opening; clean fallback elsewhere.",
+  "builder": {
+    "summary": "Styled drop-down list with icons and descriptions",
+    "settings": {
+      "data-size": {
+        "label": "Size",
+        "help": "Shorter or taller field",
+        "options": {
+          "sm": "Small",
+          "lg": "Large"
+        }
+      },
+      "data-native": {
+        "label": "Plain style",
+        "help": "Keeps the browser's standard list"
+      },
+      "aria-invalid": {
+        "label": "Error state",
+        "help": "Shows a red border to flag a wrong or missing choice"
+      },
+      "data-open": {
+        "label": "Liquid opening",
+        "help": "The list flows out of the field like a drop"
+      }
+    }
+  },
   "useWhen": [
     "Users pick one value from a medium-sized list where native mobile pickers and keyboard support matter",
     "Options benefit from status dots, icons or descriptions while staying a real form control",
