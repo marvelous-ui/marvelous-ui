@@ -1,7 +1,7 @@
 {
   "name": "marvelous-ui",
   "displayName": "Marvelous UI",
-  "version": "1.4.4",
+  "version": "1.5.0",
   "description": "Framework-agnostic UI components for AI coding agents: search, install and use the 21 free mv-* components (MIT) through a local MCP server.",
   "author": {
     "name": "Bootleg Bureau",

@@ -26,7 +26,7 @@ if (args.includes("--plugin")) {
   const win = ROOT.replaceAll("/", "\\");
   console.log(`Marvelous UI plugin → ${pack}
 
-This folder is an agent plugin: a skill with the usage rules, plus the MCP server. Register it once per agent
+This folder is an agent plugin: four focused skills and the MCP server. Register it once per agent
 and it serves every project. This script changes nothing: run the commands yourself.
 First run npm ci in ${pack}: the MCP server needs its two dependencies, no agent installs them,
 and Codex and Cursor copy this folder (node_modules included) when you register it.

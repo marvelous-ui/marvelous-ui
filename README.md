@@ -2,7 +2,7 @@
 
 Marvelous UI is a framework-agnostic UI component library: native Web Components (`<mv-*>` tags), CSS classes on native HTML (`.mv-*`) and design tokens (`--mv-*` CSS variables), with zero runtime dependencies. It works in plain HTML, React 19+, Vue 3, Svelte, Angular and Astro.
 
-This repository holds the **Free pack** (21 components, MIT License) and makes it a **Claude Code plugin**: a local MCP server to search and install the components, a skill with the usage rules, and a hook that reminds the agent to search the library before hand-writing UI. Everything here works on its own, with no account, no license key and no purchase.
+This repository holds the **Free pack** (21 components, MIT License) and its agent plugin: a local MCP server, four focused skills, and hooks that check catalog consultation before supported UI writes. Everything here works on its own, with no account, no license key and no purchase.
 
 ## Install in Claude Code
 
@@ -20,8 +20,8 @@ Requirements: Node.js 20 or later and npm on the PATH. When Claude Code installs
 | Part | File | Behavior |
 |---|---|---|
 | MCP server `marvelous-ui` | `.mcp.json`, `mcp/server.mjs` | Runs locally over stdio (`node ${CLAUDE_PLUGIN_ROOT}/mcp/server.mjs`). Tools: `search_components`, `list_components`, `get_component`, `get_design_tokens` (read only), `get_install_bundle` (returns files, writes nothing) and `install_components` (copies the chosen components into a folder of your project). Makes no network request. Its only subprocess is a read-only `git log` on its own folder, to date the components when that folder is a git checkout. |
-| Skill `marvelous-ui` | `skills/marvelous-ui/SKILL.md` | Tells the agent how to find, install and use the components. |
-| Hook | `hooks/hooks.json`, `hooks/search-first.mjs` | Before the agent writes a new UI file (`.html`, `.css`, `.jsx`, `.tsx`, `.vue`, `.svelte`, `.astro`...) in a session that has not called the MCP server yet, it declines that write once with a reminder to search the library first; the retry goes through. It keeps one empty marker file per session in the system temp folder (`marvelous-ui-hooks/`). It reads nothing else and sends nothing. |
+| Skills | `skills/*/SKILL.md` | Build UI, theme components, troubleshoot integrations, or set up the agent connection. The historical `marvelous-ui` skill handles UI construction. |
+| Hooks | `hooks/hooks.json`, `hooks/search-first.mjs` | Check new and existing UI written through Claude Write/Edit or Codex apply_patch. In a task without a successful search or known-component lookup, the first such write is declined once with a reminder; the retry goes through. The reminder provides an offline catalog fallback. Local records are scoped to the project, session and task, and expire after 24 hours. Arbitrary shell writes are outside this guard. |
 
 The plugin collects no data and contacts no server. Privacy policy: https://marvelous-ui.com/legal/privacy.html
 
@@ -71,7 +71,7 @@ Marvelous UI also has a paid edition, the Pro pack, sold at https://marvelous-ui
 
 ## Versions
 
-This repository is generated from the Marvelous UI release pipeline at each release; it is not edited by hand. Version 1.4.4, see [CHANGELOG.md](CHANGELOG.md). Pull requests cannot be merged as such: open an issue or write to hello@marvelous-ui.com.
+This repository is generated from the Marvelous UI release pipeline at each release; it is not edited by hand. Version 1.5.0, see [CHANGELOG.md](CHANGELOG.md). Pull requests cannot be merged as such: open an issue or write to hello@marvelous-ui.com.
 
 ## License
 

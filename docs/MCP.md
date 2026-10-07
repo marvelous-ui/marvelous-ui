@@ -42,7 +42,28 @@ Then restart your agent (or reload its MCP servers) and ask for UI as usual, for
 
 ## Install as a plugin
 
-The Pack folder is also an agent plugin: a `marvelous-ui` skill with the usage rules (the same as the `AGENTS.md` block) plus the MCP server. Registered once, it serves every project. It ships in two formats: Claude Code (`.claude-plugin/`, `.mcp.json`) and [Agent Plugins 1.0](https://agent-plugins.org) (`plugin.json`, `mcp.json`, `skills/`).
+The Pack folder is also an agent plugin: four focused skills plus the MCP server. Registered once, it serves every project. It ships in two formats: Claude Code (`.claude-plugin/`, `.mcp.json`) and [Agent Plugins 1.0](https://agent-plugins.org) (`plugin.json`, `mcp.json`, `skills/`).
+
+| Skill | Workflow |
+|---|---|
+| `marvelous-ui` | Build or modify web interfaces; consult the catalog before implementing reusable UI. |
+| `marvelous-ui-theme` | Adapt installed components to the app's visual system. |
+| `marvelous-ui-troubleshoot` | Diagnose broken component integrations. |
+| `marvelous-ui-setup` | Connect, update or repair the agent installation. |
+
+The skills remain discoverable without an explicit invocation. Their descriptions guide selection; activation is evaluated separately from the quality of the resulting interface.
+
+### Search-first hooks
+
+The hooks check supported UI writes through Claude Code `Write`/`Edit`/`MultiEdit` and Codex `apply_patch`, including nested calls in code mode. They recognize creations and changes to existing files. In a task (one user prompt) without a successful component search or a known component's documentation, the first UI write is refused once with a reminder; the retry goes through, so the hook never locks the agent. Backend, test and generated paths are excluded; JS/TS detection looks for frontend constructs.
+
+Consultation evidence is local to the project, session and task. A search that started in an earlier task cannot authorize a later task. Failed MCP calls do not count. Evidence expires after 24 hours. Explicit user constraints excluding the library take precedence.
+
+If MCP is unavailable, the reminder supplies a complete `scripts/agent-consult.mjs` command with the current project/session/task identifiers. That helper reads the local `llms.txt` catalog and records consultation only after a successful read. Read the relevant component docs before deciding whether to implement custom UI.
+
+In Codex the hook is best effort. Codex 0.160 lists no hook for this plugin when it comes from a local marketplace, so the skills and the `AGENTS.md` block carry the search-first rule there; in a test, the skill alone led Codex to search the catalog before writing UI. When Codex does load the hook, it requires native trust review for plugin hooks separately from plugin enablement. Review the current hook definition through the agent's hook controls, and repeat review when its definition changes. The installer never manufactures trust records. Check the loaded plugin version, MCP availability and hook execution separately.
+
+The guard checks consultation, not component suitability or complete UI coverage. Arbitrary shell-generated files and unfamiliar JS/TS constructions may escape detection. A hook failure lets work continue silently: the reason goes to the agent's debug output only. A missing reminder is therefore not proof that the guard ran.
 
 For a Pack downloaded without the CLI (the Free ZIP, or a clone of this repository), run `npm ci` in its folder first, then print the manual commands:
 

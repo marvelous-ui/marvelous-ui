@@ -1,0 +1,8 @@
+{
+  "hooks": {
+    "SessionStart": [{"hooks": [{"type":"command","command":"node \"${PLUGIN_ROOT}/hooks/search-first.mjs\"","timeout":5}]}],
+    "UserPromptSubmit": [{"hooks": [{"type":"command","command":"node \"${PLUGIN_ROOT}/hooks/search-first.mjs\"","timeout":5}]}],
+    "PreToolUse": [{"matcher":"^(Write|Edit|MultiEdit|apply_patch|mcp__.*marvelous[-_]ui__(search_components|get_component))$","hooks":[{"type":"command","command":"node \"${PLUGIN_ROOT}/hooks/search-first.mjs\"","timeout":5}]}],
+    "PostToolUse": [{"matcher":"^mcp__.*marvelous[-_]ui__(search_components|get_component)$","hooks":[{"type":"command","command":"node \"${PLUGIN_ROOT}/hooks/search-first.mjs\"","timeout":5}]}]
+  }
+}

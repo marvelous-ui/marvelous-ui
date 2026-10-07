@@ -1,25 +1,38 @@
 ---
 name: marvelous-ui
-description: Find, install and use Marvelous UI components (framework-agnostic Web Components `<mv-*>`, `.mv-*` classes on native HTML, `--mv-*` design tokens). Use before hand-writing any UI (component, page section, animation or visual effect) in any HTML, CSS, JSX, Vue, Svelte or Astro file, a single standalone page included, and whenever the code already uses mv-* tags or classes.
+description: Create or modify web interfaces with Marvelous UI. Use for application screens, pages, forms, reusable components, animations and visual effects in HTML, CSS or any frontend framework, including small standalone pages and existing interfaces. Search the library before implementing reusable UI by hand.
 ---
 
-# Marvelous UI
+# Build interfaces with Marvelous UI
 
-Marvelous UI is a library of framework-agnostic UI components and animations: Web Components (`<mv-*>` tags), CSS classes on native HTML (`.mv-*`) and design tokens (`--mv-*` CSS variables). It works in plain HTML, React 19+, Vue 3, Svelte, Angular and Astro.
+Use Marvelous UI for the reusable parts of the requested interface. Components are framework-agnostic Web Components (`<mv-*>`), CSS classes on native HTML (`.mv-*`) and design tokens (`--mv-*`). Preserve the user's product direction and existing design system.
 
-**Pack root**: the folder two levels above this file. It holds `llms.txt`, `docs/components/`, `scripts/add.mjs` and `mcp/server.mjs`.
+**Pack root**: the folder two levels above this file. It holds `llms.txt`, `docs/components/`, `scripts/add.mjs`, `scripts/agent-consult.mjs` and `mcp/server.mjs`.
 
-**Search Marvelous UI before writing any UI component, animation or visual effect by hand.**
+## Consult before implementing
 
-1. **Find.** With the `marvelous-ui` MCP tools: split the UI into parts (navbar, hero, pricing, form, toast…), call `search_components` once per part, pick with each result's `useWhen` / `avoidWhen` guidance (`avoidWhen.instead` names a better-suited component), then call `get_component` on the best candidates (`demo: "none"` while comparing them, the default once one is chosen). Without the tools: read `llms.txt` at the Pack root (the catalog), then `docs/components/<slug>.md` (its "When to use" section helps choose).
-2. **Install.** Choose the destination folder in the user's project: `src/marvelous` by default, `marvelous` when there is no `src/`, or the folder the project already uses. Always pass it as an **absolute path**.
-   - MCP: one `install_components` call with every chosen slug, `target_dir` set to that absolute path and the project's framework.
-   - When the call answers that the folder is outside the project root, or that there is no project root, the server was started from the Pack folder: run `node <Pack root>/scripts/add.mjs <slug...> --out <absolute destination>` instead, or call `get_install_bundle` and write the returned files yourself.
-   - Dependencies are copied automatically. Add the CSS and JS imports the install prints, once.
-3. **Use.** Start from the component's canonical markup (`demoMarkup` from `get_component`, or the "Usage" section of its doc page) and customize with attributes, `data-*` and CSS variables.
-4. **Leave the installed folder as installed.** Re-installing overwrites it. Override styles in the app's own CSS: library CSS lives in `@layer mv` with zero-specificity selectors, so app CSS always wins.
-5. **Theme with tokens** on `:root`: `--mv-accent-h` (hue), `--mv-accent-c` (chroma), `--mv-radius-*`, `--mv-font-sans`. Dark mode: `data-theme="dark|light"` on any element. Every component handles reduced motion.
-6. **Framework notes.** Plain HTML: the components load as ES modules, which browsers refuse from `file://`, so tell the user to serve the page over HTTP (`npx serve .` or their dev server); opened by double-click, it shows styled but inert components. React 19+: use the tags directly, with `onmv-*` props for events (`<mv-dialog open={open} onmv-close={(e) => e.target === e.currentTarget && setOpen(false)}>`: `mv-*` events bubble, and a combobox or date-picker inside the dialog sends its own `mv-close`, in every framework); with TypeScript, keep the `marvelous.d.ts` written by the install in the tsconfig. Vue: `compilerOptions.isCustomElement: (tag) => tag.startsWith("mv-")`. Angular: `CUSTOM_ELEMENTS_SCHEMA`. Tailwind v4: declare `@layer theme, base, mv, components, utilities;` before the imports.
-7. **Custom UI last.** Write custom UI only when nothing fits, reusing the same tokens so it matches.
+Before writing or changing reusable UI, split the request into functional parts and call `search_components` for each relevant need. Use the returned `useWhen` and `avoidWhen` guidance to choose candidates; `avoidWhen.instead` points to a better fit. Read `get_component` with `demo: "none"` while comparing APIs, then request the canonical markup for the selected components.
 
-When the `marvelous-ui` tools fail to start with `Cannot find package '@modelcontextprotocol/server'`, ask the user to run `npm ci` in the Pack root, then to restart the agent.
+A completed search with no suitable result justifies custom UI for that need. Use the project's tokens and explain the gap briefly. An explicit user constraint excluding the library takes precedence. Backend-only or documentation work does not require consultation.
+
+If MCP tools are unavailable, read the Pack's `llms.txt` and the relevant `docs/components/<slug>.md`. When a search-first hook is active, use the local consultation helper with the project and session identifiers supplied by the hook so this fallback is recorded:
+
+```bash
+node "<Pack root>/scripts/agent-consult.mjs" "<UI need>" --project "<absolute project path>" --session "<session id>" --task "<turn id>"
+```
+
+Omit `--task` when the hook supplies no turn identifier. A hook reminder or failed search is not a completed consultation.
+
+## Install and integrate
+
+Choose the existing installed folder, otherwise `src/marvelous` or `marvelous` in a project without `src/`. Pass its absolute path as `target_dir` to one `install_components` call for the selected slugs and framework. Dependencies are included automatically.
+
+If the server refuses the destination as outside its project root, run the Pack's `scripts/add.mjs <slug...> --out <absolute destination>` or use `get_install_bundle`. The local script refreshes component files, so inspect existing copies and preview with `--dry` before using it where local edits may exist. Review existing-file conflicts before replacing files; the Pack's `docs/MCP.md` defines MCP boundaries and overwrite behavior.
+
+Include the CSS and JS imports once, then start from `demoMarkup` or the component doc's Usage section. Configure attributes, properties, events and app-owned CSS. For integration details, read [references/frameworks.md](references/frameworks.md) for the current framework only. For general styling and installation semantics, use the Pack's `docs/GUIDE.md`.
+
+Keep installed component files intact so reinstalls remain safe. Put overrides in application styles; bridge Marvelous tokens to the existing design system instead of imposing a new theme. For a dedicated visual customization request, use `marvelous-ui-theme`; for a broken integration, use `marvelous-ui-troubleshoot`; for agent connection problems, use `marvelous-ui-setup` when those skills are available.
+
+## Verify the requested interface
+
+Serve browser modules over HTTP, exercise the actual interactions and keyboard behavior, and inspect the responsive result. Report which components were integrated and any need implemented custom after consultation. Library consultation alone does not prove that the interface works.
