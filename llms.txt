@@ -1,6 +1,6 @@
 # Marvelous UI
 
-> 21 framework-agnostic UI components and animations (v1.5.1): native Web Components (`<mv-*>`) and CSS classes (`.mv-*`), themed with CSS variables (`--mv-*`), zero runtime dependencies. Works in plain HTML, React 19+, Vue 3, Svelte, Angular and Astro.
+> 21 framework-agnostic UI components and animations (v1.5.2): native Web Components (`<mv-*>`) and CSS classes (`.mv-*`), themed with CSS variables (`--mv-*`), zero runtime dependencies. Works in plain HTML, React 19+, Vue 3, Svelte, Angular and Astro.
 
 Rules for AI agents:
 
