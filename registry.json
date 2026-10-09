@@ -1,6 +1,6 @@
 {
   "name": "marvelous-ui",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "base": [
     "tokens/tokens.css",
     "core/base.css"
@@ -1803,6 +1803,10 @@
           "swipe": {
             "label": "Swipe to close",
             "help": "Lets people close the panel with a swipe"
+          },
+          "modeless": {
+            "label": "Page stays usable",
+            "help": "No backdrop: people can keep using the page beside the window"
           }
         }
       },

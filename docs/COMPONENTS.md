@@ -1,6 +1,6 @@
 # Component catalog
 
-Marvelous UI v1.5.0: 21 framework-agnostic components (native Web Components + layered CSS, zero runtime dependencies).
+Marvelous UI v1.5.1: 21 framework-agnostic components (native Web Components + layered CSS, zero runtime dependencies).
 
 **How to pick:** find the part of the interface you need below, open its page ("When to use" tells you if it fits or which component fits better, then the full API and the canonical markup), then install it with `node scripts/add.mjs <slug> --out <dir>` (dependencies are copied automatically). AI agents: see [MCP.md](MCP.md).
 

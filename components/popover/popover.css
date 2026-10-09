@@ -93,8 +93,11 @@
   /* ── Liquid opening: <mv-popover data-open="liquid"> ───────────────
      While data-liquid is set (by popover.js) the panel box is invisible and a
      goo layer carries the shape: it stretches out of the trigger through a
-     "liquid neck", settles, and pinches back on close. */
-  :where(.mv-popover[data-liquid]) {
+     "liquid neck", settles, and pinches back on close. Each rule also lists a
+     :popover-open form so it outranks the open state's transition-duration:
+     otherwise the box would fade out over --_in instead of vanishing at once. */
+  :where(.mv-popover[data-liquid]),
+  :where(.mv-popover[data-liquid]):popover-open {
     opacity: 1;
     scale: 1;
     translate: 0 0;
@@ -105,7 +108,8 @@
       display 380ms allow-discrete,
       overlay 380ms allow-discrete;
   }
-  :where(.mv-popover[data-liquid]:not([data-liquid="settling"])) {
+  :where(.mv-popover[data-liquid]:not([data-liquid="settling"])),
+  :where(.mv-popover[data-liquid]:not([data-liquid="settling"])):popover-open {
     background-color: transparent;
     border-color: transparent;
     box-shadow: none;
